@@ -1,4 +1,4 @@
-<% layout('layouts/boilerPlate') %>
+<% layout('layouts/boilerplate') %>
 
     <div class="row mt-3">
         <div class="col-8 offset-2">
@@ -6,7 +6,7 @@
             <br>
             <form method="post" action="/listings/<%= curntListing.id %>?_method=PUT" novalidate
                 class="needs-validation" enctype="multipart/form-data">
-                
+
                 <div class="mb-3">
                     <label for="title" class="form-label">Property Title:</label><br>
                     <input type="text" name="listing[title]" id="title" value="<%= curntListing.title %>"
@@ -17,7 +17,9 @@
 
                 <div class="mb-3">
                     <label for="desc" class="form-label">Property Description:</label><br>
-                    <textarea name="listing[description]" id="desc" class="form-control" required><%= curntListing.description %></textarea>
+                    <textarea name="listing[description]" id="desc" class="form-control" required>
+                        <%= curntListing.description %>
+                    </textarea>
                     <div class="valid-feedback">Description is spot on!</div>
                     <div class="invalid-feedback">Add a description!</div>
                 </div>
@@ -29,22 +31,26 @@
                     <div class="d-flex flex-wrap gap-3 mt-2">
                         <% if (Array.isArray(orgImageUrl)) { %>
                             <% orgImageUrl.forEach(function(imgUrl) { %>
-                                <div class="img-preview border rounded shadow-sm p-1" style="width: 140px; height: 100px; overflow: hidden; background: #f8f9fa;">
-                                    <img src="<%= imgUrl %>" alt="property_image" class="img-fluid h-100 w-100 object-fit-cover">
+                                <div class="img-preview border rounded shadow-sm p-1"
+                                    style="width: 140px; height: 100px; overflow: hidden; background: #f8f9fa;">
+                                    <img src="<%= imgUrl %>" alt="property_image"
+                                        class="img-fluid h-100 w-100 object-fit-cover">
                                 </div>
-                            <% }) %>
-                        <% } else { %>
-                            <div class="img-preview border rounded shadow-sm p-1" style="width: 140px; height: 100px; overflow: hidden; background: #f8f9fa;">
-                                <img src="<%= orgImageUrl %>" alt="property_image" class="img-fluid h-100 w-100 object-fit-cover">
-                            </div>
-                        <% } %>
+                                <% }) %>
+                                    <% } else { %>
+                                        <div class="img-preview border rounded shadow-sm p-1"
+                                            style="width: 140px; height: 100px; overflow: hidden; background: #f8f9fa;">
+                                            <img src="<%= orgImageUrl %>" alt="property_image"
+                                                class="img-fluid h-100 w-100 object-fit-cover">
+                                        </div>
+                                        <% } %>
                     </div>
                 </div>
 
 
                 <div class="mb-3">
                     <label for="img" class="form-label">Upload New Images:</label><br>
-                    <input type="file" name="listing[image]" id="img" class="form-control" >
+                    <input type="file" name="listing[image]" id="img" class="form-control">
                     <div class="valid-feedback">Image Selected Properly!</div>
                     <div class="invalid-feedback">Add an image!</div>
                 </div>
