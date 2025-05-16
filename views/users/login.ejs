@@ -1,0 +1,38 @@
+<% layout('layouts/boilerPlate') %>
+
+<div class="row mt-3">
+  <h1 class="col-6 offset-3">Login on Avas</h1>
+
+  <div class="col-6 offset-3">
+    <form action="/login" method="post" class="needs-validation" novalidate>
+      
+      <!-- For Username -->
+      <div class="mb-3">
+        <label for="username" class="form-label">Username: </label><br />
+        <input
+          type="text"
+          name="username"
+          id="username"
+          class="form-control"
+          required
+        />
+        <div class="invalid-feedback">Username must be 3-16 characters, letters and numbers only.</div>
+      </div>
+
+
+      <!-- For Passwords -->
+      <div class="mb-3">
+        <label for="password" class="form-label">Password: </label><br />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          class="form-control"
+          required
+        />
+        <div class="invalid-feedback">Please enter your password to log in.</div>
+      </div>
+      <button class="btn btn-success">Login</button>
+    </form>
+  </div>
+</div>

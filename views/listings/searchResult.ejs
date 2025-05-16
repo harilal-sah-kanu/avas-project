@@ -1,0 +1,37 @@
+<% layout('layouts/boilerPlate') %>
+
+    <div class="container mt-4">
+        <h2>
+            Search Results for "<%= query %>"
+        </h2>
+        <hr>
+        <% if (results.length===0) { %>
+            <div class="alert alert-warning mt-4">
+                No listings found matching your search.
+            </div>
+            <% } else { %>
+                <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 g-4 mt-2">
+                    <% results.forEach(list=> { %>
+                        <div class="col">
+                            <a href="/listings/<%= list._id %>" class="listing-link text-decoration-none">
+                                <div class="card listing-card h-100">
+                                    <img src="<%= list.image.url %>" class="card-img-top" alt="listing_image"
+                                        style="height: 16rem; object-fit: cover;">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <%= list.title %>
+                                        </h5>
+                                        <p class="card-text">
+                                            <%= list.description ? list.description.substring(0, 80) : '' %>
+                                                <%= list.description && list.description.length> 80 ? '...' : '' %>
+                                        </p>
+                                        <p class="card-text fw-bold mb-0">&#8377; <%= list.price.toLocaleString("en-NP")
+                                                %> / night</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <% }) %>
+                </div>
+                <% } %>
+    </div>
