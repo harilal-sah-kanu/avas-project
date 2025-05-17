@@ -1,2 +1,106 @@
 <% layout('layouts/boilerplate') %>
     <p>Welcome to the homepage!</p>
+
+    <!-- Home page hero banner with sliding images -->
+    <div id="heroCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+        <div class="carousel-inner rounded shadow-lg">
+            <div class="carousel-item active">
+                <img src="/images/avas.jpg" class="d-block w-100" style="height: 340px; object-fit: cover;"
+                    alt="Avas Home">
+                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3">
+                    <h2 class="fw-bold">Find Your Next Adventure</h2>
+                    <p>Book unique stays, trips, and experiences with Avas.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80"
+                    class="d-block w-100" style="height: 340px; object-fit: cover;" alt="Trip">
+                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3">
+                    <h2 class="fw-bold">Trips for Every Mood</h2>
+                    <p>From mountains to beaches, find your perfect getaway.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=900&q=80"
+                    class="d-block w-100" style="height: 340px; object-fit: cover;" alt="Booking">
+                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3">
+                    <h2 class="fw-bold">Easy Booking, Great Memories</h2>
+                    <p>Book your stay in just a few clicks and start your journey.</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!-- Site Engagement Features Section -->
+    <div class="container my-5">
+        <div class="row g-4 align-items-center">
+            <div class="col-md-4 text-center">
+                <i class="fa-solid fa-shield-halved fa-3x text-success mb-2"></i>
+                <h5 class="fw-bold">Verified Listings</h5>
+                <p class="text-muted">All properties are verified for safety and authenticity, so you can book with
+                    confidence.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <i class="fa-solid fa-headset fa-3x text-primary mb-2"></i>
+                <h5 class="fw-bold">24/7 Support</h5>
+                <p class="text-muted">Our support team is available around the clock to help you with any questions or
+                    issues.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <i class="fa-solid fa-star fa-3x text-warning mb-2"></i>
+                <h5 class="fw-bold">Top Rated Hosts</h5>
+                <p class="text-muted">Stay with highly rated hosts and enjoy a premium experience every time you book.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Engaging call-to-action banner for property checkout -->
+    <div class="container-fluid my-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10">
+                <div class="checkout-banner d-flex flex-column flex-md-row align-items-center justify-content-between p-4 rounded shadow-sm"
+                    style="background: linear-gradient(90deg, #ffb2c1 0%, #fff 100%);">
+                    <div class="d-flex align-items-center mb-3 mb-md-0">
+                        <i class="fa-solid fa-arrow-right-to-city fa-2x text-danger me-3"></i>
+                        <div>
+                            <h5 class="mb-1 fw-bold">Ready to find your next stay?</h5>
+                            <p class="mb-0 text-muted">Discover unique properties and book your dream getaway today!</p>
+                        </div>
+                    </div>
+                    <a href="/listings" class="btn btn-lg btn-gradient px-4 py-2 fw-bold">Explore Properties <i
+                            class="fa-solid fa-arrow-right ms-2"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Engaging feature: property recommendation banner -->
+    <div class="container-fluid my-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10">
+                <div class="recommend-banner d-flex flex-column flex-md-row align-items-center justify-content-between p-4 rounded shadow-sm"
+                    style="background: linear-gradient(90deg, #e0ffe7 0%, #fff 100%);">
+                    <div class="d-flex align-items-center mb-3 mb-md-0">
+                        <i class="fa-solid fa-lightbulb fa-2x text-success me-3"></i>
+                        <div>
+                            <h5 class="mb-1 fw-bold">Recommended for you</h5>
+                            <p class="mb-0 text-muted">Check out our top picks based on your interests and recent
+                                activity!
+                            </p>
+                        </div>
+                    </div>
+                    <a href="/listings?category=Trending" class="btn btn-lg btn-gradient px-4 py-2 fw-bold">See Trending
+                        <i class="fa-solid fa-arrow-trend-up ms-2"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>

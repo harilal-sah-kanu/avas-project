@@ -1,19 +1,34 @@
 <% var success=typeof success !=='undefined' ? success : '' ; %>
-<% var error=typeof error !=='undefined' ? error : '' ; %>
+  <% var error=typeof error !=='undefined' ? error : '' ; %>
 
-<!-- For success -->
-<% if (success && success.length) { %>
-  <div class="alert alert-success alert-dismissible fade show col-6 offset-3" role="alert">
-    <%= success %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-<% } %>
+    <!-- For success -->
+    <% if (success && success.length) { %>
+      <div class="flash-message flash-message-success" role="alert">
+        <i class="fa-solid fa-circle-check"></i>
+        <span>
+          <%= success %>
+        </span>
+        <button type="button" class="close-btn" aria-label="Close"
+          onclick="this.parentElement.style.display='none';">&times;</button>
+      </div>
+      <% } %>
 
-
-<!-- For Error or Failure -->
-<% if (error && error.length) { %>
-  <div class="alert alert-danger alert-dismissible fade show col-6 offset-3" role="alert">
-    <%= error %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-<% } %>
+        <!-- For Error or Failure -->
+        <% if (error && error.length) { %>
+          <div class="flash-message flash-message-error" role="alert">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span>
+              <%= error %>
+            </span>
+            <button type="button" class="close-btn" aria-label="Close"
+              onclick="this.parentElement.style.display='none';">&times;</button>
+          </div>
+          <% } %>
+            <script>
+              // Auto-hide flash messages after 4 seconds
+              setTimeout(() => {
+                document.querySelectorAll('.flash-message').forEach(el => {
+                  el.style.display = 'none';
+                });
+              }, 4000);
+            </script>

@@ -1,100 +1,30 @@
-<style>
-  .search-btn {
-    background-color: #fe424d;
-    color: #fff;
-    border-radius: 25px;
-    padding: 0.35rem 0.7rem;
-    font-size: 0.95rem;
-  }
-
-  .search-btn:hover {
-    background-color: #fe424d;
-  }
-
-  .search-btn i {
-    display: inline;
-    margin-right: 0.3rem;
-  }
-
-  .search-input {
-    border-radius: 25px;
-    padding: 0.35rem 0.7rem;
-    font-size: 0.92rem;
-    min-width: 0;
-    width: 100px;
-    max-width: 120px;
-  }
-
-  .input-group {
-    flex-wrap: nowrap;
-    width: auto;
-    align-items: center;
-  }
-
-  .flex-grow-1 {
-    flex-grow: 0 !important;
-  }
-
-  .mx-2 {
-    margin-left: 0.5rem !important;
-    margin-right: 0.5rem !important;
-  }
-
-  /* Decrease button size and spacing on tablets and below */
-  @media (max-width: 1024px) {
-
-    .navbar-nav .btn,
-    .navbar-nav form .btn {
-      font-size: 0.92rem !important;
-      padding: 0.3rem 0.9rem !important;
-      border-radius: 0.7rem !important;
-      margin: 0.2rem 0.2rem !important;
-      min-width: 90px;
-      max-width: 140px;
-    }
-
-    .navbar-collapse {
-      justify-content: center !important;
-      text-align: center !important;
-    }
-
-    .navbar-nav {
-      justify-content: center !important;
-      width: 100%;
-    }
-
-    .navbar-nav .btn,
-    .navbar-nav form .btn {
-      display: block;
-      margin: 0.4rem auto !important;
-      font-size: 0.92rem !important;
-      padding: 0.3rem 0.9rem !important;
-      border-radius: 0.7rem !important;
-      min-width: 90px;
-      max-width: 140px;
-      text-align: center;
-    }
-  }
-</style>
+<!-- Removed navbar CSS: now in public/css/navbar.css -->
 
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" id="logo" href="/"><img src="/images/avas.jpg" alt="avas_logo" id="logo-brands">avas</a>
+    <a class="navbar-brand d-flex align-items-center" id="logo" href="/">
+      <img src="/images/avas.jpg" alt="avas_logo" id="logo-brands"
+        style="height: 32px; width: 32px; margin-right: 0.5rem;">
+      <span class="navbar-brand-text">avas</span>
+    </a>
 
-    <!-- Search Bar: same style for all devices, fits in one row -->
-    <form class="mx-2 flex-shrink-1" role="search" action="/search" method="GET" style="max-width: 180px; width: 100%;">
-      <div class="input-group">
-        <input type="search" class="form-control search-input" placeholder="Search" name="q" aria-label="Search">
-        <button class="btn search-btn" type="submit">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-      </div>
-    </form>
+    <!-- Centered Search Bar: always visible and centered on all devices -->
+    <div class="navbar-center-search">
+      <form class="mx-2 flex-shrink-1 w-100" role="search" action="/search" method="GET"
+        style="max-width: 320px; width: 100%;">
+        <div class="input-group">
+          <input type="search" class="form-control search-input" placeholder="Search" name="q" aria-label="Search">
+          <button class="btn search-btn" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+      </form>
+    </div>
 
     <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="collapse navbar-collapse order-md-3 order-3" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link btn px-4 btn-animate btn-login" href="/listings">Explore</a>
       </div>

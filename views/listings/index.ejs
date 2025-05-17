@@ -1,148 +1,5 @@
 <% layout('layouts/boilerplate') %>
-    <style>
-        #filters {
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        #filterSliderWrapper {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            gap: 0.3rem;
-        }
-
-        #filterSlider {
-            display: flex;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            scrollbar-width: thin;
-            scrollbar-color: #ff385c #fff;
-            -webkit-overflow-scrolling: touch;
-            gap: 0.3rem;
-            width: 100%;
-            max-width: 100vw;
-            padding-bottom: 2px;
-        }
-
-        #filterSlider:focus {
-            outline: none !important;
-            box-shadow: none !important;
-        }
-
-        #filterSlider::-webkit-scrollbar {
-            height: 5px;
-        }
-
-        #filterSlider::-webkit-scrollbar-thumb {
-            background: #ff385c;
-            border-radius: 4px;
-        }
-
-        .filter {
-            flex: 0 0 auto;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
-            padding: 0.5rem 0.7rem;
-            margin: 0.2rem 0.3rem;
-            transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s, background 0.2s;
-            opacity: 0.85;
-            min-width: unset;
-            width: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            position: relative;
-            text-align: center;
-            white-space: nowrap;
-            font-size: 0.95rem;
-        }
-
-        .filter:hover,
-        .filter.active {
-            opacity: 1;
-            transform: translateY(-4px) scale(1.05) rotate(-1deg);
-            box-shadow: 0 4px 12px rgba(255, 56, 92, 0.15);
-            background: #ffe5ec;
-        }
-
-        .filter i {
-            font-size: 1.5rem;
-            color: #ff385c;
-            margin-bottom: 0.2rem;
-            transition: transform 0.2s, color 0.2s;
-        }
-
-        .filter:hover i {
-            transform: scale(1.12) rotate(-6deg);
-            color: #d72660;
-        }
-
-        .filter p {
-            font-size: 0.95rem;
-            margin: 0;
-            color: #333;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-        }
-
-        .arrow-btn {
-            margin: 0 0.2rem;
-            padding: 0.3rem 0.5rem;
-            border-radius: 50%;
-            background: #fff;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
-            transition: background 0.2s, box-shadow 0.2s, transform 0.2s, color 0.2s;
-            color: #ff385c;
-            border: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            z-index: 2;
-            opacity: 0.95;
-            outline: none !important;
-            box-shadow: none !important;
-        }
-
-        .arrow-btn:focus {
-            outline: none !important;
-            box-shadow: none !important;
-        }
-
-        .arrow-btn:hover {
-            background: #ff385c;
-            color: #fff;
-            box-shadow: 0 4px 16px rgba(255, 56, 92, 0.15);
-            transform: scale(1.12);
-            opacity: 1;
-        }
-
-        .arrow-btn[disabled] {
-            opacity: 0.3;
-            pointer-events: none;
-        }
-
-        .tax-toggle {
-            display: flex;
-            align-items: center;
-            margin-left: 1rem;
-        }
-
-        .tax-info {
-            font-size: 1rem;
-            color: #198754;
-            font-weight: 500;
-            margin-top: 0.5rem;
-            display: none;
-        }
-
-        .tax-info.show {
-            display: block;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/listings.css">
 
     <div id="filters" class="container-fluid">
         <div class="row align-items-center">
@@ -232,69 +89,111 @@
         </div>
     </div>
 
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
-        <% for(list of allListing) { %>
-            <a href="/listings/<%= list._id %>" class="listing-link">
-                <div class="card col listing-card">
-                    <img src="<%= list.image.url %>" class="card-img-top" alt="listing_image" style="height: 20rem;">
-                    <div class="card-img-overlay"></div>
-                    <div class="card-body">
-                        <p class="card-text">
-                            <b>
-                                <%= list.title %>
-                            </b>
-                            <br>
-                            <span class="price" data-price="<%= list.price %>">
-                                &#8377; <%= list.price.toLocaleString("en-NP") %> / night
-                            </span>
-                            <span class="tax-amount" style="display:none; color:#198754; font-size:0.95em;"></span>
-                        </p>
+    <!-- Green Environment Banner Carousel (Improved Images) -->
+    <div id="greenCarousel" class="carousel slide mb-4" data-bs-ride="carousel" data-bs-interval="4000">
+        <div class="carousel-inner rounded shadow-lg position-relative" style="overflow:hidden;">
+            <div class="carousel-item active">
+                <div class="banner-img-wrapper position-relative" style="background:#e0ffe7;">
+                    <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1200&q=80"
+                        class="d-block w-100" style="height: 270px; object-fit: cover; filter: brightness(0.85);"
+                        alt="Green Forest" onerror="this.style.display='none'">
+                    <div class="banner-gradient-overlay position-absolute top-0 start-0 w-100 h-100"
+                        style="background:linear-gradient(90deg,rgba(34,197,94,0.55) 0%,rgba(255,255,255,0.05) 100%);">
+                    </div>
+                    <div
+                        class="carousel-caption d-flex flex-column align-items-start justify-content-center h-100 ps-4">
+                        <h3 class="fw-bold text-white mb-2" style="text-shadow:0 2px 12px #166534b0;">Explore Green
+                            Destinations</h3>
+                        <p class="lead text-white mb-3" style="text-shadow:0 2px 8px #166534a0;">Book eco-friendly stays
+                            and help preserve nature's
+                            beauty for the future.</p>
+                        <a href="https://cleantogreen.in/" class="btn btn-green-gradient px-4 py-2 fw-bold shadow">Join the
+                            Campaign <i class="fa-solid fa-seedling ms-2"></i></a>
                     </div>
                 </div>
-            </a>
-            <% } %>
+            </div>
+            <div class="carousel-item">
+                <div class="banner-img-wrapper position-relative" style="background:#e0ffe7;">
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80"
+                        class="d-block w-100" style="height: 270px; object-fit: cover; filter: brightness(0.85);"
+                        alt="Eco Resort" onerror="this.style.display='none'">
+                    <div class="banner-gradient-overlay position-absolute top-0 start-0 w-100 h-100"
+                        style="background:linear-gradient(90deg,rgba(16,185,129,0.55) 0%,rgba(255,255,255,0.05) 100%);">
+                    </div>
+                    <div
+                        class="carousel-caption d-flex flex-column align-items-start justify-content-center h-100 ps-4">
+                        <h3 class="fw-bold text-white mb-2" style="text-shadow:0 2px 12px #166534b0;">Travel Green, Live
+                            Clean</h3>
+                        <p class="lead text-white mb-3" style="text-shadow:0 2px 8px #166534a0;">Choose properties that
+                            care for the environment
+                            and your well-being.</p>
+                        <a href="/listings?category=Nature" class="btn btn-green-gradient px-4 py-2 fw-bold shadow">See
+                            Nature Stays <i class="fa-solid fa-leaf ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="banner-img-wrapper position-relative" style="background:#e0ffe7;">
+                    <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=80"
+                        class="d-block w-100" style="height: 270px; object-fit: cover; filter: brightness(0.85);"
+                        alt="Green Lake" onerror="this.style.display='none'">
+                    <div class="banner-gradient-overlay position-absolute top-0 start-0 w-100 h-100"
+                        style="background:linear-gradient(90deg,rgba(34,197,94,0.55) 0%,rgba(255,255,255,0.05) 100%);">
+                    </div>
+                    <div
+                        class="carousel-caption d-flex flex-column align-items-start justify-content-center h-100 ps-4">
+                        <h3 class="fw-bold text-white mb-2" style="text-shadow:0 2px 12px #166534b0;">Every Booking
+                            Plants a Tree</h3>
+                        <p class="lead text-white mb-3" style="text-shadow:0 2px 8px #166534a0;">Support our mission to
+                            make travel sustainable
+                            and give back to the planet.</p>
+                        <a href="https://cleantogreen.in/" class="btn btn-green-gradient px-4 py-2 fw-bold shadow">Learn More <i
+                                class="fa-solid fa-tree ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#greenCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#greenCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
 
-    <script>
-        const filterSlider = document.getElementById('filterSlider');
-        const leftArrow = document.getElementById('leftArrow');
-        const rightArrow = document.getElementById('rightArrow');
-        const scrollAmount = 120; // px per click
+    <!-- Booking Banner Section -->
+    <div class="container-fluid my-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10">
+                <div class="checkout-banner d-flex flex-column flex-md-row align-items-center justify-content-between p-4 rounded shadow-sm"
+                    style="background: linear-gradient(90deg, #ffb2c1 0%, #fff 100%);">
+                    <div class="d-flex align-items-center mb-3 mb-md-0">
+                        <i class="fa-solid fa-arrow-right-to-city fa-2x text-danger me-3"></i>
+                        <div>
+                            <h5 class="mb-1 fw-bold">Ready to book your next stay?</h5>
+                            <p class="mb-0 text-muted">Discover unique properties and book your dream getaway today!</p>
+                        </div>
+                    </div>
+                    <a href="/listings" class="btn btn-lg btn-gradient px-4 py-2 fw-bold">Explore Properties <i
+                            class="fa-solid fa-arrow-right ms-2"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        function updateArrows() {
-            leftArrow.disabled = filterSlider.scrollLeft <= 0;
-            rightArrow.disabled = filterSlider.scrollLeft + filterSlider.offsetWidth >= filterSlider.scrollWidth - 2;
-        }
+    <!-- Main Listings Section -->
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+        <% for(list of allListing) { %>
+            <%- include('_listingCard', { list: list }) %>
+                <% } %>
+    </div>
 
-        rightArrow.addEventListener('click', () => {
-            filterSlider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-        });
-        leftArrow.addEventListener('click', () => {
-            filterSlider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-        });
-        filterSlider.addEventListener('scroll', updateArrows);
-        window.addEventListener('resize', updateArrows);
-        updateArrows();
+    <!-- Hidden form for category filtering by icon click -->
+    <form id="categoryFilterForm" action="/listings" method="get" style="display:none;">
+        <input type="hidden" name="category" id="categorySelect" value="">
+    </form>
 
-        // Taxes toggle logic: show tax in each listing
-        const taxSwitch = document.getElementById('switchCheckDefault');
-        const priceElements = document.querySelectorAll('.price');
-        const taxAmountElements = document.querySelectorAll('.tax-amount');
-        const TAX_RATE = 0.13; // 13% tax
-
-        function showTaxInListings() {
-            priceElements.forEach((el, idx) => {
-                const price = parseFloat(el.getAttribute('data-price'));
-                const taxEl = taxAmountElements[idx];
-                if (taxSwitch.checked) {
-                    const total = price + price * TAX_RATE;
-                    taxEl.innerHTML = `<br>Total after tax: <b>&#8377; ${total.toLocaleString("en-NP", { maximumFractionDigits: 2 })}</b> / night`;
-                    taxEl.style.display = 'inline';
-                } else {
-                    taxEl.innerHTML = '';
-                    taxEl.style.display = 'none';
-                }
-            });
-        }
-        taxSwitch.addEventListener('change', showTaxInListings);
-    </script>
+    <!-- Move main JS logic to external file -->
+    <script src="/js/listingPage.js"></script>

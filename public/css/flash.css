@@ -1,0 +1,78 @@
+/* flash.css - Improved styles for flash messages */
+.flash-message {
+    position: fixed;
+    top: 2.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1055;
+    min-width: 260px;
+    max-width: 90vw;
+    padding: 0.85rem 2.2rem 0.85rem 1.2rem;
+    border-radius: 1.25rem;
+    font-size: 1.08rem;
+    font-weight: 600;
+    box-shadow: 0 4px 24px rgba(254, 66, 77, 0.13);
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    opacity: 0.97;
+    animation: flashIn 0.5s cubic-bezier(.68, -0.55, .27, 1.55);
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+}
+
+.flash-message-success {
+    background: linear-gradient(90deg, #e0ffe7 60%, #b2f7c1 100%);
+    color: #198754;
+    border: 1.5px solid #b2f7c1;
+}
+
+.flash-message-error {
+    background: linear-gradient(90deg, #ffe0e7 60%, #ffb2c1 100%);
+    color: #d72660;
+    border: 1.5px solid #ffb2c1;
+}
+
+.flash-message .close-btn {
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 1.3rem;
+    margin-left: 1rem;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    line-height: 1;
+    padding: 0 0.2rem;
+}
+
+.flash-message .close-btn:hover {
+    opacity: 1;
+}
+
+@keyframes flashIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-30px);
+    }
+
+    to {
+        opacity: 0.97;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@media (max-width: 576px) {
+    .flash-message {
+        min-width: 90vw;
+        max-width: 98vw;
+        font-size: 0.98rem;
+        padding: 0.7rem 1.2rem 0.7rem 0.8rem;
+        border-radius: 0.9rem;
+    }
+
+    .flash-message .close-btn {
+        font-size: 1.1rem;
+        margin-left: 0.5rem;
+    }
+}

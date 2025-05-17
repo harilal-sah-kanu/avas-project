@@ -1,16 +1,92 @@
 <footer>
-    <div class="f-info">
-        <div class="f-info-socials">
-            <i class="fa-brands fa-square-facebook"></i>
-            <i class="fa-brands fa-square-instagram"></i>
-            <i class="fa-brands fa-linkedin"></i>
-        </div>
-        <div class="f-info-brand">&copy; Avas Private Limited</div>
-        <div class="f-info-links">
-            <a href="/privacy">Privacy</a>
-            <a href="/terms">Terms</a>
-            <a href="/support">Support</a>
-            <a href="/contact">Contact</a>
+    <div class="f-info container-fluid py-3" style="max-width:100vw;">
+        <div class="row justify-content-center align-items-center g-2">
+            <!-- Socials & Green Campaign -->
+            <div class="col-12 col-md-4 mb-2 mb-md-0 d-flex flex-column align-items-center">
+                <div class="f-info-socials mb-2">
+                    <a href="https://www.facebook.com/hareelal13/" target="_blank" title="Facebook"
+                        class="footer-social-link mx-2">
+                        <i class="fa-brands fa-square-facebook fa-xl"></i>
+                    </a>
+                    <a href="https://www.instagram.com/iamdh.iraj/" target="_blank" title="Instagram"
+                        class="footer-social-link mx-2">
+                        <i class="fa-brands fa-square-instagram fa-xl"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/harilal-sah9/" target="_blank" title="LinkedIn"
+                        class="footer-social-link mx-2">
+                        <i class="fa-brands fa-linkedin fa-xl"></i>
+                    </a>
+                </div>
+                <!-- Animated Green Campaign Card -->
+                <div class="footer-green-campaign mt-2 p-3 rounded shadow-sm d-flex flex-column align-items-center justify-content-center w-100 position-relative"
+                    style="background:linear-gradient(90deg,#e0ffe7 0%,#fff 100%);min-height:60px;overflow:hidden;">
+                    <div class="floating-leaf position-absolute"
+                        style="top:-10px;right:10px;animation:leafFloat 3s infinite alternate;">
+                        <i class="fa-solid fa-leaf fa-lg text-success opacity-75"></i>
+                    </div>
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="fa-solid fa-seedling fa-xl text-success me-2"></i>
+                        <span class="fw-semibold text-success fs-5">Join our Green Environment Campaign!</span>
+                    </div>
+                    <div class="text-success mb-2 text-center" style="font-size:1.05em;max-width:320px;">Every booking
+                        helps plant trees and support eco-friendly stays. Let's make the world greener together!</div>
+                    <a href="https://cleantogreen.in/" class="btn btn-green-gradient px-4 py-2 fw-bold shadow">Learn
+                        More <i class="fa-solid fa-arrow-right ms-2"></i></a>
+                </div>
+            </div>
+            <!-- Brand & Quick Links -->
+            <div class="col-12 col-md-4 mb-2 mb-md-0 d-flex flex-column align-items-center justify-content-center">
+                <div class="f-info-brand fw-bold text-center mb-2" style="font-size:1.05rem; letter-spacing:1px;">
+                    &copy; <span id="footer-year"></span> Avas Private Limited
+                </div>
+                <div class="footer-quick-links d-flex flex-wrap justify-content-center gap-2 mb-2">
+                    <a href="#">About</a>
+                    <span class="text-muted">|</span>
+                    <a href="#">Blog</a>
+                    <span class="text-muted">|</span>
+                    <a href="#">Careers</a>
+                    <span class="text-muted">|</span>
+                    <a href="#">Green</a>
+                </div>
+                <!-- Say Hello Section -->
+                <div class="footer-hello text-center mt-2">
+                    <span class="fw-semibold">Say Hello!</span>
+                    <a href="#" class="btn btn-outline-success btn-sm ms-2">Contact Us <i
+                            class="fa-regular fa-paper-plane ms-1"></i></a>
+                </div>
+            </div>
+            <!-- Legal & Back to Top -->
+            <div class="col-12 col-md-4 d-flex flex-column align-items-center justify-content-center">
+                <div class="f-info-links d-flex flex-wrap justify-content-center gap-2 mb-2">
+                    <a href="#">Privacy</a>
+                    <span class="text-muted">|</span>
+                    <a href="#">Terms</a>
+                    <span class="text-muted">|</span>
+                    <a href="#">Support</a>
+                    <span class="text-muted">|</span>
+                    <a href="#">Contact</a>
+                </div>
+                <button id="backToTopBtn" class="btn btn-light btn-sm mt-2" style="display:none;"><i
+                        class="fa-solid fa-arrow-up"></i> Top</button>
+            </div>
         </div>
     </div>
+    <script>
+        document.getElementById('footer-year').textContent = new Date().getFullYear();
+        document.querySelectorAll('.footer-social-link').forEach(link => {
+            link.addEventListener('mouseenter', () => link.querySelector('i').classList.add('fa-bounce'));
+            link.addEventListener('mouseleave', () => link.querySelector('i').classList.remove('fa-bounce'));
+        });
+        // Floating leaf animation
+        const style = document.createElement('style');
+        style.innerHTML = `@keyframes leafFloat { 0% { transform: translateY(0) rotate(-10deg);} 100% { transform: translateY(12px) rotate(10deg);} }`;
+        document.head.appendChild(style);
+        // Back to Top button logic
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 200) backToTopBtn.style.display = 'inline-block';
+            else backToTopBtn.style.display = 'none';
+        });
+        backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    </script>
 </footer>

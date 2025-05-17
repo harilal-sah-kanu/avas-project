@@ -24,7 +24,9 @@
 
           <div class="mb-3">
             <label for="image" class="form-label">Upload Image: </label><br />
-            <input type="file" name="listing[image]" id="image" class="form-control" required />
+            <input type="file" name="listing[image]" id="image" class="form-control" required
+              accept="image/png, image/jpeg, image/jpg" />
+            <div class="form-text text-muted">Max size: 2MB. Only JPG, JPEG, PNG allowed.</div>
             <div class="valid-feedback">Image selected successfully!</div>
             <div class="invalid-feedback">Please upload an image of your property.</div>
           </div>
@@ -55,7 +57,32 @@
             <div class="invalid-feedback">Location is required!</div>
           </div>
 
-          <button class="btn btn-dark add-btn mt-3">Submit</button>
+          <div class="mb-3">
+            <label for="category" class="form-label">Property Category:</label>
+            <select name="listing[category]" id="category" class="form-select" required>
+              <option value="">Select a category</option>
+              <option value="Trending">Trending</option>
+              <option value="Rooms">Rooms</option>
+              <option value="Iconic Cities">Iconic Cities</option>
+              <option value="Mountains">Mountains</option>
+              <option value="Castle">Castle</option>
+              <option value="Arctics">Arctics</option>
+              <option value="Camping">Camping</option>
+              <option value="Farms">Farms</option>
+              <option value="Hotels">Hotels</option>
+              <option value="Beach">Beach</option>
+              <option value="Nature">Nature</option>
+              <option value="Winter">Winter</option>
+              <option value="Lake">Lake</option>
+              <option value="Apartment">Apartment</option>
+              <option value="House">House</option>
+              <option value="Breakfast">Breakfast</option>
+            </select>
+            <div class="invalid-feedback">Please select a property category.</div>
+          </div>
+
+          <!-- Add margin below the submit button to prevent it from touching the footer -->
+          <button class="btn btn-dark add-btn mt-3 mb-5">Submit</button>
         </form>
       </body>
     </div>
