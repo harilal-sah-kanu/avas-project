@@ -78,6 +78,21 @@ Avas is a property listing and booking platform. It allows users to explore, cre
 - **init/**: Database seeding and initialization scripts.
   - `data.js`: Sample data for seeding.
   - `index.js`: Script to seed the database.
+
+  ### Features Used Today
+
+  - **User Authentication**: Secure signup, login, and logout using Passport.js.
+  - **Property Listings**: Users can create, edit, and delete property listings with image uploads.
+  - **Image Uploads**: Multer handles file uploads; images are stored on Cloudinary.
+  - **Reviews**: Registered users can leave, edit, and delete reviews on listings.
+  - **Search Functionality**: Users can search and filter listings by location, price, and keywords.
+  - **Session Management**: User sessions are managed with express-session.
+  - **Input Validation**: Joi is used to validate user input for forms.
+  - **Flash Messages**: connect-flash provides feedback for actions (e.g., login errors, success messages).
+  - **Responsive UI**: Bootstrap 5 ensures the site is mobile-friendly and visually appealing.
+  - **Error Handling**: Centralized error handling with custom middleware and utility classes.
+  - **Environment Variables**: dotenv is used to manage sensitive configuration data.
+
 - **public/**: Static assets served to the client.
   - **css/**: Stylesheets (navbar, listings, etc.).
   - **images/**: Static images (logo, icons, etc.).
@@ -138,7 +153,7 @@ SESSION_SECRET=your_session_secret
 
 - **Guest**: Can browse listings and view details.
 - **Registered User**: Can create listings, leave reviews, and manage their own content.
-- **Admin** (optional, if implemented): Can manage all listings and users.
+- **Admin**: Can manage all listings and users(Not included).
 
 ### Key Features
 
@@ -157,3 +172,4 @@ SESSION_SECRET=your_session_secret
 - Add pagination for listings and reviews.
 
 ---
+

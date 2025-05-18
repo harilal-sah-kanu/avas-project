@@ -1,13 +1,33 @@
 const Listing = require("../models/listing");
 
 const index = async (req, res) => {
-  const { category } = req.query;
+  const { category, minPrice, maxPrice, sort } = req.query;
   let filter = {};
   if (category && category !== "") {
     filter.category = category;
   }
-  const allListing = await Listing.find(filter);
-  res.render("listings/index.ejs", { allListing });
+  if (minPrice) {
+    filter.price = { ...filter.price, $gte: Number(minPrice) };
+  }
+  if (maxPrice) {
+    filter.price = { ...filter.price, $lte: Number(maxPrice), ...filter.price };
+  }
+  let query = Listing.find(filter);
+  if (sort === "price-asc") {
+    query = query.sort({ price: 1 });
+  } else if (sort === "price-desc") {
+    query = query.sort({ price: -1 });
+  } else if (sort === "newest") {
+    query = query.sort({ createdAt: -1 });
+  }
+  const allListing = await query;
+  res.render("listings/index.ejs", {
+    allListing,
+    minPrice,
+    maxPrice,
+    category,
+    sort,
+  });
 };
 
 const renderNewForm = (req, res) => {

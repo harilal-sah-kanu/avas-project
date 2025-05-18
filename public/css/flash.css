@@ -64,15 +64,23 @@
 
 @media (max-width: 576px) {
     .flash-message {
-        min-width: 90vw;
-        max-width: 98vw;
-        font-size: 0.98rem;
-        padding: 0.7rem 1.2rem 0.7rem 0.8rem;
-        border-radius: 0.9rem;
+        min-width: 0;
+        max-width: 96vw;
+        width: 96vw;
+        left: 2vw;
+        right: 2vw;
+        font-size: 1.08rem;
+        padding: 1.1rem 1.6rem 1.1rem 1.1rem;
+        border-radius: 1.1rem;
+        top: 1.2rem;
+        transform: none;
+        z-index: 2000;
+        box-sizing: border-box;
     }
 
     .flash-message .close-btn {
-        font-size: 1.1rem;
-        margin-left: 0.5rem;
+        font-size: 1.4rem;
+        margin-left: 0.7rem;
+        padding: 0 0.4rem;
     }
 }
