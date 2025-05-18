@@ -1,6 +1,38 @@
 <% layout('layouts/boilerplate') %>
     <link rel="stylesheet" href="/css/listings.css">
 
+    <!-- Decorative Welcome Section -->
+    <div class="container my-4">
+        <div class="welcome-banner position-relative rounded shadow-lg p-4 text-center bg-light overflow-hidden">
+            <div class="welcome-decor-left position-absolute top-0 start-0">
+                <i class="fa-solid fa-leaf fa-2x text-success opacity-75"></i>
+                <i class="fa-solid fa-sun fa-2x text-warning ms-2 opacity-50"></i>
+            </div>
+            <div class="welcome-decor-right position-absolute top-0 end-0">
+                <i class="fa-solid fa-mountain-sun fa-2x text-primary opacity-50"></i>
+                <i class="fa-solid fa-water fa-2x text-info ms-2 opacity-50"></i>
+            </div>
+            <h2 class="fw-bold mb-2" style="font-family: 'Pacifico', cursive; color: #22c95e;">Welcome to Avas!</h2>
+            <p class="lead mb-3" style="color:#198754;">
+                Find your perfect stay, explore unique places, and enjoy a green journey.<br>
+                <span class="d-block mt-2" style="font-size:1.1rem; color:#198754;">
+                    <span class="fw-semibold">Tip: Use the filters above to personalize your search, or try the arrows
+                        to quickly browse categories. Click on any property card for more details and reviews!</span>
+                </span>
+            </p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <span class="badge bg-success bg-gradient fs-6"><i class="fa-solid fa-tree me-1"></i>
+                    Eco-Friendly</span>
+                <span class="badge bg-warning bg-gradient fs-6"><i class="fa-solid fa-sun me-1"></i> Sunny
+                    Destinations</span>
+                <span class="badge bg-info bg-gradient fs-6"><i class="fa-solid fa-water me-1"></i> Lakes &
+                    Beaches</span>
+                <span class="badge bg-primary bg-gradient fs-6"><i class="fa-solid fa-mountain-sun me-1"></i> Mountain
+                    Views</span>
+            </div>
+        </div>
+    </div>
+
     <div id="filters" class="container-fluid">
         <div class="row align-items-center">
             <div class="col-12 d-flex flex-wrap justify-content-start justify-content-md-center align-items-center">
@@ -87,80 +119,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Green Environment Banner Carousel (Improved Images) -->
-    <div id="greenCarousel" class="carousel slide mb-4" data-bs-ride="carousel" data-bs-interval="4000">
-        <div class="carousel-inner rounded shadow-lg position-relative" style="overflow:hidden;">
-            <div class="carousel-item active">
-                <div class="banner-img-wrapper position-relative" style="background:#e0ffe7;">
-                    <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1200&q=80"
-                        class="d-block w-100" style="height: 270px; object-fit: cover; filter: brightness(0.85);"
-                        alt="Green Forest" onerror="this.style.display='none'">
-                    <div class="banner-gradient-overlay position-absolute top-0 start-0 w-100 h-100"
-                        style="background:linear-gradient(90deg,rgba(34,197,94,0.55) 0%,rgba(255,255,255,0.05) 100%);">
-                    </div>
-                    <div
-                        class="carousel-caption d-flex flex-column align-items-start justify-content-center h-100 ps-4">
-                        <h3 class="fw-bold text-white mb-2" style="text-shadow:0 2px 12px #166534b0;">Explore Green
-                            Destinations</h3>
-                        <p class="lead text-white mb-3" style="text-shadow:0 2px 8px #166534a0;">Book eco-friendly stays
-                            and help preserve nature's
-                            beauty for the future.</p>
-                        <a href="https://cleantogreen.in/" class="btn btn-green-gradient px-4 py-2 fw-bold shadow">Join the
-                            Campaign <i class="fa-solid fa-seedling ms-2"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="banner-img-wrapper position-relative" style="background:#e0ffe7;">
-                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80"
-                        class="d-block w-100" style="height: 270px; object-fit: cover; filter: brightness(0.85);"
-                        alt="Eco Resort" onerror="this.style.display='none'">
-                    <div class="banner-gradient-overlay position-absolute top-0 start-0 w-100 h-100"
-                        style="background:linear-gradient(90deg,rgba(16,185,129,0.55) 0%,rgba(255,255,255,0.05) 100%);">
-                    </div>
-                    <div
-                        class="carousel-caption d-flex flex-column align-items-start justify-content-center h-100 ps-4">
-                        <h3 class="fw-bold text-white mb-2" style="text-shadow:0 2px 12px #166534b0;">Travel Green, Live
-                            Clean</h3>
-                        <p class="lead text-white mb-3" style="text-shadow:0 2px 8px #166534a0;">Choose properties that
-                            care for the environment
-                            and your well-being.</p>
-                        <a href="/listings?category=Nature" class="btn btn-green-gradient px-4 py-2 fw-bold shadow">See
-                            Nature Stays <i class="fa-solid fa-leaf ms-2"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="banner-img-wrapper position-relative" style="background:#e0ffe7;">
-                    <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=80"
-                        class="d-block w-100" style="height: 270px; object-fit: cover; filter: brightness(0.85);"
-                        alt="Green Lake" onerror="this.style.display='none'">
-                    <div class="banner-gradient-overlay position-absolute top-0 start-0 w-100 h-100"
-                        style="background:linear-gradient(90deg,rgba(34,197,94,0.55) 0%,rgba(255,255,255,0.05) 100%);">
-                    </div>
-                    <div
-                        class="carousel-caption d-flex flex-column align-items-start justify-content-center h-100 ps-4">
-                        <h3 class="fw-bold text-white mb-2" style="text-shadow:0 2px 12px #166534b0;">Every Booking
-                            Plants a Tree</h3>
-                        <p class="lead text-white mb-3" style="text-shadow:0 2px 8px #166534a0;">Support our mission to
-                            make travel sustainable
-                            and give back to the planet.</p>
-                        <a href="https://cleantogreen.in/" class="btn btn-green-gradient px-4 py-2 fw-bold shadow">Learn More <i
-                                class="fa-solid fa-tree ms-2"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#greenCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#greenCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
 
     <!-- Booking Banner Section -->

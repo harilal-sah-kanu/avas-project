@@ -14,7 +14,8 @@ Avas is a property listing and booking platform built with Node.js, Express, Mon
 ## Tech Stack
 
 - Node.js, Express.js
-- MongoDB & Mongoose
+- MongoDB & Mongoose (database and ODM)
+- Express.js (web framework)
 - EJS templating
 - Passport.js authentication
 - Multer & Cloudinary for image uploads
@@ -94,3 +95,16 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 ## License
 
 This project is licensed under the MIT License.
+
+
+## Future Plans
+
+- Add support for property booking calendar and availability management
+- Integrate payment gateway for secure online bookings (If possible);
+- Implement user profile pages and messaging between users
+- Add map integration for property locations
+- Improve accessibility and add multi-language support
+- Enhance admin dashboard for better listing and user management
+- Add automated email notifications for bookings and reviews
+- Expand API endpoints for mobile app integration
+- Improve test coverage and add CI/CD workflows
