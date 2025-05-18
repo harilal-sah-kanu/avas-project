@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # avas-project
 
 Avas is a property listing and booking platform built with Node.js, Express, MongoDB, and EJS. Users can explore, create, and manage property listings, as well as sign up, log in, and leave reviews.
@@ -78,6 +77,11 @@ Avas is a property listing and booking platform built with Node.js, Express, Mon
    ```
 5. Visit `http://localhost:8080` in your browser.
 
+## Scripts
+
+- `npm start` — Start the server
+- `npm run dev` — Start the server with nodemon (if configured)
+
 ## Image Upload Limitations
 
 - Only `.jpg`, `.jpeg`, and `.png` files are allowed.
@@ -90,4 +94,3 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 ## License
 
 This project is licensed under the MIT License.
-
