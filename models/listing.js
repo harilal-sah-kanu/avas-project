@@ -20,6 +20,9 @@ const listingSchema = new Schema({
   location: String,
   country: String,
 
+  features: [String],
+  cityTags: [String],
+
   category: {
     type: String,
     enum: [
@@ -60,8 +63,6 @@ const listingSchema = new Schema({
     default: Date.now,
   },
 });
-
-
 
 listingSchema.post("findOneAndDelete", async (listing) => {
   if (listing) {

@@ -61,9 +61,36 @@ const postListing = async (req, res, next) => {
   let url = req.file.path;
   let filename = req.file.filename;
 
-  const newListing = new Listing(req.body.listing);
-  newListing.owner = req.user._id;
-  newListing.image = { url, filename };
+  // Only allow general tags for cityTags (not country/city-specific)
+  const allowedCityTags = [
+    "Trip",
+    "Adventure",
+    "City",
+    "Nature",
+    "Culture",
+    "Beach",
+    "Mountain",
+    "Romantic Getaway",
+    "Family Friendly",
+    "Eco-Friendly",
+    "Guided Tours",
+    "Shopping",
+    "Nightlife",
+  ];
+  let cityTags = req.body.listing.cityTags || [];
+  if (!Array.isArray(cityTags)) cityTags = [cityTags];
+  cityTags = cityTags.filter((tag) => allowedCityTags.includes(tag));
+
+  let features = req.body.listing.features || [];
+  if (!Array.isArray(features)) features = [features];
+
+  const newListing = new Listing({
+    ...req.body.listing,
+    features,
+    cityTags,
+    owner: req.user._id,
+    image: { url, filename },
+  });
   await newListing.save();
   req.flash("success", "New Listing Created");
   res.redirect("/listings");
@@ -85,7 +112,33 @@ const editListing = async (req, res) => {
 
 const updateListing = async (req, res) => {
   const { id } = req.params;
-  const updatedData = { ...req.body.listing };
+  const allowedCityTags = [
+    "Trip",
+    "Adventure",
+    "City",
+    "Nature",
+    "Culture",
+    "Beach",
+    "Mountain",
+    "Romantic Getaway",
+    "Family Friendly",
+    "Eco-Friendly",
+    "Guided Tours",
+    "Shopping",
+    "Nightlife",
+  ];
+  let cityTags = req.body.listing.cityTags || [];
+  if (!Array.isArray(cityTags)) cityTags = [cityTags];
+  cityTags = cityTags.filter((tag) => allowedCityTags.includes(tag));
+
+  let features = req.body.listing.features || [];
+  if (!Array.isArray(features)) features = [features];
+
+  const updatedData = {
+    ...req.body.listing,
+    features,
+    cityTags,
+  };
 
   const listing = await Listing.findByIdAndUpdate(id, updatedData, {
     new: true,

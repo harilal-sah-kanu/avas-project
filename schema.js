@@ -29,6 +29,8 @@ module.exports.listingSchema = Joi.object({
         "Breakfast"
       )
       .required(),
+    features: Joi.array().items(Joi.string()),
+    cityTags: Joi.array().items(Joi.string()),
   }).required(),
 });
 

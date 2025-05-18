@@ -30,6 +30,15 @@ const isOwner = async (req, res, next) => {
 }
 
 const validateListing = (req, res, next) => {
+  // Ensure cityTags and features are always arrays before validation
+  if (req.body.listing) {
+    if (req.body.listing.cityTags && !Array.isArray(req.body.listing.cityTags)) {
+      req.body.listing.cityTags = [req.body.listing.cityTags];
+    }
+    if (req.body.listing.features && !Array.isArray(req.body.listing.features)) {
+      req.body.listing.features = [req.body.listing.features];
+    }
+  }
   const { error } = listingSchema.validate(req.body);
   if (error) {
     const errMsg = error.details.map((el) => el.message).join(", ");

@@ -27,6 +27,11 @@
                             <span class="badge bg-light text-dark border"><i class="fa-solid fa-location-dot"></i>
                                 <%= post.location %>,
                                     <%= post.country %>
+                                        <% /* Country flag using flagcdn.com, fallback to nothing if not found */ %>
+                                            <img src="https://flagcdn.com/24x18/<%= (post.country || '').toLowerCase().replace(/ /g, '-') %>.png"
+                                                alt="<%= post.country %> flag"
+                                                style="margin-left:6px;vertical-align:middle;border-radius:2px;box-shadow:0 1px 4px #0001;"
+                                                onerror="this.style.display='none'">
                             </span>
                         </div>
                         <p class="card-text mb-2 fs-5 text-success fw-semibold">
@@ -56,6 +61,26 @@
                             <span class="badge bg-light text-dark border"><i class="fa-solid fa-tree"></i> Nature
                                 View</span>
                         </div>
+                        <% if (post.features && post.features.length) { %>
+                            <div class="d-flex flex-wrap gap-2 mb-2">
+                                <% post.features.forEach(function(feature) { %>
+                                    <span class="badge bg-light text-dark border"><i
+                                            class="fa-solid fa-circle-check text-success me-1"></i>
+                                        <%= feature %>
+                                    </span>
+                                    <% }) %>
+                            </div>
+                            <% } %>
+                                <% if (post.cityTags && post.cityTags.length) { %>
+                                    <div class="d-flex flex-wrap gap-2 mb-2">
+                                        <% post.cityTags.forEach(function(tag) { %>
+                                            <span class="badge bg-info text-dark border"><i
+                                                    class="fa-solid fa-city me-1"></i>
+                                                <%= tag %>
+                                            </span>
+                                            <% }) %>
+                                    </div>
+                                    <% } %>
                     </div>
                 </div>
                 <% if (currUser && currUser._id.equals(post.owner._id)) { %>
