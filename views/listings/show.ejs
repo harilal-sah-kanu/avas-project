@@ -10,9 +10,6 @@
                         <img src="<%= post.image.url %>" class="card-img-top show-img rounded shadow-sm"
                             alt="listing-image"
                             style="height:320px; width:auto; max-width:100%; object-fit:cover; margin:auto; display:block;">
-                        <span
-                            class="position-absolute top-0 end-0 m-2 badge bg-success bg-gradient fs-6 animate__animated animate__bounceIn"><i
-                                class="fa-solid fa-star me-1"></i> Featured</span>
                     </div>
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-2 px-2">
                         <span class="badge bg-secondary"><i class="fa-solid fa-tag"></i>
@@ -22,7 +19,7 @@
                     <div class="card-body py-3 px-2">
                         <div class="d-flex flex-wrap align-items-center mb-2 gap-2">
                             <span class="badge bg-light text-dark border"><i class="fa-solid fa-user"></i> <b>Owner:</b>
-                                <%= post.owner.username %>
+                                <%= post.owner ? post.owner.username : 'Unknown' %>
                             </span>
                             <span class="badge bg-light text-dark border"><i class="fa-solid fa-location-dot"></i>
                                 <%= post.location %>,
@@ -83,7 +80,7 @@
                                     <% } %>
                     </div>
                 </div>
-                <% if (currUser && currUser._id.equals(post.owner._id)) { %>
+                <% if (currUser && post.owner && currUser._id.equals(post.owner._id)) { %>
                     <div class="d-flex mb-4 gap-2">
                         <form method="get" action="/listings/<%= post.id %>/edit">
                             <button class="btn btn-outline-primary">Edit</button>
@@ -158,7 +155,8 @@
                                                                         class="fa-solid fa-user-circle fa-2x text-secondary"></i>
                                                                     <h6 class="card-title mb-0 flex-grow-1 ms-2"
                                                                         style="font-size:1.1rem;">
-                                                                        <%= review.author.username %>
+                                                                        <%= review.author ? review.author.username
+                                                                            : 'Anonymous' %>
                                                                     </h6>
                                                                     <% if (currUser && review.author &&
                                                                         currUser._id.equals(review.author._id)) { %>

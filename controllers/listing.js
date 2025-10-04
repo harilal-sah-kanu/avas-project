@@ -1,7 +1,10 @@
 const Listing = require("../models/listing");
 
 const index = async (req, res) => {
-  const { category, minPrice, maxPrice, sort } = req.query;
+  const { category, minPrice, maxPrice, sort, page = 1 } = req.query;
+  const limit = 12; // Number of listings per page
+  const skip = (page - 1) * limit;
+
   let filter = {};
   if (category && category !== "") {
     filter.category = category;
@@ -12,7 +15,12 @@ const index = async (req, res) => {
   if (maxPrice) {
     filter.price = { ...filter.price, $lte: Number(maxPrice), ...filter.price };
   }
-  let query = Listing.find(filter);
+
+  // Get total count for pagination
+  const totalListings = await Listing.countDocuments(filter);
+  const totalPages = Math.ceil(totalListings / limit);
+
+  let query = Listing.find(filter).skip(skip).limit(limit);
   if (sort === "price-asc") {
     query = query.sort({ price: 1 });
   } else if (sort === "price-desc") {
@@ -21,12 +29,16 @@ const index = async (req, res) => {
     query = query.sort({ createdAt: -1 });
   }
   const allListing = await query;
+
   res.render("listings/index.ejs", {
     allListing,
     minPrice,
     maxPrice,
     category,
     sort,
+    currentPage: Number(page),
+    totalPages,
+    totalListings,
   });
 };
 
@@ -61,33 +73,12 @@ const postListing = async (req, res, next) => {
   let url = req.file.path;
   let filename = req.file.filename;
 
-  // Only allow general tags for cityTags (not country/city-specific)
-  const allowedCityTags = [
-    "Trip",
-    "Adventure",
-    "City",
-    "Nature",
-    "Culture",
-    "Beach",
-    "Mountain",
-    "Romantic Getaway",
-    "Family Friendly",
-    "Eco-Friendly",
-    "Guided Tours",
-    "Shopping",
-    "Nightlife",
-  ];
-  let cityTags = req.body.listing.cityTags || [];
-  if (!Array.isArray(cityTags)) cityTags = [cityTags];
-  cityTags = cityTags.filter((tag) => allowedCityTags.includes(tag));
-
   let features = req.body.listing.features || [];
   if (!Array.isArray(features)) features = [features];
 
   const newListing = new Listing({
     ...req.body.listing,
     features,
-    cityTags,
     owner: req.user._id,
     image: { url, filename },
   });
@@ -112,24 +103,6 @@ const editListing = async (req, res) => {
 
 const updateListing = async (req, res) => {
   const { id } = req.params;
-  const allowedCityTags = [
-    "Trip",
-    "Adventure",
-    "City",
-    "Nature",
-    "Culture",
-    "Beach",
-    "Mountain",
-    "Romantic Getaway",
-    "Family Friendly",
-    "Eco-Friendly",
-    "Guided Tours",
-    "Shopping",
-    "Nightlife",
-  ];
-  let cityTags = req.body.listing.cityTags || [];
-  if (!Array.isArray(cityTags)) cityTags = [cityTags];
-  cityTags = cityTags.filter((tag) => allowedCityTags.includes(tag));
 
   let features = req.body.listing.features || [];
   if (!Array.isArray(features)) features = [features];
@@ -137,7 +110,6 @@ const updateListing = async (req, res) => {
   const updatedData = {
     ...req.body.listing,
     features,
-    cityTags,
   };
 
   const listing = await Listing.findByIdAndUpdate(id, updatedData, {

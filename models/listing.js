@@ -21,7 +21,6 @@ const listingSchema = new Schema({
   country: String,
 
   features: [String],
-  cityTags: [String],
 
   category: {
     type: String,
@@ -69,6 +68,9 @@ listingSchema.post("findOneAndDelete", async (listing) => {
     await Review.deleteMany({ _id: { $in: listing.reviews } });
   }
 });
+
+// Text index for efficient search on title, description, and location
+listingSchema.index({ title: "text", description: "text", location: "text" });
 
 const Listing = mongoose.model("Listing", listingSchema);
 module.exports = Listing;

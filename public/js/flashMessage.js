@@ -1,17 +1,52 @@
-// flashMessage.js - Auto-hide flash messages and close button logic
+// flashMessage.js - Enhanced toast message with smooth animations
 (function () {
-  // Auto-hide flash messages after 4 seconds
+  const AUTO_DISMISS_TIME = 5000; // 5 seconds
+
+  // Auto-dismiss with smooth fade-out animation
   setTimeout(() => {
     document.querySelectorAll(".flash-message").forEach((el) => {
-      el.style.display = "none";
-    });
-  }, 4000);
+      el.classList.add("flash-out");
 
-  // Close button logic (delegated for dynamically rendered messages)
+      // Remove from DOM after animation completes
+      setTimeout(() => {
+        el.remove();
+      }, 400); // Match animation duration
+    });
+  }, AUTO_DISMISS_TIME);
+
+  // Close button with smooth animation
   document.addEventListener("click", function (e) {
-    if (e.target.classList.contains("close-btn")) {
+    if (
+      e.target.classList.contains("close-btn") ||
+      e.target.closest(".close-btn")
+    ) {
       const parent = e.target.closest(".flash-message");
-      if (parent) parent.style.display = "none";
+      if (parent) {
+        parent.classList.add("flash-out");
+        setTimeout(() => {
+          parent.remove();
+        }, 400);
+      }
     }
+  });
+
+  // Optional: Pause auto-dismiss on hover
+  document.querySelectorAll(".flash-message").forEach((el) => {
+    let timeout;
+
+    el.addEventListener("mouseenter", function () {
+      // Pause progress bar animation
+      this.style.animationPlayState = "paused";
+      const after = window.getComputedStyle(this, "::after");
+      if (after) {
+        this.style.setProperty("--pause-animation", "paused");
+      }
+    });
+
+    el.addEventListener("mouseleave", function () {
+      // Resume progress bar animation
+      this.style.animationPlayState = "running";
+      this.style.setProperty("--pause-animation", "running");
+    });
   });
 })();

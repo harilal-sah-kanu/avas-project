@@ -1,4 +1,4 @@
-if (process.env.Node_ENV != "production") {
+if (process.env.NODE_ENV != "production") {
   require("dotenv").config();
 }
 
@@ -8,13 +8,13 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const app = express();
-const port = 8080;
+const port = process.env.PORT || 8080;
 const dbUrl = process.env.ATLASDB_URL;
 const ExpressError = require("./utils/expressError.js");
 
 //Authentication, cookies and session:
 const session = require("express-session");
-const MongoStore = require('connect-mongo');
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -54,9 +54,9 @@ const store = MongoStore.create({
   touchAfter: 24 * 3600,
 });
 
-store.on("error", () => {
+store.on("error", (err) => {
   console.log("Error in MONGO SESSION STORE", err);
-})
+});
 
 const sessionOptions = {
   store,
@@ -69,9 +69,6 @@ const sessionOptions = {
     httpOnly: true,
   },
 };
-
-
-
 
 //Session Options
 app.use(session(sessionOptions));
@@ -89,7 +86,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
-  res.locals.currUser = req.user;
+  res.locals.currUser = req.user || null; // Always define currUser
   next();
 });
 
@@ -105,7 +102,6 @@ app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 app.use("/search", searchRouter);
-
 
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "Page Not Found!"));

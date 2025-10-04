@@ -4,22 +4,19 @@
             onclick="event.preventDefault(); this.classList.toggle('active');">
             <i class="fa-regular fa-heart"></i>
         </button>
-        <% if (list.createdAt && (new Date() - new Date(list.createdAt)) < 1000*60*60*24*7) { %>
-            <span class="badge-new">NEW</span>
-            <% } %>
-                <img src="<%= list.image.url %>" class="card-img-top" alt="listing_image" style="height: 20rem;">
-                <div class="card-img-overlay"></div>
-                <div class="card-body">
-                    <p class="card-text">
-                        <b>
-                            <%= list.title %>
-                        </b>
-                        <br>
-                        <span class="price" data-price="<%= list.price %>">
-                            &#8377; <%= list.price.toLocaleString("en-NP") %> / night
-                        </span>
-                        <span class="tax-amount" style="display:none; color:#198754; font-size:0.95em;"></span>
-                    </p>
-                </div>
+        <img src="<%= list.image.url %>" class="card-img-top" alt="listing_image" style="height: 20rem;">
+        <div class="card-img-overlay"></div>
+        <div class="card-body">
+            <p class="card-text">
+                <b>
+                    <%= list.title %>
+                </b>
+                <br>
+                <span class="price" data-price="<%= list.price %>">
+                    &#8377; <%= list.price.toLocaleString("en-NP") %> / night
+                </span>
+                <span class="tax-amount" style="display:none; color:#198754; font-size:0.95em;"></span>
+            </p>
+        </div>
     </div>
 </a>

@@ -1,28 +1,133 @@
 <% layout('layouts/boilerplate') %>
-  <div class="auth-bg">
-    <div class="auth-card">
-      <h1 class="text-center mb-4">Sign Up to Avas</h1>
-      <form action="/signup" method="post" class="needs-validation" novalidate>
-        <div class="mb-3">
-          <label for="username" class="form-label">Username</label>
-          <input type="text" name="username" id="username" class="form-control" required minlength="3" maxlength="16"
-            pattern="[A-Za-z0-9]+" placeholder="Enter your username">
-          <div class="form-text">3-16 characters, letters and numbers only.</div>
-          <div class="invalid-feedback">Username must be 3-16 characters, letters and numbers only.</div>
+  <div class="auth-page-wrapper">
+    <!-- Back to Home Button -->
+    <a href="/listings" class="auth-back-btn">
+      <i class="fas fa-arrow-left me-2"></i>
+      <span>Back to Home</span>
+    </a>
+
+    <div class="auth-bg">
+      <div class="auth-card signup-card">
+        <!-- Logo -->
+        <div class="auth-logo">
+          <img src="/images/avas.ico" alt="Avas Logo" class="logo-img">
         </div>
-        <div class="mb-3">
-          <label for="email" class="form-label">Email ID</label>
-          <input type="email" name="email" id="email" class="form-control" required placeholder="Enter your email">
-          <div class="invalid-feedback">Email ID is a must!</div>
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
-          <input type="password" name="password" id="password" class="form-control" required minlength="6"
-            placeholder="Create a password">
-          <div class="invalid-feedback">Password must be at least 6 characters.</div>
-        </div>
-        <button class="btn w-100 mt-2" type="submit">Signup</button>
-        <a href="/login" class="switch-link">Already have an account? Log in</a>
-      </form>
+
+        <h1 class="text-center mb-2">Create Account</h1>
+        <p class="text-center auth-subtitle mb-4">Join Avas and start exploring</p>
+
+        <form action="/signup" method="post" class="needs-validation" novalidate>
+          <div class="mb-3">
+            <label for="username" class="form-label">
+              <i class="fas fa-user me-2"></i>Username
+            </label>
+            <div class="input-wrapper">
+              <input type="text" name="username" id="username" class="form-control" required minlength="3"
+                maxlength="16" pattern="[A-Za-z0-9]+" placeholder="Choose a username">
+              <i class="fas fa-check-circle input-icon valid-icon"></i>
+              <i class="fas fa-exclamation-circle input-icon invalid-icon"></i>
+            </div>
+            <div class="form-text">
+              <i class="fas fa-info-circle me-1"></i>3-16 characters, letters and numbers only
+            </div>
+            <div class="invalid-feedback">Username must be 3-16 characters, letters and numbers only.</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">
+              <i class="fas fa-envelope me-2"></i>Email Address
+            </label>
+            <div class="input-wrapper">
+              <input type="email" name="email" id="email" class="form-control" required
+                placeholder="your.email@example.com">
+              <i class="fas fa-check-circle input-icon valid-icon"></i>
+              <i class="fas fa-exclamation-circle input-icon invalid-icon"></i>
+            </div>
+            <div class="invalid-feedback">Please enter a valid email address.</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="password" class="form-label">
+              <i class="fas fa-lock me-2"></i>Password
+            </label>
+            <div class="input-wrapper password-wrapper">
+              <input type="password" name="password" id="password" class="form-control" required minlength="6"
+                placeholder="Create a strong password">
+              <i class="fas fa-eye-slash toggle-password" id="togglePassword"></i>
+            </div>
+            <div class="form-text">
+              <i class="fas fa-shield-alt me-1"></i>Minimum 6 characters required
+            </div>
+            <div class="invalid-feedback">Password must be at least 6 characters.</div>
+          </div>
+
+          <button class="btn auth-btn w-100 mt-3" type="submit">
+            <span>Create Account</span>
+            <i class="fas fa-arrow-right ms-2"></i>
+          </button>
+
+          <div class="auth-divider">
+            <span>OR</span>
+          </div>
+
+          <a href="/login" class="switch-link">
+            Already have an account? <strong>Log in</strong>
+          </a>
+        </form>
+      </div>
     </div>
+
+    <script>
+      // Bootstrap validation
+      (function () {
+        'use strict';
+        var forms = document.querySelectorAll('.needs-validation');
+        Array.prototype.slice.call(forms).forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      })();
+
+      // Toggle password visibility
+      const togglePassword = document.getElementById('togglePassword');
+      const password = document.getElementById('password');
+
+      togglePassword.addEventListener('click', function () {
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        this.classList.toggle('fa-eye');
+        this.classList.toggle('fa-eye-slash');
+      });
+    </script>
   </div>
+
+  <style>
+    /* Hide navbar, footer, and container for auth pages */
+    .auth-page-wrapper~* {
+      display: none !important;
+    }
+
+    body:has(.auth-page-wrapper) {
+      margin: 0;
+      padding: 0;
+    }
+
+    body:has(.auth-page-wrapper) .navbar,
+    body:has(.auth-page-wrapper) .footer {
+      display: none !important;
+    }
+
+    .auth-page-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 9999;
+    }
+  </style>

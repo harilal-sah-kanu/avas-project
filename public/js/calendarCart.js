@@ -13,27 +13,67 @@
     checkOut = null;
 
   // Create two date inputs for check-in and check-out
+  const today = new Date().toISOString().split("T")[0];
+
   const checkInInput = document.createElement("input");
   checkInInput.type = "date";
   checkInInput.className = "form-control mb-2";
-  checkInInput.style.maxWidth = "160px";
+  checkInInput.style.maxWidth = "180px";
   checkInInput.style.display = "inline-block";
-  checkInInput.min = new Date().toISOString().split("T")[0];
+  checkInInput.min = today;
   checkInInput.id = "checkInDate";
-  checkInInput.placeholder = "Check-in";
+  checkInInput.setAttribute("required", "required");
+  checkInInput.setAttribute("aria-label", "Check-in date");
+  checkInInput.setAttribute("pattern", "\\d{4}-\\d{2}-\\d{2}");
+  // For mobile compatibility
+  checkInInput.setAttribute("onfocus", "(this.type='date')");
+
+  const checkInLabel = document.createElement("label");
+  checkInLabel.setAttribute("for", "checkInDate");
+  checkInLabel.className = "form-label d-block mb-1 fw-semibold";
+  checkInLabel.style.fontSize = "0.9rem";
+  checkInLabel.innerHTML =
+    '<i class="fa-solid fa-calendar-check text-success me-1"></i>Check-in:';
 
   const checkOutInput = document.createElement("input");
   checkOutInput.type = "date";
   checkOutInput.className = "form-control mb-2 ms-2";
-  checkOutInput.style.maxWidth = "160px";
+  checkOutInput.style.maxWidth = "180px";
   checkOutInput.style.display = "inline-block";
-  checkOutInput.min = new Date().toISOString().split("T")[0];
+  checkOutInput.min = today;
   checkOutInput.id = "checkOutDate";
-  checkOutInput.placeholder = "Check-out";
+  checkOutInput.setAttribute("required", "required");
+  checkOutInput.setAttribute("aria-label", "Check-out date");
+  checkOutInput.setAttribute("pattern", "\\d{4}-\\d{2}-\\d{2}");
+  // For mobile compatibility
+  checkOutInput.setAttribute("onfocus", "(this.type='date')");
 
-  // Replace the single input with two
-  calendar.parentNode.replaceChild(checkInInput, calendar);
-  checkInInput.parentNode.insertBefore(checkOutInput, checkInInput.nextSibling);
+  const checkOutLabel = document.createElement("label");
+  checkOutLabel.setAttribute("for", "checkOutDate");
+  checkOutLabel.className = "form-label d-block mb-1 fw-semibold ms-2";
+  checkOutLabel.style.fontSize = "0.9rem";
+  checkOutLabel.innerHTML =
+    '<i class="fa-solid fa-calendar-xmark text-danger me-1"></i>Check-out:';
+
+  // Create a container for better layout
+  const dateContainer = document.createElement("div");
+  dateContainer.className = "date-picker-container d-flex flex-wrap gap-3 mb-3";
+
+  const checkInWrapper = document.createElement("div");
+  checkInWrapper.className = "date-input-wrapper";
+  checkInWrapper.appendChild(checkInLabel);
+  checkInWrapper.appendChild(checkInInput);
+
+  const checkOutWrapper = document.createElement("div");
+  checkOutWrapper.className = "date-input-wrapper";
+  checkOutWrapper.appendChild(checkOutLabel);
+  checkOutWrapper.appendChild(checkOutInput);
+
+  dateContainer.appendChild(checkInWrapper);
+  dateContainer.appendChild(checkOutWrapper);
+
+  // Replace the calendar element with the new container
+  calendar.parentNode.replaceChild(dateContainer, calendar);
 
   function calculate() {
     checkIn = checkInInput.value;

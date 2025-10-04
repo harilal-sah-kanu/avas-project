@@ -1,6 +1,15 @@
 # Avas Project
 
-Avas is a modern, eco-friendly property listing and booking platform inspired by Airbnb. It enables users to explore, create, and manage property listings, book stays, and leave reviews—all with a strong Go Green theme and a mobile-first, engaging UI/UX.
+Avas is a modern, eco-friendly property listing and booking platform inspired by Airbnb. It enables users to explore, create, and manage property listings, book stays, and leave reviews—all with a mobile-first, engaging UI/UX.
+
+---
+
+## 📌 Recent Updates
+
+- **Enhanced UI/UX**: Improved filter interface with better visibility and cleaner design
+- **Mobile Optimization**: Enhanced date picker functionality for better mobile device compatibility
+- **Code Cleanup**: Removed unnecessary elements and optimized codebase for better performance
+- **Bug Fixes**: Resolved various UI inconsistencies and improved overall user experience
 
 ---
 
@@ -8,14 +17,13 @@ Avas is a modern, eco-friendly property listing and booking platform inspired by
 
 - **User Authentication**: Secure signup, login, and logout for all users.
 - **Property Listings**: Create, edit, and delete listings with image uploads (JPG/PNG, max 2MB).
-- **Search & Explore**: Filter by price, category, and sort order. Use interactive sliders and badges for a fun experience.
-- **Responsive Design**: Fully mobile-friendly, with a modern navbar, filter UI, and grid-based listings.
-- **Go Green Theme**: Animated green campaign, floating leaves, and eco-friendly messaging throughout the site.
-- **Engaging Homepage**: Welcome banner, property tips, and interactive filter slider.
-- **Show Page**: Booking calendar, cart summary (base price, tax, total), reviews, and similar properties.
-- **Footer**: Animated, colorful, and engaging social/contact icons. "Contact Us" button opens mailto to harilalsahk@gmail.com. Green campaign and quick links.
-- **Accessibility**: Flash messages and filter UIs are mobile-friendly and accessible.
-- **All client-side scripts** are organized in `public/js` for maintainability.
+- **Advanced Filters**: Filter by price range, category, and sort order with an intuitive interface.
+- **Responsive Design**: Fully mobile-friendly with modern navbar, enhanced filter UI, and grid-based listings.
+- **Interactive Elements**: Dynamic category slider, booking calendar with date selection, and cart summary.
+- **Show Page**: Property details with booking calendar, price calculation (base price, tax, total), reviews, and similar properties.
+- **Modern Footer**: Clean, compact design with social links and quick navigation.
+- **Accessibility**: Mobile-optimized date pickers, flash messages, and accessible filter interfaces.
+- **Organized Codebase**: All client-side scripts in `public/js` for better maintainability.
 
 ---
 
@@ -23,10 +31,10 @@ Avas is a modern, eco-friendly property listing and booking platform inspired by
 
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB & Mongoose
-- **Frontend**: EJS templating, Bootstrap 5, FontAwesome, Animate.css
-- **Image Uploads**: Multer & Cloudinary
-- **Authentication**: Passport.js
-- **Custom CSS**: listings.css, navbar.css, style.css
+- **Frontend**: EJS templating, Bootstrap 5, FontAwesome icons
+- **Image Uploads**: Multer & Cloudinary integration
+- **Authentication**: Passport.js with session management
+- **Custom Styling**: Modular CSS (listings.css, navbar.css, style.css, etc.)
 
 ---
 
@@ -112,24 +120,28 @@ This project is licensed under the MIT License.
 
 ## 🔮 Future Plans
 
-- Add support for property booking calendar and availability management
-- Integrate payment gateway for secure online bookings
-- Implement user profile pages and messaging between users
-- Add map integration for property locations
-- Improve accessibility and add multi-language support
-- Enhance admin dashboard for better listing and user management
-- Add automated email notifications for bookings and reviews
-- Expand API endpoints for mobile app integration
-- Improve test coverage and add CI/CD workflows
+- Property booking calendar and availability management system
+- Payment gateway integration for secure online transactions
+- User profile pages with booking history and preferences
+- Real-time messaging between hosts and guests
+- Interactive map integration for property locations
+- Multi-language support for international users
+- Enhanced admin dashboard for listings and user management
+- Email notifications for bookings, reviews, and updates
+- Mobile app development with API expansion
+- Comprehensive test coverage and CI/CD implementation
 
 ---
 
 ## 📬 Contact
 
-- Email: [harilalsahk@gmail.com](mailto:harilalsahk@gmail.com)
-- Instagram: [@iamdh.iraj](https://www.instagram.com/iamdh.iraj/)
-- LinkedIn: [Harilal Sah](https://www.linkedin.com/in/harilal-sah9/)
+For any questions, suggestions, or collaboration opportunities:
+
+- **Email**: [harilalsahk@gmail.com](mailto:harilalsahk@gmail.com)
+- **Instagram**: [@iamdh.iraj](https://www.instagram.com/iamdh.iraj/)
+- **LinkedIn**: [Harilal Sah](https://www.linkedin.com/in/harilal-sah9/)
+- **Facebook**: [Hareelal Sah](https://www.facebook.com/hareelal13/)
 
 ---
 
-**Avas** — Every booking helps plant trees and support eco-friendly stays. Let's make the world greener together!
+**Avas** — Your trusted platform for finding and booking unique properties worldwide.
