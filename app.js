@@ -38,11 +38,14 @@ main()
     console.log("Connected to Database Successfully ✅");
   })
   .catch((err) => {
-    console.log("Error : ", err);
+    console.log("Error connecting to database: ", err);
   });
 
 async function main() {
-  await mongoose.connect(dbUrl);
+  await mongoose.connect(dbUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 }
 
 //Session Options & Cookies Management & Authentication
@@ -90,7 +93,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Now define your routes!
 app.get("/", (req, res) => {
   res.redirect("/listings");
 });
@@ -110,6 +112,16 @@ app.all("*", (req, res, next) => {
 //Error Handlers;
 app.use((err, req, res, next) => {
   let { statusCode = 500, message = "Something Went Error!" } = err;
+  // Ensure currUser and flash messages are always defined for error pages
+  if (!res.locals.currUser) {
+    res.locals.currUser = null;
+  }
+  if (!res.locals.success) {
+    res.locals.success = req.flash("success");
+  }
+  if (!res.locals.error) {
+    res.locals.error = req.flash("error");
+  }
   res.status(statusCode).render("error.ejs", { message });
 });
 

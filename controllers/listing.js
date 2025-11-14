@@ -59,7 +59,7 @@ const showListing = async (req, res) => {
 
   if (!post) {
     req.flash("error", "Requested listing does not exist");
-    res.redirect("/listings");
+    return res.redirect("/listings");
   }
   // Fetch similar properties (same category, not this one)
   const similarListings = await Listing.find({
@@ -92,7 +92,7 @@ const editListing = async (req, res) => {
   const curntListing = await Listing.findById(id);
   if (!curntListing) {
     req.flash("error", "Requested listing does not exist");
-    res.redirect("/listings");
+    return res.redirect("/listings");
   }
 
   let orgImageUrl = curntListing.image.url;
