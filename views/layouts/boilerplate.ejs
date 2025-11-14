@@ -22,8 +22,7 @@
   <link rel="stylesheet" href="/css/flash.css">
   <link rel="stylesheet" href="/css/auth.css">
   <link rel="stylesheet" href="/css/animations.css">
-  <!-- Lenis Smooth Scroll -->
-  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+  <link rel="stylesheet" href="/css/home.css">
 </head>
 
 <body>
@@ -36,34 +35,6 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
       <script src="/js/script.js"></script>
       
-      <!-- Initialize Lenis Smooth Scroll -->
-      <script>
-        // Initialize Lenis smooth scrolling
-        const lenis = new Lenis({
-          duration: 1.2,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          direction: 'vertical',
-          gestureDirection: 'vertical',
-          smooth: true,
-          mouseMultiplier: 1,
-          smoothTouch: false,
-          touchMultiplier: 2,
-          infinite: false,
-        });
-
-        function raf(time) {
-          lenis.raf(time);
-          requestAnimationFrame(raf);
-        }
-
-        requestAnimationFrame(raf);
-
-        // Stop smooth scroll on auth pages
-        if (document.querySelector('.auth-page-wrapper')) {
-          lenis.stop();
-        }
-      </script>
-
       <script>
         // Limit image size on frontend (2MB)
         document.addEventListener('DOMContentLoaded', function () {
