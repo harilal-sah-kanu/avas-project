@@ -122,61 +122,30 @@
                 <div class="mb-3">
                     <label for="features" class="form-label">Property Features / Amenities:</label>
                     <select name="listing[features]" id="features" class="form-select" multiple required>
-                        <option value="WiFi" <%=curntListing.features && curntListing.features.includes('WiFi')
-                            ? 'selected' : '' %>>WiFi</option>
-                        <option value="Parking" <%=curntListing.features && curntListing.features.includes('Parking')
-                            ? 'selected' : '' %>>Parking</option>
-                        <option value="Pool" <%=curntListing.features && curntListing.features.includes('Pool')
-                            ? 'selected' : '' %>>Pool</option>
-                        <option value="Air Conditioning" <%=curntListing.features && curntListing.features.includes('Air
-                            Conditioning') ? 'selected' : '' %>>Air Conditioning</option>
-                        <option value="Pet Friendly" <%=curntListing.features && curntListing.features.includes('Pet
-                            Friendly') ? 'selected' : '' %>>Pet Friendly</option>
-                        <option value="Breakfast Included" <%=curntListing.features &&
-                            curntListing.features.includes('Breakfast Included') ? 'selected' : '' %>>Breakfast Included
-                        </option>
-                        <option value="Kitchen" <%=curntListing.features && curntListing.features.includes('Kitchen')
-                            ? 'selected' : '' %>>Kitchen</option>
-                        <option value="Washer" <%=curntListing.features && curntListing.features.includes('Washer')
-                            ? 'selected' : '' %>>Washer</option>
-                        <option value="TV" <%=curntListing.features && curntListing.features.includes('TV') ? 'selected'
-                            : '' %>>TV</option>
-                        <option value="Balcony" <%=curntListing.features && curntListing.features.includes('Balcony')
-                            ? 'selected' : '' %>>Balcony</option>
-                        <option value="Garden" <%=curntListing.features && curntListing.features.includes('Garden')
-                            ? 'selected' : '' %>>Garden</option>
-                        <option value="Gym" <%=curntListing.features && curntListing.features.includes('Gym')
-                            ? 'selected' : '' %>>Gym</option>
-                        <option value="Fireplace" <%=curntListing.features &&
-                            curntListing.features.includes('Fireplace') ? 'selected' : '' %>>Fireplace</option>
-                        <option value="Wheelchair Accessible" <%=curntListing.features &&
-                            curntListing.features.includes('Wheelchair Accessible') ? 'selected' : '' %>>Wheelchair
-                            Accessible</option>
-                        <option value="City View" <%=curntListing.features && curntListing.features.includes('City
-                            View') ? 'selected' : '' %>>City View</option>
-                        <option value="Mountain View" <%=curntListing.features &&
-                            curntListing.features.includes('Mountain View') ? 'selected' : '' %>>Mountain View</option>
-                        <option value="Historic Site Nearby" <%=curntListing.features &&
-                            curntListing.features.includes('Historic Site Nearby') ? 'selected' : '' %>>Historic Site
-                            Nearby</option>
-                        <option value="Shopping District" <%=curntListing.features &&
-                            curntListing.features.includes('Shopping District') ? 'selected' : '' %>>Shopping District
-                        </option>
-                        <option value="Adventure Activities" <%=curntListing.features &&
-                            curntListing.features.includes('Adventure Activities') ? 'selected' : '' %>>Adventure
-                            Activities</option>
-                        <option value="Cultural Hotspot" <%=curntListing.features &&
-                            curntListing.features.includes('Cultural Hotspot') ? 'selected' : '' %>>Cultural Hotspot
-                        </option>
-                        <option value="Family Friendly" <%=curntListing.features &&
-                            curntListing.features.includes('Family Friendly') ? 'selected' : '' %>>Family Friendly
-                        </option>
-                        <option value="Romantic Getaway" <%=curntListing.features &&
-                            curntListing.features.includes('Eco-Friendly') ? 'selected' : '' %>>Eco-Friendly</option>
-                        <option value="Trip Package" <%=curntListing.features && curntListing.features.includes('Trip
-                            Package') ? 'selected' : '' %>>Trip Package</option>
-                        <option value="Guided Tours" <%=curntListing.features && curntListing.features.includes('Guided
-                            Tours') ? 'selected' : '' %>>Guided Tours</option>
+                        <option value="WiFi" <%= curntListing.features && curntListing.features.includes('WiFi') ? 'selected' : '' %>>WiFi</option>
+                        <option value="Parking" <%= curntListing.features && curntListing.features.includes('Parking') ? 'selected' : '' %>>Parking</option>
+                        <option value="Pool" <%= curntListing.features && curntListing.features.includes('Pool') ? 'selected' : '' %>>Pool</option>
+                        <option value="Air Conditioning" <%= curntListing.features && curntListing.features.includes('Air Conditioning') ? 'selected' : '' %>>Air Conditioning</option>
+                        <option value="Pet Friendly" <%= curntListing.features && curntListing.features.includes('Pet Friendly') ? 'selected' : '' %>>Pet Friendly</option>
+                        <option value="Breakfast Included" <%= curntListing.features && curntListing.features.includes('Breakfast Included') ? 'selected' : '' %>>Breakfast Included</option>
+                        <option value="Kitchen" <%= curntListing.features && curntListing.features.includes('Kitchen') ? 'selected' : '' %>>Kitchen</option>
+                        <option value="Washer" <%= curntListing.features && curntListing.features.includes('Washer') ? 'selected' : '' %>>Washer</option>
+                        <option value="TV" <%= curntListing.features && curntListing.features.includes('TV') ? 'selected' : '' %>>TV</option>
+                        <option value="Balcony" <%= curntListing.features && curntListing.features.includes('Balcony') ? 'selected' : '' %>>Balcony</option>
+                        <option value="Garden" <%= curntListing.features && curntListing.features.includes('Garden') ? 'selected' : '' %>>Garden</option>
+                        <option value="Gym" <%= curntListing.features && curntListing.features.includes('Gym') ? 'selected' : '' %>>Gym</option>
+                        <option value="Fireplace" <%= curntListing.features && curntListing.features.includes('Fireplace') ? 'selected' : '' %>>Fireplace</option>
+                        <option value="Wheelchair Accessible" <%= curntListing.features && curntListing.features.includes('Wheelchair Accessible') ? 'selected' : '' %>>Wheelchair Accessible</option>
+                        <option value="City View" <%= curntListing.features && curntListing.features.includes('City View') ? 'selected' : '' %>>City View</option>
+                        <option value="Mountain View" <%= curntListing.features && curntListing.features.includes('Mountain View') ? 'selected' : '' %>>Mountain View</option>
+                        <option value="Historic Site Nearby" <%= curntListing.features && curntListing.features.includes('Historic Site Nearby') ? 'selected' : '' %>>Historic Site Nearby</option>
+                        <option value="Shopping District" <%= curntListing.features && curntListing.features.includes('Shopping District') ? 'selected' : '' %>>Shopping District</option>
+                        <option value="Adventure Activities" <%= curntListing.features && curntListing.features.includes('Adventure Activities') ? 'selected' : '' %>>Adventure Activities</option>
+                        <option value="Cultural Hotspot" <%= curntListing.features && curntListing.features.includes('Cultural Hotspot') ? 'selected' : '' %>>Cultural Hotspot</option>
+                        <option value="Family Friendly" <%= curntListing.features && curntListing.features.includes('Family Friendly') ? 'selected' : '' %>>Family Friendly</option>
+                        <option value="Eco-Friendly" <%= curntListing.features && curntListing.features.includes('Eco-Friendly') ? 'selected' : '' %>>Eco-Friendly</option>
+                        <option value="Trip Package" <%= curntListing.features && curntListing.features.includes('Trip Package') ? 'selected' : '' %>>Trip Package</option>
+                        <option value="Guided Tours" <%= curntListing.features && curntListing.features.includes('Guided Tours') ? 'selected' : '' %>>Guided Tours</option>
                     </select>
                     <div class="form-text">Hold Ctrl (Windows) or Cmd (Mac) to select multiple features.</div>
                     <div class="invalid-feedback">Please select at least one feature/amenity.</div>

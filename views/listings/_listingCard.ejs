@@ -1,22 +1,19 @@
-<a href="/listings/<%= list._id %>" class="listing-link">
-    <div class="card col listing-card position-relative">
-        <button class="favorite-btn" title="Add to favorites"
-            onclick="event.preventDefault(); this.classList.toggle('active');">
-            <i class="fa-regular fa-heart"></i>
-        </button>
-        <img src="<%= list.image.url %>" class="card-img-top" alt="listing_image" style="height: 20rem;">
-        <div class="card-img-overlay"></div>
-        <div class="card-body">
-            <p class="card-text">
-                <b>
-                    <%= list.title %>
-                </b>
-                <br>
-                <span class="price" data-price="<%= list.price %>">
-                    &#8377; <%= list.price.toLocaleString("en-NP") %> / night
-                </span>
-                <span class="tax-amount" style="display:none; color:#198754; font-size:0.95em;"></span>
-            </p>
+<div class="listing-card">
+    <a href="/listings/<%= list._id %>" class="listing-link">
+        <div class="listing-image-container">
+            <img src="<%= list.image.url %>" class="listing-image" alt="<%= list.title %>">
         </div>
-    </div>
-</a>
+        <div class="listing-details">
+            <div class="listing-location">
+                <h3 class="listing-title"><%= list.title %></h3>
+            </div>
+            <div class="listing-price-info">
+                <span class="listing-price" data-price="<%= list.price %>">
+                    ₹<%= list.price.toLocaleString("en-IN") %>
+                </span>
+                <span class="price-period">night</span>
+            </div>
+            <span class="tax-amount" style="display:none;"></span>
+        </div>
+    </a>
+</div>

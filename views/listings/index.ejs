@@ -1,305 +1,212 @@
 <% layout('layouts/boilerplate') %>
-    <link rel="stylesheet" href="/css/listings.css">
+<link rel="stylesheet" href="/css/listings.css">
 
-    <!-- Enhanced Filter Section -->
-    <div class="container mb-4">
-        <div class="card modern-filter-card shadow-lg border-0">
-            <div class="card-header filter-header d-flex align-items-center justify-content-between"
-                data-bs-toggle="collapse" data-bs-target="#priceFilterCollapse" aria-expanded="false"
-                aria-controls="priceFilterCollapse">
-                <div class="d-flex align-items-center gap-2">
-                    <div class="filter-icon-wrapper">
-                        <i class="fa-solid fa-sliders"></i>
-                    </div>
-                    <div>
-                        <h5 class="mb-0 filter-title">Filters & Sorting</h5>
-                        <small class="filter-subtitle">Customize your search</small>
-                    </div>
-                </div>
-                <i class="fa-solid fa-chevron-down filter-chevron"></i>
+<!-- Filters Section - Fixed at top -->
+<div class="filters-wrapper">
+    <div class="container-fluid">
+        <div class="filters-bar">
+            <!-- Page Title -->
+            <div class="page-title-section">
+                <h1 class="page-title">Explore Properties</h1>
+                <p class="page-subtitle"><%= allListing.length %> properties available</p>
             </div>
-            <div class="collapse" id="priceFilterCollapse">
-                <form id="priceFilterForm" action="/listings" method="get"
-                    class="card-body filter-body row align-items-end g-4">
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <label for="minPrice" class="form-label filter-label">
-                            <i class="fa-solid fa-arrow-down text-success me-2"></i>Minimum Price
-                        </label>
-                        <div class="input-group input-with-icon">
-                            <span class="input-group-text"><i class="fa-solid fa-indian-rupee-sign"></i></span>
-                            <input type="number" class="form-control filter-input" id="minPrice" name="minPrice" min="0"
-                                placeholder="Min" value="<%= typeof minPrice !== 'undefined' ? minPrice : '' %>">
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <label for="maxPrice" class="form-label filter-label">
-                            <i class="fa-solid fa-arrow-up text-danger me-2"></i>Maximum Price
-                        </label>
-                        <div class="input-group input-with-icon">
-                            <span class="input-group-text"><i class="fa-solid fa-indian-rupee-sign"></i></span>
-                            <input type="number" class="form-control filter-input" id="maxPrice" name="maxPrice" min="0"
-                                placeholder="Max" value="<%= typeof maxPrice !== 'undefined' ? maxPrice : '' %>">
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <label for="category" class="form-label filter-label">
-                            <i class="fa-solid fa-layer-group text-info me-2"></i>Category
-                        </label>
-                        <select class="form-select filter-select" id="category" name="category">
-                            <option value="">All</option>
-                            <option value="Trending" <%=category==='Trending' ? 'selected' : '' %>>Trending
-                            </option>
-                            <option value="Rooms" <%=category==='Rooms' ? 'selected' : '' %>>Rooms</option>
-                            <option value="Iconic Cities" <%=category==='Iconic Cities' ? 'selected' : '' %>>Iconic
-                                Cities
-                            </option>
-                            <option value="Mountains" <%=category==='Mountains' ? 'selected' : '' %>>Mountains
-                            </option>
-                            <option value="Castle" <%=category==='Castle' ? 'selected' : '' %>>Castle</option>
-                            <option value="Arctics" <%=category==='Arctics' ? 'selected' : '' %>>Arctics
-                            </option>
-                            <option value="Camping" <%=category==='Camping' ? 'selected' : '' %>>Camping
-                            </option>
-                            <option value="Farms" <%=category==='Farms' ? 'selected' : '' %>>Farms</option>
-                            <option value="Hotels" <%=category==='Hotels' ? 'selected' : '' %>>Hotels</option>
-                            <option value="Beach" <%=category==='Beach' ? 'selected' : '' %>>Beach</option>
-                            <option value="Nature" <%=category==='Nature' ? 'selected' : '' %>>Nature</option>
-                            <option value="Winter" <%=category==='Winter' ? 'selected' : '' %>>Winter</option>
-                            <option value="Lake" <%=category==='Lake' ? 'selected' : '' %>>Lake</option>
-                            <option value="Apartment" <%=category==='Apartment' ? 'selected' : '' %>>Apartment
-                            </option>
-                            <option value="House" <%=category==='House' ? 'selected' : '' %>>House</option>
-                            <option value="Breakfast" <%=category==='Breakfast' ? 'selected' : '' %>>Breakfast
-                            </option>
-                        </select>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <label for="sort" class="form-label filter-label">
-                            <i class="fa-solid fa-arrow-down-short-wide text-purple me-2"></i>Sort By
-                        </label>
-                        <select class="form-select filter-select" id="sort" name="sort">
-                            <option value="">Default</option>
-                            <option value="price-asc" <%=sort==='price-asc' ? 'selected' : '' %>>Price: Low
-                                to High
-                            </option>
-                            <option value="price-desc" <%=sort==='price-desc' ? 'selected' : '' %>>Price:
-                                High to Low
-                            </option>
-                            <option value="newest" <%=sort==='newest' ? 'selected' : '' %>>Newest</option>
-                        </select>
-                    </div>
-                    <div class="col-12 mt-4">
-                        <div class="d-flex gap-2 flex-wrap">
-                            <button type="submit" class="btn btn-filter-apply flex-grow-1">
-                                <i class="fa-solid fa-check-circle me-2"></i>Apply Filters
-                            </button>
-                            <button type="button" class="btn btn-filter-reset"
-                                onclick="window.location.href='/listings'">
-                                <i class="fa-solid fa-rotate-right me-2"></i>Reset
-                            </button>
-                        </div>
-                    </div>
-                </form>
+            
+            <!-- Filter Button -->
+            <div class="filter-controls">
+                <button class="filter-btn" data-bs-toggle="modal" data-bs-target="#filterModal">
+                    <i class="fa-solid fa-sliders"></i>
+                    <span>Filters</span>
+                </button>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Decorative Welcome Section -->
-    <% if (currUser) { %>
+<!-- Filter Modal - Mac Style Full Screen -->
+<div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filterModalLabel">Filters</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/listings" method="get">
+                <div class="modal-body">
+                    <div class="filter-form-container">
+                        <!-- Left Column -->
+                        <div class="filter-column">
+                            <!-- Price Range -->
+                            <div class="filter-group">
+                                <label class="filter-label">Price Range</label>
+                                <div class="price-inputs">
+                                    <div class="price-input-group">
+                                        <label>Minimum</label>
+                                        <div class="input-wrapper">
+                                            <span class="currency">₹</span>
+                                            <input type="number" name="minPrice" placeholder="0" value="<%= typeof minPrice !== 'undefined' ? minPrice : '' %>">
+                                        </div>
+                                    </div>
+                                    <div class="price-separator">—</div>
+                                    <div class="price-input-group">
+                                        <label>Maximum</label>
+                                        <div class="input-wrapper">
+                                            <span class="currency">₹</span>
+                                            <input type="number" name="maxPrice" placeholder="10000+" value="<%= typeof maxPrice !== 'undefined' ? maxPrice : '' %>">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Sort By -->
+                            <div class="filter-group">
+                                <label class="filter-label">Sort by</label>
+                                <select name="sort" class="filter-select">
+                                    <option value="">Recommended</option>
+                                    <option value="price-asc" <%= sort === 'price-asc' ? 'selected' : '' %>>Price: Low to High</option>
+                                    <option value="price-desc" <%= sort === 'price-desc' ? 'selected' : '' %>>Price: High to Low</option>
+                                    <option value="newest" <%= sort === 'newest' ? 'selected' : '' %>>Newest First</option>
+                                </select>
+                            </div>
+
+                            <!-- Show Total Tax Toggle -->
+                            <div class="filter-group">
+                                <label class="filter-label">Display</label>
+                                <div class="tax-toggle-wrapper">
+                                    <label class="tax-toggle-label">
+                                        <input type="checkbox" id="switchCheckDefault" class="tax-checkbox">
+                                        <span class="tax-toggle-slider"></span>
+                                        <span class="tax-toggle-text">Show total price with taxes</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Right Column -->
+                        <div class="filter-column">
+                            <!-- Category Selection with Icons -->
+                            <div class="filter-group">
+                                <label class="filter-label">Property Type</label>
+                                <input type="hidden" name="category" id="categoryInput" value="<%= typeof category !== 'undefined' ? category : '' %>">
+                                <div class="category-grid">
+                                    <div class="category-option <%= category === 'Trending' ? 'selected' : '' %>" data-category="Trending">
+                                        <i class="fa-solid fa-fire"></i>
+                                        <span>Trending</span>
+                                    </div>
+                                    <div class="category-option <%= category === 'Rooms' ? 'selected' : '' %>" data-category="Rooms">
+                                        <i class="fa-solid fa-bed"></i>
+                                        <span>Rooms</span>
+                                    </div>
+                                    <div class="category-option <%= category === 'Iconic Cities' ? 'selected' : '' %>" data-category="Iconic Cities">
+                                        <i class="fa-solid fa-city"></i>
+                                        <span>Cities</span>
+                                    </div>
+                                    <div class="category-option <%= category === 'Mountains' ? 'selected' : '' %>" data-category="Mountains">
+                                        <i class="fa-solid fa-mountain-sun"></i>
+                                        <span>Mountains</span>
+                                    </div>
+                                    <div class="category-option <%= category === 'Castle' ? 'selected' : '' %>" data-category="Castle">
+                                        <i class="fa-brands fa-fort-awesome"></i>
+                                        <span>Castle</span>
+                                    </div>
+                                    <div class="category-option <%= category === 'Beach' ? 'selected' : '' %>" data-category="Beach">
+                                        <i class="fa-solid fa-umbrella-beach"></i>
+                                        <span>Beach</span>
+                                    </div>
+                                    <div class="category-option <%= category === 'Camping' ? 'selected' : '' %>" data-category="Camping">
+                                        <i class="fa-solid fa-tent"></i>
+                                        <span>Camping</span>
+                                    </div>
+                                    <div class="category-option <%= category === 'Farms' ? 'selected' : '' %>" data-category="Farms">
+                                        <i class="fa-solid fa-cow"></i>
+                                        <span>Farms</span>
+                                    </div>
+                                    <div class="category-option <%= category === 'Nature' ? 'selected' : '' %>" data-category="Nature">
+                                        <i class="fa-solid fa-tree"></i>
+                                        <span>Nature</span>
+                                    </div>
+                                    <div class="category-option <%= category === 'Lake' ? 'selected' : '' %>" data-category="Lake">
+                                        <i class="fa-solid fa-water"></i>
+                                        <span>Lake</span>
+                                    </div>
+                                    <div class="category-option <%= category === 'Winter' ? 'selected' : '' %>" data-category="Winter">
+                                        <i class="fa-solid fa-snowflake"></i>
+                                        <span>Winter</span>
+                                    </div>
+                                    <div class="category-option <%= category === 'House' ? 'selected' : '' %>" data-category="House">
+                                        <i class="fa-solid fa-house"></i>
+                                        <span>House</span>
+                                    </div>
+                                    <div class="category-option <%= category === 'Apartment' ? 'selected' : '' %>" data-category="Apartment">
+                                        <i class="fa-solid fa-building"></i>
+                                        <span>Apartment</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-clear" onclick="window.location.href='/listings'">Clear all</button>
+                    <button type="submit" class="btn-apply">Show results</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="container main-content">
+    <div class="listings-grid">
+        <% if (allListing.length === 0) { %>
+            <div class="empty-state">
+                <i class="fa-regular fa-circle-xmark"></i>
+                <h3>No listings found</h3>
+                <p>Try adjusting your search criteria or filters to see more results.</p>
+                <button class="btn-reset" onclick="window.location.href='/listings'">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    Reset Filters
+                </button>
+            </div>
+        <% } else { %>
+            <% for (let list of allListing) { %>
+                <%- include('_listingCard', { list: list }) %>
+            <% } %>
         <% } %>
-            <div id="filters" class="container-fluid">
-                <div class="row align-items-center">
-                    <div
-                        class="col-12 d-flex flex-wrap justify-content-start justify-content-md-center align-items-center">
-                        <div id="filterSliderWrapper">
-                            <button id="leftArrow" class="arrow-btn" aria-label="Previous" tabindex="0">
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </button>
-                            <div id="filterSlider">
-                                <div class="filter">
-                                    <div><i class="fa-solid fa-fire"></i></div>
-                                    <p>Trending</p>
-                                </div>
-                                <div class="filter">
-                                    <div><i class="fa-solid fa-bed"></i></div>
-                                    <p>Rooms</p>
-                                </div>
-                                <div class="filter">
-                                    <div><i class="fa-solid fa-city"></i></div>
-                                    <p>Iconic Cities</p>
-                                </div>
-                                <div class="filter">
-                                    <div><i class="fa-solid fa-mountain-sun"></i></div>
-                                    <p>Mountains</p>
-                                </div>
-                                <div class="filter">
-                                    <div><i class="fa-brands fa-fort-awesome"></i></div>
-                                    <p>Castle</p>
-                                </div>
-                                <div class="filter">
-                                    <div><i class="fa-solid fa-person-swimming"></i></div>
-                                    <p>Arctics</p>
-                                </div>
-                                <div class="filter">
-                                    <div><i class="fa-solid fa-tent"></i></div>
-                                    <p>Camping</p>
-                                </div>
-                                <div class="filter">
-                                    <div><i class="fa-solid fa-cow"></i></div>
-                                    <p>Farms</p>
-                                </div>
-                                <div class="filter">
-                                    <div><i class="fa-solid fa-hotel"></i></div>
-                                    <p>Hotels</p>
-                                </div>
-                                <div class="filter">
-                                    <div><i class="fa-solid fa-umbrella-beach"></i></div>
-                                    <p>Beach</p>
-                                </div>
-                                <div class="filter">
-                                    <div><i class="fa-solid fa-tree"></i></div>
-                                    <p>Nature</p>
-                                </div>
-                                <div class="filter">
-                                    <div><i class="fa-solid fa-snowflake"></i></div>
-                                    <p>Winter</p>
-                                </div>
-                                <div class="filter">
-                                    <div><i class="fa-solid fa-water"></i></div>
-                                    <p>Lake</p>
-                                </div>
-                                <div class="filter">
-                                    <div><i class="fa-solid fa-building"></i></div>
-                                    <p>Apartment</p>
-                                </div>
-                                <div class="filter">
-                                    <div><i class="fa-solid fa-house"></i></div>
-                                    <p>House</p>
-                                </div>
-                                <div class="filter">
-                                    <div><i class="fa-solid fa-mug-hot"></i></div>
-                                    <p>Breakfast</p>
-                                </div>
-                                <!-- Add more icons as needed -->
-                            </div>
-                            <button id="rightArrow" class="arrow-btn" aria-label="Next" tabindex="0">
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </button>
-                        </div>
-                        <div class="tax-toggle ms-auto">
-                            <div class="form-check-reverse form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
-                                <label class="form-check-label" for="switchCheckDefault">Display total after
-                                    taxes</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <!-- Main Listings Section -->
-            <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 g-4 mt-3">
-                <% if (allListing.length===0) { %>
-                    <div class="col-12 d-flex flex-column align-items-center justify-content-center w-100"
-                        style="min-height:60vh;">
-                        <div class="d-flex flex-column align-items-center justify-content-center w-100 h-100">
-                            <i
-                                class="fa-solid fa-circle-exclamation fa-3x mb-3 text-warning animate__animated animate__bounceIn"></i>
-                            <span class="fs-4 fw-semibold text-center mb-2">No listings found
-                                for your selected
-                                filters.</span>
-                            <span class="text-muted text-center mb-3">Try adjusting your search
-                                criteria or filters to
-                                see
-                                more results.</span>
-                            <button class="btn btn-outline-success px-4 py-2 mt-2"
-                                onclick="window.location.href='/listings'">
-                                <i class="fa-solid fa-rotate-left me-1"></i> Reset Filters
-                            </button>
-                        </div>
-                    </div>
-                    <% } else { %>
-                        <% for (list of allListing) { %>
-                            <div class="col">
-                                <%- include('_listingCard', { list: list }) %>
-                            </div>
-
-
-                            <% } %>
-
-                                <% } %>
-            </div>
-
-            <!-- Pagination Controls -->
-            <% if (totalPages> 1) { %>
-                <div class="container mt-5 mb-4">
-                    <nav aria-label="Listings pagination">
-                        <ul class="pagination pagination-lg justify-content-center flex-wrap">
-                            <!-- Previous Button -->
-                            <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
-                                <a class="page-link"
-                                    href="?page=<%= currentPage - 1 %><%= category ? '&category=' + category : '' %><%= minPrice ? '&minPrice=' + minPrice : '' %><%= maxPrice ? '&maxPrice=' + maxPrice : '' %><%= sort ? '&sort=' + sort : '' %>"
-                                    aria-label="Previous">
-                                    <span aria-hidden="true">&laquo; Previous</span>
-                                </a>
-                            </li>
-
-                            <!-- Page Numbers -->
-                            <% let startPage=Math.max(1, currentPage - 2); let endPage=Math.min(totalPages, currentPage
-                                + 2); if (startPage> 1) { %>
-                                <li class="page-item">
-                                    <a class="page-link"
-                                        href="?page=1<%= category ? '&category=' + category : '' %><%= minPrice ? '&minPrice=' + minPrice : '' %><%= maxPrice ? '&maxPrice=' + maxPrice : '' %><%= sort ? '&sort=' + sort : '' %>">1</a>
-                                </li>
-                                <% if (startPage> 2) { %>
-                                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                                    <% } %>
-                                        <% } %>
-
-                                            <% for (let i=startPage; i <=endPage; i++) { %>
-                                                <li class="page-item <%= i === currentPage ? 'active' : '' %>">
-                                                    <a class="page-link"
-                                                        href="?page=<%= i %><%= category ? '&category=' + category : '' %><%= minPrice ? '&minPrice=' + minPrice : '' %><%= maxPrice ? '&maxPrice=' + maxPrice : '' %><%= sort ? '&sort=' + sort : '' %>">
-                                                        <%= i %>
-                                                    </a>
-                                                </li>
-                                                <% } %>
-
-                                                    <% if (endPage < totalPages) { %>
-                                                        <% if (endPage < totalPages - 1) { %>
-                                                            <li class="page-item disabled"><span
-                                                                    class="page-link">...</span></li>
-                                                            <% } %>
-                                                                <li class="page-item">
-                                                                    <a class="page-link"
-                                                                        href="?page=<%= totalPages %><%= category ? '&category=' + category : '' %><%= minPrice ? '&minPrice=' + minPrice : '' %><%= maxPrice ? '&maxPrice=' + maxPrice : '' %><%= sort ? '&sort=' + sort : '' %>">
-                                                                        <%= totalPages %>
-                                                                    </a>
-                                                                </li>
-                                                                <% } %>
-
-                                                                    <!-- Next Button -->
-                                                                    <li
-                                                                        class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
-                                                                        <a class="page-link"
-                                                                            href="?page=<%= currentPage + 1 %><%= category ? '&category=' + category : '' %><%= minPrice ? '&minPrice=' + minPrice : '' %><%= maxPrice ? '&maxPrice=' + maxPrice : '' %><%= sort ? '&sort=' + sort : '' %>"
-                                                                            aria-label="Next">
-                                                                            <span aria-hidden="true">Next &raquo;</span>
-                                                                        </a>
-                                                                    </li>
-                        </ul>
-                        <p class="text-center text-muted mt-2">
-                            Page <%= currentPage %> of <%= totalPages %> (Total: <%= totalListings %> properties)
-                        </p>
-                    </nav>
-                </div>
+    </div>
+    
+    <!-- Pagination -->
+    <% if (totalPages > 1) { %>
+        <nav class="pagination-nav" aria-label="Listings pagination">
+            <ul class="pagination">
+                <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                    <a class="page-link" href="?page=<%= currentPage - 1 %><%= category ? '&category=' + category : '' %><%= minPrice ? '&minPrice=' + minPrice : '' %><%= maxPrice ? '&maxPrice=' + maxPrice : '' %><%= sort ? '&sort=' + sort : '' %>">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                </li>
+                
+                <% for (let i = 1; i <= totalPages; i++) { %>
+                    <% if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) { %>
+                        <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+                            <a class="page-link" href="?page=<%= i %><%= category ? '&category=' + category : '' %><%= minPrice ? '&minPrice=' + minPrice : '' %><%= maxPrice ? '&maxPrice=' + maxPrice : '' %><%= sort ? '&sort=' + sort : '' %>">
+                                <%= i %>
+                            </a>
+                        </li>
+                    <% } else if (i === currentPage - 2 || i === currentPage + 2) { %>
+                        <li class="page-item disabled">
+                            <span class="page-link">...</span>
+                        </li>
+                    <% } %>
                 <% } %>
+                
+                <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+                    <a class="page-link" href="?page=<%= currentPage + 1 %><%= category ? '&category=' + category : '' %><%= minPrice ? '&minPrice=' + minPrice : '' %><%= maxPrice ? '&maxPrice=' + maxPrice : '' %><%= sort ? '&sort=' + sort : '' %>">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    <% } %>
+</div>
 
-                    <form id="categoryFilterForm" action="/listings" method="get" style="display:none;">
-                        <input type="hidden" name="category" id="categorySelect" value="">
-                    </form>
-
-                    <script src="/js/listingPage.js"></script>
-                    <script src="/js/pagination.js"></script>
+<script src="/js/listingPage.js"></script>
+<script src="/js/pagination.js"></script>
