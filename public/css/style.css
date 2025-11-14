@@ -1049,11 +1049,13 @@ body {
 }
 
 .footer-brand-name-small {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Azonix', sans-serif;
   font-size: 1.3rem;
   font-weight: 800;
   color: #ffffff;
   white-space: nowrap;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
 /* Inline Footer Links */
@@ -1169,6 +1171,9 @@ body {
 
   .footer-brand-name-small {
     font-size: 1.1rem;
+    font-family: 'Azonix', sans-serif;
+    letter-spacing: 2px;
+    text-transform: uppercase;
   }
 
   .footer-links-inline a {

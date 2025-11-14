@@ -42,10 +42,7 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(dbUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  await mongoose.connect(dbUrl);
 }
 
 //Session Options & Cookies Management & Authentication

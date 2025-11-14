@@ -1,133 +1,132 @@
 <% layout('layouts/boilerplate') %>
   <div class="auth-page-wrapper">
-    <!-- Back to Home Button -->
-    <a href="/listings" class="auth-back-btn">
-      <i class="fas fa-arrow-left me-2"></i>
-      <span>Back to Home</span>
-    </a>
-
-    <div class="auth-bg">
-      <div class="auth-card signup-card">
-        <!-- Logo -->
-        <div class="auth-logo">
-          <img src="/images/avas.ico" alt="Avas Logo" class="logo-img">
-        </div>
-
-        <h1 class="text-center mb-2">Create Account</h1>
-        <p class="text-center auth-subtitle mb-4">Join Avas and start exploring</p>
-
-        <form action="/signup" method="post" class="needs-validation" novalidate>
-          <div class="mb-3">
-            <label for="username" class="form-label">
-              <i class="fas fa-user me-2"></i>Username
-            </label>
-            <div class="input-wrapper">
-              <input type="text" name="username" id="username" class="form-control" required minlength="3"
-                maxlength="16" pattern="[A-Za-z0-9]+" placeholder="Choose a username">
-              <i class="fas fa-check-circle input-icon valid-icon"></i>
-              <i class="fas fa-exclamation-circle input-icon invalid-icon"></i>
-            </div>
-            <div class="form-text">
-              <i class="fas fa-info-circle me-1"></i>3-16 characters, letters and numbers only
-            </div>
-            <div class="invalid-feedback">Username must be 3-16 characters, letters and numbers only.</div>
+    <div class="auth-split-container signup-layout">
+      <!-- Left Side - Form Panel (FOR SIGNUP) -->
+      <div class="auth-right-panel">
+        <div class="auth-form-container">
+          <div class="auth-form-header">
+            <h1>Sign Up for an Account</h1>
+            <p>Let's get you all set up so you can start creating your first onboarding experience</p>
           </div>
 
-          <div class="mb-3">
-            <label for="email" class="form-label">
-              <i class="fas fa-envelope me-2"></i>Email Address
-            </label>
-            <div class="input-wrapper">
-              <input type="email" name="email" id="email" class="form-control" required
-                placeholder="your.email@example.com">
-              <i class="fas fa-check-circle input-icon valid-icon"></i>
-              <i class="fas fa-exclamation-circle input-icon invalid-icon"></i>
+          <form action="/signup" method="post" class="auth-form needs-validation" novalidate>
+            <div class="form-row">
+              <div class="form-field form-field-half">
+                <label for="username">Username</label>
+                <input 
+                  type="text" 
+                  name="username" 
+                  id="username" 
+                  class="form-input" 
+                  placeholder="Your username"
+                  required 
+                  minlength="3"
+                  maxlength="16" 
+                  pattern="[A-Za-z0-9]+"
+                  autocomplete="username">
+                <div class="invalid-feedback">
+                  3-16 characters, letters and numbers only
+                </div>
+              </div>
+
+              <div class="form-field form-field-half">
+                <label for="email">Email</label>
+                <input 
+                  type="email" 
+                  name="email" 
+                  id="email" 
+                  class="form-input" 
+                  placeholder="Your email address"
+                  required
+                  autocomplete="email">
+                <div class="invalid-feedback">
+                  Please enter a valid email
+                </div>
+              </div>
             </div>
-            <div class="invalid-feedback">Please enter a valid email address.</div>
+
+            <div class="form-field">
+              <label for="password">Password</label>
+              <div class="password-field">
+                <input 
+                  type="password" 
+                  name="password" 
+                  id="password" 
+                  class="form-input" 
+                  placeholder="Enter a strong password"
+                  required
+                  minlength="6"
+                  autocomplete="new-password">
+                <button type="button" class="password-toggle" id="togglePassword">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+              <div class="invalid-feedback">
+                Password must be at least 6 characters
+              </div>
+            </div>
+
+            <button type="submit" class="btn-primary-full">
+              SIGN UP
+            </button>
+          </form>
+
+          <div class="form-divider">
+            <span>Already have an account?</span>
           </div>
 
-          <div class="mb-3">
-            <label for="password" class="form-label">
-              <i class="fas fa-lock me-2"></i>Password
-            </label>
-            <div class="input-wrapper password-wrapper">
-              <input type="password" name="password" id="password" class="form-control" required minlength="6"
-                placeholder="Create a strong password">
-              <i class="fas fa-eye-slash toggle-password" id="togglePassword"></i>
-            </div>
-            <div class="form-text">
-              <i class="fas fa-shield-alt me-1"></i>Minimum 6 characters required
-            </div>
-            <div class="invalid-feedback">Password must be at least 6 characters.</div>
-          </div>
-
-          <button class="btn auth-btn w-100 mt-3" type="submit">
-            <span>Create Account</span>
-            <i class="fas fa-arrow-right ms-2"></i>
-          </button>
-
-          <div class="auth-divider">
-            <span>OR</span>
-          </div>
-
-          <a href="/login" class="switch-link">
-            Already have an account? <strong>Log in</strong>
+          <a href="/login" class="btn-secondary-full auth-nav-link">
+            LOG IN
           </a>
-        </form>
+        </div>
+      </div>
+
+      <!-- Right Side - Blue Panel (FOR SIGNUP) -->
+      <div class="auth-left-panel">
+        <div class="auth-brand">
+          <img src="/images/avas.ico" alt="Avas" class="brand-icon">
+          <span class="brand-text">Avas</span>
+        </div>
+        
+        <div class="auth-left-content">
+          <h2>Already Signed up?</h2>
+          <p>Log in to your account so you can continue building and editing your onboarding flows.</p>
+          <a href="/login" class="btn-outline-white auth-nav-link">
+            LOG IN
+          </a>
+        </div>
       </div>
     </div>
 
+    <script src="/js/authTransition.js"></script>
     <script>
-      // Bootstrap validation
+      // Form validation
       (function () {
         'use strict';
-        var forms = document.querySelectorAll('.needs-validation');
-        Array.prototype.slice.call(forms).forEach(function (form) {
-          form.addEventListener('submit', function (event) {
-            if (!form.checkValidity()) {
-              event.preventDefault();
-              event.stopPropagation();
-            }
-            form.classList.add('was-validated');
-          }, false);
-        });
+        const form = document.querySelector('.needs-validation');
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
       })();
 
       // Toggle password visibility
-      const togglePassword = document.getElementById('togglePassword');
-      const password = document.getElementById('password');
-
-      togglePassword.addEventListener('click', function () {
-        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-        password.setAttribute('type', type);
-        this.classList.toggle('fa-eye');
-        this.classList.toggle('fa-eye-slash');
+      document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordInput = document.getElementById('password');
+        const icon = this.querySelector('i');
+        
+        if (passwordInput.type === 'password') {
+          passwordInput.type = 'text';
+          icon.classList.remove('fa-eye');
+          icon.classList.add('fa-eye-slash');
+        } else {
+          passwordInput.type = 'password';
+          icon.classList.remove('fa-eye-slash');
+          icon.classList.add('fa-eye');
+        }
       });
     </script>
   </div>
-
-  <style>
-    /* Hide navbar, footer, and container for auth pages */
-    .auth-page-wrapper~* {
-      display: none !important;
-    }
-
-    body:has(.auth-page-wrapper) {
-      margin: 0;
-      padding: 0;
-    }
-
-    body:has(.auth-page-wrapper) .navbar,
-    body:has(.auth-page-wrapper) .footer {
-      display: none !important;
-    }
-
-    .auth-page-wrapper {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 9999;
-    }
-  </style>

@@ -8,6 +8,8 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
+    "clear-db": "node clearDatabase.js",
+    "seed": "node init/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
