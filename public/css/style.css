@@ -702,12 +702,9 @@ body {
   width: 90px;
   height: 90px;
   margin: 0 auto 1.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
   animation: pulse 2s ease-in-out infinite;
   padding: 10px;
 }

@@ -1,115 +1,98 @@
 <% layout('layouts/boilerplate') %>
-  <div class="auth-page-wrapper">
-    <div class="auth-split-container">
-      <!-- Left Side - Blue Panel -->
-      <div class="auth-left-panel">
-        <div class="auth-brand">
-          <img src="/images/avas.ico" alt="Avas" class="brand-icon">
-          <span class="brand-text">Avas</span>
-        </div>
-        
-        <div class="auth-left-content">
-          <h2>Already Signed up?</h2>
-          <p>Log in to your account so you can continue building and editing your onboarding flows.</p>
-          <a href="/listings" class="btn-outline-white">
-            <i class="fas fa-home me-2"></i>
-            Back to Home
-          </a>
-        </div>
-      </div>
-
-      <!-- Right Side - Form Panel -->
-      <div class="auth-right-panel">
-        <div class="auth-form-container">
-          <div class="auth-form-header">
-            <h1>Welcome Back!</h1>
-            <p>Log in to your account to continue your journey</p>
-          </div>
-
-          <form action="/login" method="post" class="auth-form needs-validation" novalidate>
-            <div class="form-field">
-              <label for="username">Username</label>
-              <input 
-                type="text" 
-                name="username" 
-                id="username" 
-                class="form-input" 
-                placeholder="Your username"
-                required 
-                minlength="3"
-                maxlength="16" 
-                pattern="[A-Za-z0-9]+"
-                autocomplete="username">
-              <div class="invalid-feedback">
-                Username must be 3-16 characters, letters and numbers only
-              </div>
-            </div>
-
-            <div class="form-field">
-              <label for="password">Password</label>
-              <div class="password-field">
-                <input 
-                  type="password" 
-                  name="password" 
-                  id="password" 
-                  class="form-input" 
-                  placeholder="Enter a strong password"
-                  required
-                  autocomplete="current-password">
-                <button type="button" class="password-toggle" id="togglePassword">
-                  <i class="fas fa-eye"></i>
-                </button>
-              </div>
-              <div class="invalid-feedback">
-                Please enter your password
-              </div>
-            </div>
-
-            <button type="submit" class="btn-primary-full">
-              LOG IN
-            </button>
-          </form>
-
-          <div class="form-divider">
-            <span>Don't have an account?</span>
-          </div>
-
-          <a href="/signup" class="btn-secondary-full auth-nav-link">
-            SIGN UP
-          </a>
-        </div>
-      </div>
+<div class="auth-page-wrapper">
+  <a href="/listings" class="auth-back-link-outside">
+    <i class="fas fa-arrow-left"></i>
+    Back to Home
+  </a>
+  
+  <div class="auth-card">
+    <div class="auth-logo">
+      <span class="logo-text">AVAS</span>
     </div>
 
-    <script src="/js/authTransition.js"></script>
-    <script>
-      // Form validation
-      (function () {
-        'use strict';
-        const form = document.querySelector('.needs-validation');
-        form.addEventListener('submit', function (event) {
-          if (!form.checkValidity()) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-          form.classList.add('was-validated');
-        }, false);
-      })();
+    <div class="auth-header">
+      <h1>Welcome Back</h1>
+    </div>
 
-      // Toggle password visibility
-      document.getElementById('togglePassword').addEventListener('click', function () {
-        const passwordInput = document.getElementById('password');
-        const icon = this.querySelector('i');
-        
-        if (passwordInput.type === 'password') {
-          passwordInput.type = 'text';
-          icon.classList.remove('fa-eye');
-          icon.classList.add('fa-eye-slash');
-        } else {
-          passwordInput.type = 'password';
-          icon.classList.remove('fa-eye-slash');
-          icon.classList.add('fa-eye');
-        }
-      });
-    </script>
+    <div class="auth-body">
+      <form action="/login" method="post" class="needs-validation" novalidate>
+        <div class="form-field">
+          <label for="username">Username</label>
+          <input 
+            type="text" 
+            name="username" 
+            id="username" 
+            class="form-input" 
+            placeholder="Enter your username"
+            required 
+            minlength="3"
+            maxlength="16" 
+            pattern="[A-Za-z0-9]+"
+            autocomplete="username">
+          <div class="invalid-feedback">
+            Username must be 3-16 characters, letters and numbers only
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="password">Password</label>
+          <div class="password-field">
+            <input 
+              type="password" 
+              name="password" 
+              id="password" 
+              class="form-input" 
+              placeholder="Enter your password"
+              required
+              autocomplete="current-password">
+            <button type="button" class="password-toggle" id="togglePassword">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <div class="invalid-feedback">
+            Please enter your password
+          </div>
+        </div>
+
+        <button type="submit" class="btn-auth-primary">
+          Log In
+        </button>
+      </form>
+    </div>
+
+    <div class="auth-footer">
+      <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+    </div>
   </div>
+
+  <script>
+    // Form validation
+    (function () {
+      'use strict';
+      const form = document.querySelector('.needs-validation');
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    })();
+
+    // Toggle password visibility
+    document.getElementById('togglePassword').addEventListener('click', function () {
+      const passwordInput = document.getElementById('password');
+      const icon = this.querySelector('i');
+      
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        passwordInput.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    });
+  </script>
+</div>
