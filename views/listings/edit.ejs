@@ -22,23 +22,19 @@
             <div class="form-group">
                 <label class="form-label">Current Images</label>
                 <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.5rem;">
-                    <% if (Array.isArray(orgImageUrl)) { %>
-                        <% orgImageUrl.forEach(function(imgUrl) { %>
+                    <% if (orgImages && orgImages.length > 0) { %>
+                        <% orgImages.forEach(function(img) { %>>
                             <div style="width: 140px; height: 100px; border-radius: 6px; overflow: hidden; border: 1px solid #e5e7eb;">
-                                <img src="<%= imgUrl %>" alt="property_image" style="width: 100%; height: 100%; object-fit: cover;">
+                                <img src="<%= img.url %>" alt="property_image" style="width: 100%; height: 100%; object-fit: cover;">
                             </div>
                         <% }); %>
-                    <% } else if (orgImageUrl) { %>
-                        <div style="width: 140px; height: 100px; border-radius: 6px; overflow: hidden; border: 1px solid #e5e7eb;">
-                            <img src="<%= orgImageUrl %>" alt="property_image" style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
                     <% } %>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="img" class="form-label">Upload New Image</label>
-                <input type="file" name="listing[image]" id="img" class="form-control" accept="image/png, image/jpeg, image/jpg">
+                <label for="img" class="form-label">Upload New Images</label>
+                <input type="file" name="listing[images]" id="img" class="form-control" accept="image/png, image/jpeg, image/jpg" multiple>
                 <div class="form-text">Max size: 2MB. Formats: JPG, JPEG, PNG</div>
             </div>
 
@@ -50,21 +46,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="cntry" class="form-label">Country</label>
-                    <input type="text" name="listing[country]" id="cntry" value="<%= curntListing.country %>" class="form-control" required>
-                    <div class="invalid-feedback">Country is required.</div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="location" class="form-label">Location</label>
-                <input type="text" name="listing[location]" id="location" value="<%= curntListing.location %>" class="form-control" required>
-                <div class="invalid-feedback">Location is required.</div>
-            </div>
-
-            <div class="form-group">
-                <label for="category" class="form-label">Property Category</label>
-                <select name="listing[category]" id="category" class="form-control" required>
+                    <label for="category" class="form-label">Property Category</label>
+                    <select name="listing[category]" id="category" class="form-control" required>
                         <option value="">Select a category</option>
                         <option value="Trending" <%=curntListing.category==='Trending' ? 'selected' : '' %>>Trending</option>
                         <option value="Rooms" <%=curntListing.category==='Rooms' ? 'selected' : '' %>>Rooms</option>
@@ -82,121 +65,71 @@
                     </select>
                     <div class="invalid-feedback">Please select a category.</div>
                 </div>
+            </div>
 
+            <div class="form-row">
                 <div class="form-group">
-                    <label for="features" class="form-label">Features & Amenities</label>
-                    <div class="form-text" style="margin-bottom: 0.75rem;">Select amenities by clicking on the icons (scroll for more)</div>
-                    <div class="amenities-picker" id="amenitiesPicker">
-                        <div class="amenity-option <%= curntListing.features && curntListing.features.includes('WiFi') ? 'selected' : '' %>" data-value="WiFi">
-                            <i class="fa-solid fa-wifi"></i>
-                            <span>WiFi</span>
-                        </div>
-                        <div class="amenity-option <%= curntListing.features && curntListing.features.includes('Parking') ? 'selected' : '' %>" data-value="Parking">
-                            <i class="fa-solid fa-square-parking"></i>
-                            <span>Parking</span>
-                        </div>
-                        <div class="amenity-option <%= curntListing.features && curntListing.features.includes('Pool') ? 'selected' : '' %>" data-value="Pool">
-                            <i class="fa-solid fa-water-ladder"></i>
-                            <span>Pool</span>
-                        </div>
-                        <div class="amenity-option <%= curntListing.features && curntListing.features.includes('Air Conditioning') ? 'selected' : '' %>" data-value="Air Conditioning">
-                            <i class="fa-solid fa-snowflake"></i>
-                            <span>AC</span>
-                        </div>
-                        <div class="amenity-option <%= curntListing.features && curntListing.features.includes('Pet Friendly') ? 'selected' : '' %>" data-value="Pet Friendly">
-                            <i class="fa-solid fa-paw"></i>
-                            <span>Pet Friendly</span>
-                        </div>
-                        <div class="amenity-option <%= curntListing.features && curntListing.features.includes('Breakfast Included') ? 'selected' : '' %>" data-value="Breakfast Included">
-                            <i class="fa-solid fa-mug-hot"></i>
-                            <span>Breakfast</span>
-                        </div>
-                        <div class="amenity-option <%= curntListing.features && curntListing.features.includes('Kitchen') ? 'selected' : '' %>" data-value="Kitchen">
-                            <i class="fa-solid fa-kitchen-set"></i>
-                            <span>Kitchen</span>
-                        </div>
-                        <div class="amenity-option <%= curntListing.features && curntListing.features.includes('Washer') ? 'selected' : '' %>" data-value="Washer">
-                            <i class="fa-solid fa-shirt"></i>
-                            <span>Washer</span>
-                        </div>
-                        <div class="amenity-option <%= curntListing.features && curntListing.features.includes('TV') ? 'selected' : '' %>" data-value="TV">
-                            <i class="fa-solid fa-tv"></i>
-                            <span>TV</span>
-                        </div>
-                        <div class="amenity-option <%= curntListing.features && curntListing.features.includes('Balcony') ? 'selected' : '' %>" data-value="Balcony">
-                            <i class="fa-solid fa-house-flag"></i>
-                            <span>Balcony</span>
-                        </div>
-                        <div class="amenity-option <%= curntListing.features && curntListing.features.includes('Garden') ? 'selected' : '' %>" data-value="Garden">
-                            <i class="fa-solid fa-tree"></i>
-                            <span>Garden</span>
-                        </div>
-                        <div class="amenity-option <%= curntListing.features && curntListing.features.includes('Gym') ? 'selected' : '' %>" data-value="Gym">
-                            <i class="fa-solid fa-dumbbell"></i>
-                            <span>Gym</span>
-                        </div>
-                        <div class="amenity-option <%= curntListing.features && curntListing.features.includes('Fireplace') ? 'selected' : '' %>" data-value="Fireplace">
-                            <i class="fa-solid fa-fire"></i>
-                            <span>Fireplace</span>
-                        </div>
-                        <div class="amenity-option <%= curntListing.features && curntListing.features.includes('Wheelchair Accessible') ? 'selected' : '' %>" data-value="Wheelchair Accessible">
-                            <i class="fa-solid fa-wheelchair"></i>
-                            <span>Accessible</span>
-                        </div>
-                        <div class="amenity-option <%= curntListing.features && curntListing.features.includes('City View') ? 'selected' : '' %>" data-value="City View">
-                            <i class="fa-solid fa-city"></i>
-                            <span>City View</span>
-                        </div>
-                        <div class="amenity-option <%= curntListing.features && curntListing.features.includes('Mountain View') ? 'selected' : '' %>" data-value="Mountain View">
-                            <i class="fa-solid fa-mountain"></i>
-                            <span>Mountain</span>
-                        </div>
-                        <div class="amenity-option <%= curntListing.features && curntListing.features.includes('Beachfront') ? 'selected' : '' %>" data-value="Beachfront">
-                            <i class="fa-solid fa-umbrella-beach"></i>
-                            <span>Beach</span>
-                        </div>
-                        <div class="amenity-option <%= curntListing.features && curntListing.features.includes('Family Friendly') ? 'selected' : '' %>" data-value="Family Friendly">
-                            <i class="fa-solid fa-people-roof"></i>
-                            <span>Family</span>
-                        </div>
-                        <div class="amenity-option <%= curntListing.features && curntListing.features.includes('Eco-Friendly') ? 'selected' : '' %>" data-value="Eco-Friendly">
-                            <i class="fa-solid fa-leaf"></i>
-                            <span>Eco</span>
-                        </div>
-                    </div>
-                    <input type="hidden" name="listing[features]" id="features" class="amenities-hidden-input" value="<%= curntListing.features ? curntListing.features.join(',') : '' %>" required />
-                    <div class="invalid-feedback">Please select at least one amenity.</div>
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" name="listing[location]" id="location" value="<%= curntListing.location %>" class="form-control" required>
+                    <div class="invalid-feedback">Location is required.</div>
                 </div>
 
+                <div class="form-group">
+                    <label for="cntry" class="form-label">Country</label>
+                    <input type="text" name="listing[country]" id="cntry" value="<%= curntListing.country %>" class="form-control" required>
+                                        <div class="invalid-feedback">Country is required.</div>
+                </div>
+            </div>
+
+        <div class="form-actions">
+                </div>
+            </div>
+
+                <!-- Features auto-populated based on category -->
+                <input type="hidden" name="listing[features]" id="features" value="<%= curntListing.features ? curntListing.features.join(',') : '' %>" />
+
                 <script>
-                    // Amenities picker functionality for edit form
-                    const amenitiesPicker = document.getElementById('amenitiesPicker');
-                    const hiddenInput = document.getElementById('features');
-                    const selectedAmenities = new Set(<%- JSON.stringify(curntListing.features || []) %>);
+                    // Category-based features
+                    const categoryFeatures = {
+                        'Rooms': ['WiFi', 'Air Conditioning', 'TV', 'Attached Bathroom', 'Room Service', 'Daily Housekeeping'],
+                        'Iconic Cities': ['City Center Location', 'Public Transport Access', 'WiFi', 'Tourist Attractions Nearby', 'Parking Available'],
+                        'Mountains': ['Mountain View', 'Hiking Trails', 'Fresh Air', 'WiFi', 'Fireplace', 'Scenic Beauty'],
+                        'Castles': ['Historic Architecture', 'Garden', 'WiFi', 'Guided Tours', 'Museum', 'Heritage Site'],
+                        'Amazing Pools': ['Swimming Pool', 'Pool Towels', 'Poolside Bar', 'WiFi', 'Sun Loungers', 'Lifeguard'],
+                        'Camping': ['Tent Facilities', 'Bonfire Area', 'BBQ Grill', 'Parking', 'Washroom', 'Adventure Activities'],
+                        'Farms': ['Farm Experience', 'Organic Produce', 'Animal Interaction', 'Fresh Air', 'Nature Walks', 'Farm-to-Table Meals'],
+                        'Arctic': ['Snow Activities', 'Heating', 'Warm Bedding', 'WiFi', 'Northern Lights View', 'Winter Sports'],
+                        'Domes': ['Unique Architecture', 'Panoramic Views', 'WiFi', 'Climate Control', 'Stargazing', 'Modern Amenities'],
+                        'Boats': ['Water Views', 'Life Jackets', 'Fishing Equipment', 'WiFi', 'Navigation Equipment', 'Safety Gear']
+                    };
 
-                    amenitiesPicker.addEventListener('click', (e) => {
-                        const option = e.target.closest('.amenity-option');
-                        if (!option) return;
+                    const categorySelect = document.querySelector('select[name=\"listing[category]\"]');
+                    const featuresHidden = document.getElementById('features');
 
-                        const value = option.dataset.value;
-                        
-                        if (option.classList.contains('selected')) {
-                            option.classList.remove('selected');
-                            selectedAmenities.delete(value);
-                        } else {
-                            option.classList.add('selected');
-                            selectedAmenities.add(value);
-                        }
+                    if (categorySelect) {
+                        categorySelect.addEventListener('change', function() {
+                            const selectedCategory = this.value;
+                            if (categoryFeatures[selectedCategory]) {
+                                featuresHidden.value = categoryFeatures[selectedCategory].join(',');
+                            } else {
+                                featuresHidden.value = 'WiFi,Parking,Kitchen,TV';
+                            }
+                        });
+                    }
+                });
+            }
+        </script>
 
-                        // Update hidden input value
-                        hiddenInput.value = Array.from(selectedAmenities).join(',');
-                    });
-                </script>
-
-                <button type="submit" class="btn-submit">
-                    <i class="fa-solid fa-save" style="margin-right: 0.5rem;"></i>
-                    Update Listing
-                </button>
-            </form>
+        <div class="form-actions">
+            <button type="submit" class="btn-submit">
+                <i class="fa-solid fa-floppy-disk"></i>
+                Update Listing
+            </button>
+            <a href="/listings/<%= curntListing.id %>" class="btn-cancel">
+                <i class="fa-solid fa-xmark"></i>
+                Cancel
+            </a>
         </div>
-    </div>
+    </form>
+</div>
+</div>

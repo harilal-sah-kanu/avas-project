@@ -1,0 +1,921 @@
+<% layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="/css/show.css">
+
+    <div class="listing-show-container">
+        <!-- Property Header -->
+        <div class="property-header">
+            <div class="header-content">
+                <h1 class="property-title"><%= post.title %></h1>
+                <div class="property-meta">
+                    <span class="meta-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <%= post.location %>, <%= post.country %>
+                    </span>
+                    <span class="meta-divider">•</span>
+                    <span class="meta-item">
+                        <i class="fa-solid fa-tag"></i>
+                        <%= post.category %>
+                    </span>
+                    <% if (post.owner) { %>
+                        <span class="meta-divider">•</span>
+                        <span class="meta-item">
+                            <i class="fa-solid fa-user-tie"></i>
+                            Hosted by <%= post.owner.username %>
+                        </span>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Image Gallery Grid -->
+        <% const allImages = post.images && post.images.length > 0 ? post.images : (post.image ? [post.image] : [{url: '/images/placeholder.jpg'}]); %>
+        <div class="image-gallery-grid">
+                <% if (allImages.length === 1) { %>
+                    <div class="gallery-main-single" data-bs-toggle="modal" data-bs-target="#imageModal" data-index="0">
+                        <img src="<%= allImages[0].url %>" alt="<%= post.title %>">
+                    </div>
+                <% } else if (allImages.length === 2) { %>
+                    <% allImages.forEach((img, index) => { %>
+                        <div class="gallery-item-half" data-bs-toggle="modal" data-bs-target="#imageModal" data-index="<%= index %>">
+                            <img src="<%= img.url %>" alt="<%= post.title %> - Image <%= index + 1 %>">
+                        </div>
+                    <% }) %>
+                <% } else if (allImages.length === 3) { %>
+                    <div class="gallery-main" data-bs-toggle="modal" data-bs-target="#imageModal" data-index="0">
+                        <img src="<%= allImages[0].url %>" alt="<%= post.title %> - Image 1">
+                    </div>
+                    <div class="gallery-side">
+                        <% for (let i = 1; i < 3; i++) { %>
+                            <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#imageModal" data-index="<%= i %>">
+                                <img src="<%= allImages[i].url %>" alt="<%= post.title %> - Image <%= i + 1 %>">
+                            </div>
+                        <% } %>
+                    </div>
+                <% } else if (allImages.length === 4) { %>
+                    <div class="gallery-main" data-bs-toggle="modal" data-bs-target="#imageModal" data-index="0">
+                        <img src="<%= allImages[0].url %>" alt="<%= post.title %> - Image 1">
+                    </div>
+                    <div class="gallery-side">
+                        <% for (let i = 1; i < 4; i++) { %>
+                            <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#imageModal" data-index="<%= i %>">
+                                <img src="<%= allImages[i].url %>" alt="<%= post.title %> - Image <%= i + 1 %>">
+                            </div>
+                        <% } %>
+                    </div>
+                <% } else { %>
+                    <div class="gallery-main" data-bs-toggle="modal" data-bs-target="#imageModal" data-index="0">
+                        <img src="<%= allImages[0].url %>" alt="<%= post.title %> - Image 1">
+                    </div>
+                    <div class="gallery-side">
+                        <% for (let i = 1; i < 4; i++) { %>
+                            <div class="gallery-item <%= i === 3 ? 'gallery-more' : '' %>" data-bs-toggle="modal" data-bs-target="#imageModal" data-index="<%= i %>">
+                                <img src="<%= allImages[i].url %>" alt="<%= post.title %> - Image <%= i + 1 %>">
+                                <% if (i === 3 && allImages.length > 4) { %>
+                                    <div class="gallery-overlay">
+                                        <i class="fa-solid fa-images"></i>
+                                        <span>+<%= allImages.length - 4 %> more</span>
+                                    </div>
+                                <% } %>
+                            </div>
+                        <% } %>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+        
+        <!-- Property Details Grid -->
+        <div class="property-details-grid">
+            <!-- Left Column: Description & Features -->
+            <div class="details-main-column">
+                <!-- Description Card -->
+                <div class="detail-card">
+                    <h3 class="detail-card-title">
+                        <i class="fa-solid fa-align-left"></i>
+                        About this property
+                    </h3>
+                    <p class="property-description">
+                        <%= post.description %>
+                    </p>
+                </div>
+
+                <!-- What this place offers -->
+                <div class="detail-card">
+                    <h3 class="detail-card-title">
+                        <i class="fa-solid fa-star"></i>
+                        What this place offers
+                    </h3>
+                    <div class="amenities-grid">
+                        <!-- Essential Services -->
+                        <div class="amenity-item">
+                            <i class="fa-solid fa-wifi"></i>
+                            <div class="amenity-content">
+                                <span class="amenity-name">Free WiFi</span>
+                                <span class="amenity-desc">High-speed internet</span>
+                            </div>
+                        </div>
+                        <div class="amenity-item">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <div class="amenity-content">
+                                <span class="amenity-name">Security</span>
+                                <span class="amenity-desc">24/7 CCTV & Guards</span>
+                            </div>
+                        </div>
+                        <div class="amenity-item">
+                            <i class="fa-solid fa-utensils"></i>
+                            <div class="amenity-content">
+                                <span class="amenity-name">Meals Included</span>
+                                <span class="amenity-desc">Breakfast & Dinner</span>
+                            </div>
+                        </div>
+                        <div class="amenity-item">
+                            <i class="fa-solid fa-headset"></i>
+                            <div class="amenity-content">
+                                <span class="amenity-name">24/7 Support</span>
+                                <span class="amenity-desc">Always available</span>
+                            </div>
+                        </div>
+                        <div class="amenity-item">
+                            <i class="fa-solid fa-bed"></i>
+                            <div class="amenity-content">
+                                <span class="amenity-name">Clean Rooms</span>
+                                <span class="amenity-desc">Daily housekeeping</span>
+                            </div>
+                        </div>
+                        <div class="amenity-item">
+                            <i class="fa-solid fa-square-parking"></i>
+                            <div class="amenity-content">
+                                <span class="amenity-name">Free Parking</span>
+                                <span class="amenity-desc">Secure parking area</span>
+                            </div>
+                        </div>
+                        <div class="amenity-item">
+                            <i class="fa-solid fa-wind"></i>
+                            <div class="amenity-content">
+                                <span class="amenity-name">AC Rooms</span>
+                                <span class="amenity-desc">Climate controlled</span>
+                            </div>
+                        </div>
+                        <div class="amenity-item">
+                            <i class="fa-solid fa-tv"></i>
+                            <div class="amenity-content">
+                                <span class="amenity-name">Entertainment</span>
+                                <span class="amenity-desc">TV & Streaming</span>
+                            </div>
+                        </div>
+                        
+                        <!-- User's Custom Features -->
+                        <% if (post.features && post.features.length) { %>
+                            <% post.features.forEach(function(feature) { %>
+                                <div class="amenity-item">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    <div class="amenity-content">
+                                        <span class="amenity-name"><%= feature %></span>
+                                    </div>
+                                </div>
+                            <% }) %>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Booking & Price Info -->
+            <div class="details-sidebar-column">
+                <!-- Price Info Card -->
+                <div class="price-info-card">
+                    <div class="price-display">
+                        <span class="price-amount">₹<%= post.price.toLocaleString("en-IN") %></span>
+                        <span class="price-period">per night</span>
+                    </div>
+                    <div class="tax-info-display">
+                        <i class="fa-solid fa-info-circle"></i>
+                        <span>+ 18% GST</span>
+                    </div>
+                </div>
+
+                <!-- Booking Section -->
+                <% if (post.cityTags && post.cityTags.length) { %>
+                    <div class="city-tags-card">
+                        <% post.cityTags.forEach(function(tag) { %>
+                            <span class="badge-tag">
+                                <i class="fa-solid fa-city"></i>
+                                <%= tag %>
+                            </span>
+                        <% }) %>
+                    </div>
+                <% } %>
+
+                <!-- Booking Calendar Card -->
+                <div class="booking-calendar-card">
+                    <h3 class="detail-card-title">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        Select your dates
+                    </h3>
+                    <% if (typeof bookedDates !== 'undefined' && bookedDates.length > 0) { %>
+                        <div class="booking-info-alert">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <span><%= bookedDates.length %> date range(s) currently booked. Booked dates appear in red.</span>
+                        </div>
+                    <% } %>
+
+                    <!-- Date Selection & Booking - Two Column Layout -->
+                    <div class="booking-container-grid">
+                        <!-- Left Column: Calendar -->
+                        <div class="calendar-column">
+                            <div class="date-selection-section">
+                                <h4 class="date-section-title">
+                                        <i class="fa-regular fa-calendar"></i>
+                                        Select Your Dates
+                                    </h4>
+                                    <div class="availability-legend" style="display: flex; gap: 1.5rem; margin-bottom: 1rem; font-size: 0.875rem; flex-wrap: wrap;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <div style="width: 20px; height: 20px; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 4px;"></div>
+                                    <span style="color: #64748b;">Available</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <div style="width: 20px; height: 20px; background: #22c55e; border-radius: 4px;"></div>
+                                    <span style="color: #64748b;">Selected Range</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <div style="width: 20px; height: 20px; background: #9ca3af; border-radius: 4px;"></div>
+                                    <span style="color: #64748b;">Booked</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <div style="width: 20px; height: 20px; background: #f3f4f6; border-radius: 4px;"></div>
+                                    <span style="color: #64748b;">Past</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Visual Month Calendar -->
+                            <div class="month-calendar-container">
+                                <div class="month-calendar-header">
+                                    <button type="button" class="month-nav-btn" id="prevMonth">
+                                        <i class="fa-solid fa-chevron-left"></i>
+                                    </button>
+                                    <h4 id="currentMonthYear"></h4>
+                                    <button type="button" class="month-nav-btn" id="nextMonth">
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                                <div style="background: #f0f9ff; padding: 0.75rem; border-radius: 6px; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fa-solid fa-circle-info" style="color: #0284c7; font-size: 1rem;"></i>
+                                    <span style="color: #0c4a6e; font-size: 0.8125rem; font-weight: 500;">Click a white date for check-in, then click another white date for check-out. Selected range turns green.</span>
+                                </div>
+                                <div class="calendar-weekdays">
+                                    <div class="weekday-label">Sun</div>
+                                    <div class="weekday-label">Mon</div>
+                                    <div class="weekday-label">Tue</div>
+                                    <div class="weekday-label">Wed</div>
+                                    <div class="weekday-label">Thu</div>
+                                    <div class="weekday-label">Fri</div>
+                                    <div class="weekday-label">Sat</div>
+                                </div>
+                                <div class="calendar-days-grid" id="calendarDaysGrid"></div>
+                                <div id="selectedDatesDisplay" style="margin-top: 1rem; padding: 0.875rem; background: #f0fdf4; border-radius: 6px; border: 1px solid #86efac; display: none;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+                                        <div style="flex: 1;">
+                                            <div style="font-size: 0.75rem; color: #15803d; margin-bottom: 0.25rem;">Check-in</div>
+                                            <div id="displayCheckIn" style="font-weight: 600; color: #166534; font-size: 0.9375rem;">-</div>
+                                        </div>
+                                        <i class="fa-solid fa-arrow-right" style="color: #22c55e;"></i>
+                                        <div style="flex: 1;">
+                                            <div style="font-size: 0.75rem; color: #15803d; margin-bottom: 0.25rem;">Check-out</div>
+                                            <div id="displayCheckOut" style="font-weight: 600; color: #166534; font-size: 0.9375rem;">-</div>
+                                        </div>
+                                        <div style="flex: 1;">
+                                            <div style="font-size: 0.75rem; color: #15803d; margin-bottom: 0.25rem;">Nights</div>
+                                            <div id="displayNights" style="font-weight: 600; color: #166534; font-size: 0.9375rem;">-</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End of Calendar Column -->
+
+                            <!-- Right Column: Booking Summary -->
+                            <div class="booking-summary-column">
+                                <form method="POST" action="/listings/<%= post._id %>/book" id="bookingForm">
+                                <!-- Hidden inputs for form submission -->
+                                <input type="hidden" id="checkInDate" name="checkIn" required>
+                                <input type="hidden" id="checkOutDate" name="checkOut" required>
+                            <div class="booking-summary" id="bookingSummary" style="display: none;">
+                                <div class="summary-row">
+                                    <span class="summary-label">Total nights:</span>
+                                    <span class="summary-value" id="totalNights">0</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span class="summary-label">Price per night:</span>
+                                    <span class="summary-value">₹<%= post.price.toLocaleString("en-IN") %></span>
+                                </div>
+                                <div class="summary-row">
+                                    <span class="summary-label">Subtotal:</span>
+                                    <span class="summary-value" id="subtotalPrice">₹0</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span class="summary-label">Tax (18% GST):</span>
+                                    <span class="summary-value" id="taxAmount">₹0</span>
+                                </div>
+                                <div class="summary-row summary-total">
+                                    <span class="summary-label">Total price:</span>
+                                    <span class="summary-value" id="totalPrice">₹0</span>
+                                </div>
+                                <% if (currUser) { %>
+                                    <button class="btn-book" type="submit">
+                                        <i class="fa-solid fa-check"></i>
+                                        Book Now
+                                    </button>
+                                <% } else { %>
+                                    <a href="/login" class="btn-book" style="text-decoration: none;">
+                                        <i class="fa-solid fa-right-to-bracket"></i>
+                                        Login to Book
+                                    </a>
+                                <% } %>
+                            </div>
+                            </form>
+                            </div>
+                            <!-- End of Booking Summary Column -->
+                        </div>
+                        <!-- End of Booking Container Grid -->
+
+                        <!-- Edit/Delete Actions - Below Calendar -->
+                        <% if (currUser && post.owner && currUser._id.equals(post.owner._id)) { %>
+                            <div class="listing-owner-actions">
+                                <a href="/listings/<%= post.id %>/edit" class="btn-edit">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    Edit Listing
+                                </a>
+                                <form method="POST" action="/listings/<%= post.id %>?_method=DELETE" onsubmit="return confirm('Are you sure you want to delete this listing? All associated bookings will be cancelled.')">
+                                    <button type="submit" class="btn-delete">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                        Delete Listing
+                                    </button>
+                                </form>
+                            </div>
+                        <% } %>
+                    </div>
+                    <!-- End of Booking Calendar Card -->
+                </div>
+                <!-- End of Sidebar Column -->
+            </div>
+            <!-- End of Property Details Grid -->
+
+            <script>
+                            // Form submission validation
+                            const bookingForm = document.getElementById('bookingForm');
+                            if (bookingForm) {
+                                bookingForm.addEventListener('submit', function(e) {
+                                    const checkInInput = document.getElementById('checkInDate');
+                                    const checkOutInput = document.getElementById('checkOutDate');
+                                    
+                                    if (!checkInInput.value || !checkOutInput.value) {
+                                        e.preventDefault();
+                                        alert('Please select check-in and check-out dates from the calendar above.');
+                                        return false;
+                                    }
+                                });
+                            }
+
+                            const checkIn = document.getElementById('checkInDate');
+                            const checkOut = document.getElementById('checkOutDate');
+                            const summary = document.getElementById('bookingSummary');
+                            const totalNights = document.getElementById('totalNights');
+                            const subtotalPrice = document.getElementById('subtotalPrice');
+                            const taxAmount = document.getElementById('taxAmount');
+                            const totalPrice = document.getElementById('totalPrice');
+                            const pricePerNight = <%= post.price %>;
+                            const listingId = '<%= post._id %>';
+                            const TAX_RATE = 0.18; // 18% GST
+
+                            // Set minimum date to today
+                            const today = new Date().toISOString().split('T')[0];
+                            checkIn.setAttribute('min', today);
+                            checkOut.setAttribute('min', today);
+
+                            // Fetch and store booked dates
+                            fetch(`/listings/${listingId}/booked-dates`)
+                                .then(res => res.json())
+                                .then(data => {
+                                    window.bookedRanges = data.bookedRanges || [];
+                                    // Disable booked dates visually
+                                    updateDateInputStyles();
+                                })
+                                .catch(err => console.error('Error loading booked dates:', err));
+
+                            function isDateBooked(date) {
+                                if (!window.bookedRanges) return false;
+                                const checkDate = new Date(date);
+                                checkDate.setHours(0, 0, 0, 0);
+                                return window.bookedRanges.some(range => {
+                                    const start = new Date(range.checkIn);
+                                    start.setHours(0, 0, 0, 0);
+                                    const end = new Date(range.checkOut);
+                                    end.setHours(0, 0, 0, 0);
+                                    return checkDate >= start && checkDate < end;
+                                });
+                            }
+
+                            function updateDateInputStyles() {
+                                // Add custom styling based on booked dates
+                                if (window.bookedRanges && window.bookedRanges.length > 0) {
+                                    checkIn.classList.add('has-booked-dates');
+                                    checkOut.classList.add('has-booked-dates');
+                                    
+                                    // Add tooltip or helper text
+                                    const dateSection = document.querySelector('.date-selection-section');
+                                    if (!dateSection) return;
+                                    
+                                    let infoDiv = dateSection.querySelector('.availability-info');
+                                    if (!infoDiv) {
+                                        const legend = dateSection.querySelector('.availability-legend');
+                                        if (!legend) return;
+                                        
+                                        infoDiv = document.createElement('div');
+                                        infoDiv.className = 'availability-info';
+                                        infoDiv.style.cssText = 'background: #fef3c7; color: #92400e; padding: 0.75rem 1rem; border-radius: 6px; margin-bottom: 1rem; font-size: 0.875rem; display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem;';
+                                        infoDiv.innerHTML = '<i class="fa-solid fa-info-circle"></i><span><strong>' + window.bookedRanges.length + ' date range(s)</strong> are currently booked. Booked dates will appear <strong style="color: #dc2626;">red</strong> when selecting.</span>';
+                                        
+                                        try {
+                                            legend.parentNode.insertBefore(infoDiv, legend.nextSibling);
+                                        } catch (error) {
+                                            console.log('Could not insert availability info');
+                                        }
+                                    }
+                                }
+                            }
+
+                            function calculateBooking() {
+                                if (checkIn.value && checkOut.value) {
+                                    const start = new Date(checkIn.value);
+                                    const end = new Date(checkOut.value);
+                                    const nights = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+                                    
+                                    if (nights > 0) {
+                                        // Check if any date in range is booked
+                                        let hasConflict = false;
+                                        for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
+                                            if (isDateBooked(d.toISOString().split('T')[0])) {
+                                                hasConflict = true;
+                                                break;
+                                            }
+                                        }
+
+                                        if (hasConflict) {
+                                            // Visual feedback for booked dates
+                                            checkIn.style.borderColor = '#ef4444';
+                                            checkOut.style.borderColor = '#ef4444';
+                                            checkIn.style.background = '#fee2e2';
+                                            checkOut.style.background = '#fee2e2';
+                                            
+                                            // Show error message
+                                            const errorMsg = document.createElement('div');
+                                            errorMsg.style.cssText = 'background: #fee2e2; color: #991b1b; padding: 1rem; border-radius: 6px; margin-top: 1rem; font-size: 0.875rem; display: flex; align-items: center; gap: 0.5rem; border: 1px solid #fecaca;';
+                                            errorMsg.innerHTML = '<i class="fa-solid fa-circle-xmark" style="font-size: 1.25rem;"></i><div><strong>Dates Not Available</strong><br/>These dates are already booked. Please select different dates.</div>';
+                                            errorMsg.id = 'dateError';
+                                            
+                                            const existingError = document.getElementById('dateError');
+                                            if (existingError) existingError.remove();
+                                            
+                                            summary.parentNode.insertBefore(errorMsg, summary);
+                                            
+                                            setTimeout(() => {
+                                                checkIn.style.borderColor = '';
+                                                checkOut.style.borderColor = '';
+                                                checkIn.style.background = '';
+                                                checkOut.style.background = '';
+                                                if (document.getElementById('dateError')) {
+                                                    document.getElementById('dateError').remove();
+                                                }
+                                            }, 4000);
+                                            
+                                            checkOut.value = '';
+                                            summary.style.display = 'none';
+                                            return;
+                                        } else {
+                                            // Clear any error styling
+                                            checkIn.style.borderColor = '#10b981';
+                                            checkOut.style.borderColor = '#10b981';
+                                            const existingError = document.getElementById('dateError');
+                                            if (existingError) existingError.remove();
+                                        }
+
+                                        // Calculate prices with tax
+                                        const subtotal = nights * pricePerNight;
+                                        const tax = subtotal * TAX_RATE;
+                                        const total = subtotal + tax;
+
+                                        totalNights.textContent = nights;
+                                        subtotalPrice.textContent = '₹' + subtotal.toLocaleString('en-IN');
+                                        taxAmount.textContent = '₹' + Math.round(tax).toLocaleString('en-IN');
+                                        totalPrice.textContent = '₹' + Math.round(total).toLocaleString('en-IN');
+                                        summary.style.display = 'block';
+                                    } else {
+                                        summary.style.display = 'none';
+                                    }
+                                } else {
+                                    summary.style.display = 'none';
+                                }
+                            }
+
+                            checkIn.addEventListener('change', function() {
+                                checkOut.setAttribute('min', this.value);
+                                calculateBooking();
+                            });
+
+                            checkOut.addEventListener('change', calculateBooking);
+                        </script>
+                </div>
+        <!-- Reviews Section -->
+        <div class="reviews-section">
+            <h3 class="reviews-header">Reviews</h3>
+            
+            <% if (currUser) { %>
+                <div class="listing-show-card" style="margin-bottom: 2rem;">
+                    <div class="listing-show-body">
+                        <h4 style="font-size: 1.125rem; font-weight: 600; color: #18181b; margin-bottom: 1.25rem;">Leave a Review</h4>
+                        <form method="post" action="/listings/<%= post.id %>/reviews" novalidate class="needs-validation">
+                            <div class="mb-3">
+                                <label for="rating" class="calendar-label">Rating</label>
+                                <fieldset class="starability-slot">
+                                    <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+                                    <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                                    <label for="first-rate1" title="Terrible">1 star</label>
+                                    <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                                    <label for="first-rate2" title="Not good">2 stars</label>
+                                    <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                                    <label for="first-rate3" title="Average">3 stars</label>
+                                    <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                                    <label for="first-rate4" title="Very good">4 stars</label>
+                                    <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                                    <label for="first-rate5" title="Amazing">5 stars</label>
+                                </fieldset>
+                            </div>
+                            <div class="mb-3">
+                                <label for="comment" class="calendar-label">Comments</label>
+                                <textarea name="review[comment]" id="comment" cols="30" rows="4" class="form-control" required placeholder="Share your experience..." style="resize: vertical; min-height: 100px;"></textarea>
+                                <div class="invalid-feedback">Please share your thoughts about your visit.</div>
+                            </div>
+                            <button class="btn-edit" type="submit" style="width: auto; padding: 0.625rem 1.5rem;">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                Submit Review
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            <% } %>
+            
+            <h5 style="font-size: 1.125rem; font-weight: 600; color: #18181b; margin-bottom: 1.25rem;">All Reviews</h5>
+            
+            <% if (post.reviews.length === 0) { %>
+                <div style="text-align: center; padding: 3rem 1rem; color: #9ca3af;">
+                    <i class="fa-regular fa-comment" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                    <p style="font-size: 1rem; font-weight: 500;">No reviews yet. Be the first to review!</p>
+                </div>
+            <% } else { %>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem;">
+                    <% for (let review of post.reviews) { %>
+                        <div class="listing-show-card">
+                            <div class="listing-show-body">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.875rem;">
+                                    <div style="display: flex; align-items: center; gap: 0.625rem;">
+                                        <i class="fa-solid fa-user-circle" style="font-size: 2rem; color: #9ca3af;"></i>
+                                        <h6 style="margin: 0; font-size: 1rem; font-weight: 600; color: #18181b;">
+                                            <%= review.author ? review.author.username : 'Anonymous' %>
+                                        </h6>
+                                    </div>
+                                    <% if (currUser && review.author && currUser._id.equals(review.author._id)) { %>
+                                        <form action="/listings/<%= post._id %>/reviews/<%= review._id %>?_method=DELETE" method="post" style="display: inline;">
+                                            <button type="submit" class="btn-delete" style="width: auto; padding: 0.5rem; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center;" title="Delete Review">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    <% } %>
+                                </div>
+                                <p style="color: #4b5563; font-size: 0.9375rem; line-height: 1.6; margin-bottom: 0.875rem;">
+                                    <%= review.comment %>
+                                </p>
+                                <div style="display: flex; align-items: center; gap: 0.375rem;">
+                                    <% for (let i = 1; i <= 5; i++) { %>
+                                        <i class="fa-<%= i <= review.rating ? 'solid' : 'regular' %> fa-star" style="color: #fbbf24; font-size: 0.875rem;"></i>
+                                    <% } %>
+                                    <span style="margin-left: 0.375rem; padding: 0.25rem 0.5rem; background: #f3f4f6; color: #374151; border-radius: 4px; font-size: 0.8125rem; font-weight: 600;">
+                                        <%= review.rating %>/5
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+            <% } %>
+        </div>
+    </div>
+    <!-- Similar Properties Section -->
+    <div class="container my-5">
+        <h4 class="mb-4 text-center">Similar Properties</h4>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+            <% if (typeof similarListings !=='undefined' && similarListings.length> 0) { %>
+                <% similarListings.forEach(function(list) { %>
+                    <div class="col">
+                        <a href="/listings/<%= list._id %>" class="listing-link">
+                            <div class="card h-100 shadow-sm listing-card">
+                                <img src="<%= list.image.url %>" class="card-img-top" alt="listing_image"
+                                    style="height: 160px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h6 class="card-title mb-2">
+                                        <%= list.title %>
+                                    </h6>
+                                    <span class="badge bg-secondary mb-2"><i class="fa-solid fa-tag"></i>
+                                        <%= list.category %>
+                                    </span>
+                                    <p class="card-text mb-1">&#8377;
+                                        <%= list.price.toLocaleString('en-NP') %>
+                                            / night
+                                    </p>
+                                    <p class="card-text text-muted mb-0" style="font-size:0.95em;">
+                                        <%= list.location %>
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <% }) %>
+                        <% } else { %>
+                            <div class="col-12 text-center text-muted">No similar properties found.
+                            </div>
+
+
+                            <% } %>
+        </div>
+    </div>
+
+    <!-- Image Lightbox Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <button type="button" class="btn-close modal-close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-body">
+                    <div id="imageModalCarousel" class="carousel slide" data-bs-ride="false">
+                        <div class="carousel-inner">
+                            <% allImages.forEach((img, index) => { %>
+                                <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                                    <img src="<%= img.url %>" class="d-block w-100" alt="<%= post.title %> - Image <%= index + 1 %>">
+                                </div>
+                            <% }) %>
+                        </div>
+                        <% if (allImages.length > 1) { %>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#imageModalCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#imageModalCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/calendarCart.js"></script>
+    <script>
+        // Month Calendar Variables
+        let currentDate = new Date();
+        let selectedCheckIn = null;
+        let selectedCheckOut = null;
+
+        // Initialize Calendar
+        function initCalendar() {
+            renderCalendar();
+            
+            document.getElementById('prevMonth').addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                renderCalendar();
+            });
+            
+            document.getElementById('nextMonth').addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                renderCalendar();
+            });
+        }
+
+        // Render Calendar
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            // Update header
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
+                              'July', 'August', 'September', 'October', 'November', 'December'];
+            document.getElementById('currentMonthYear').textContent = `${monthNames[month]} ${year}`;
+            
+            // Get first day of month and number of days
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            
+            // Clear grid
+            const grid = document.getElementById('calendarDaysGrid');
+            grid.innerHTML = '';
+            
+            // Get today
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const todayTime = today.getTime();
+            
+            // Add empty cells for days before month starts
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.className = 'calendar-day empty';
+                grid.appendChild(emptyDay);
+            }
+            
+            // Add ALL days in the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day';
+                dayEl.textContent = day;
+                
+                const dayDate = new Date(year, month, day);
+                dayDate.setHours(0, 0, 0, 0);
+                const dayTime = dayDate.getTime();
+                
+                // Check if past
+                if (dayTime < todayTime) {
+                    dayEl.classList.add('past');
+                } else {
+                    // Check if booked - disabled and not clickable
+                    let isBooked = false;
+                    if (typeof bookedDates !== 'undefined' && bookedDates.length > 0) {
+                        isBooked = bookedDates.some(range => {
+                            const start = new Date(range.start);
+                            const end = new Date(range.end);
+                            start.setHours(0, 0, 0, 0);
+                            end.setHours(0, 0, 0, 0);
+                            const startTime = start.getTime();
+                            const endTime = end.getTime();
+                            return dayTime >= startTime && dayTime <= endTime;
+                        });
+                    }
+                    
+                    if (isBooked) {
+                        dayEl.classList.add('booked');
+                    } else {
+                        dayEl.classList.add('available');
+                        // Add click handler for available dates only
+                        dayEl.addEventListener('click', () => selectDate(dayDate, dayEl));
+                    }
+                }
+                
+                // Highlight today
+                if (dayTime === todayTime) {
+                    dayEl.classList.add('today');
+                }
+                
+                // Highlight selected dates
+                if (selectedCheckIn && dayTime === selectedCheckIn.getTime()) {
+                    dayEl.classList.add('selected');
+                }
+                if (selectedCheckOut && dayTime === selectedCheckOut.getTime()) {
+                    dayEl.classList.add('selected');
+                }
+                
+                // Show range preview in yellow
+                if (selectedCheckIn && selectedCheckOut) {
+                    const checkInTime = selectedCheckIn.getTime();
+                    const checkOutTime = selectedCheckOut.getTime();
+                    if (dayTime > checkInTime && dayTime < checkOutTime) {
+                        dayEl.classList.add('in-range');
+                    }
+                }
+                
+                grid.appendChild(dayEl);
+            }
+        }
+
+        // Select date from calendar
+        function selectDate(date, element) {
+            const checkInInput = document.getElementById('checkInDate');
+            const checkOutInput = document.getElementById('checkOutDate');
+            const displayDiv = document.getElementById('selectedDatesDisplay');
+            
+            // Format date as YYYY-MM-DD
+            const formattedDate = date.toISOString().split('T')[0];
+            
+            // If no check-in selected, or both are selected (start new selection)
+            if (!selectedCheckIn || (selectedCheckIn && selectedCheckOut)) {
+                // Clear previous selection
+                selectedCheckIn = date;
+                selectedCheckOut = null;
+                checkInInput.value = formattedDate;
+                checkOutInput.value = '';
+                updateSelectedDisplay();
+            } else if (selectedCheckIn && !selectedCheckOut) {
+                // Select check-out
+                if (date > selectedCheckIn) {
+                    // Check if there's any booked date in between
+                    let hasBookedInRange = false;
+                    if (typeof bookedDates !== 'undefined' && bookedDates.length > 0) {
+                        const checkInTime = selectedCheckIn.getTime();
+                        const selectedTime = date.getTime();
+                        
+                        hasBookedInRange = bookedDates.some(range => {
+                            const start = new Date(range.start);
+                            const end = new Date(range.end);
+                            start.setHours(0, 0, 0, 0);
+                            end.setHours(0, 0, 0, 0);
+                            const startTime = start.getTime();
+                            const endTime = end.getTime();
+                            
+                            // Check if booked range overlaps with selection
+                            return (startTime > checkInTime && startTime < selectedTime) ||
+                                   (endTime > checkInTime && endTime < selectedTime) ||
+                                   (startTime <= checkInTime && endTime >= selectedTime);
+                        });
+                    }
+                    
+                    if (hasBookedInRange) {
+                        alert('Cannot select this range. There are booked dates in between.');
+                        return;
+                    }
+                    
+                    selectedCheckOut = date;
+                    checkOutInput.value = formattedDate;
+                    updateSelectedDisplay();
+                } else if (date < selectedCheckIn) {
+                    // If earlier date, make it check-in and clear check-out
+                    selectedCheckOut = null;
+                    selectedCheckIn = date;
+                    checkInInput.value = formattedDate;
+                    checkOutInput.value = '';
+                    updateSelectedDisplay();
+                } else {
+                    // Same date clicked, clear it
+                    selectedCheckIn = null;
+                    selectedCheckOut = null;
+                    checkInInput.value = '';
+                    checkOutInput.value = '';
+                    displayDiv.style.display = 'none';
+                }
+            }
+            
+            renderCalendar();
+            updateDateInputStyles();
+            calculateBooking();
+        }
+
+        // Update selected dates display
+        function updateSelectedDisplay() {
+            const displayDiv = document.getElementById('selectedDatesDisplay');
+            const checkInDisplay = document.getElementById('displayCheckIn');
+            const checkOutDisplay = document.getElementById('displayCheckOut');
+            const nightsDisplay = document.getElementById('displayNights');
+            
+            if (selectedCheckIn) {
+                displayDiv.style.display = 'block';
+                const options = { month: 'short', day: 'numeric', year: 'numeric' };
+                checkInDisplay.textContent = selectedCheckIn.toLocaleDateString('en-US', options);
+                
+                if (selectedCheckOut) {
+                    checkOutDisplay.textContent = selectedCheckOut.toLocaleDateString('en-US', options);
+                    const nights = Math.ceil((selectedCheckOut - selectedCheckIn) / (1000 * 60 * 60 * 24));
+                    nightsDisplay.textContent = nights + (nights === 1 ? ' night' : ' nights');
+                } else {
+                    checkOutDisplay.textContent = '-';
+                    nightsDisplay.textContent = '-';
+                }
+            } else {
+                displayDiv.style.display = 'none';
+            }
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', initCalendar);
+
+        // Image gallery click handler
+        document.querySelectorAll('.gallery-main, .gallery-main-single, .gallery-item, .gallery-item-half').forEach(el => {
+            el.addEventListener('click', function() {
+                const index = parseInt(this.dataset.index);
+                const modalCarousel = new bootstrap.Carousel(document.getElementById('imageModalCarousel'));
+                modalCarousel.to(index);
+            });
+        });
+
+        // Favorite logic using localStorage
+        function toggleFavorite(listingId) {
+            let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+            if (favs.includes(listingId)) {
+                favs = favs.filter(id => id !== listingId);
+            } else {
+                favs.push(listingId);
+            }
+            localStorage.setItem('favorites', JSON.stringify(favs));
+            document.querySelector('.favorite-btn').classList.toggle('active');
+        }
+        // Show tax price
+        const listingPrice = Number("<%= post.price %>");
+        const listingTaxRate = 0.13;
+        const taxEl = document.querySelector('.tax-amount');
+        if (taxEl) {
+            const total = listingPrice + listingPrice * listingTaxRate;
+            taxEl.innerHTML =
+                `Total after tax: <b>&#8377; ${total.toLocaleString('en-NP', { maximumFractionDigits: 2 })}</b> / night`;
+        }
+    </script>

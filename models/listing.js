@@ -11,10 +11,12 @@ const listingSchema = new Schema({
 
   description: String,
 
-  image: {
-    url: String,
-    filename: String,
-  },
+  images: [
+    {
+      url: String,
+      filename: String,
+    },
+  ],
 
   price: Number,
   location: String,
@@ -62,7 +64,12 @@ const listingSchema = new Schema({
 
 listingSchema.post("findOneAndDelete", async (listing) => {
   if (listing) {
+    // Delete all reviews associated with this listing
     await Review.deleteMany({ _id: { $in: listing.reviews } });
+    
+    // Delete all bookings associated with this listing
+    const Booking = require('./booking');
+    await Booking.deleteMany({ listing: listing._id });
   }
 });
 

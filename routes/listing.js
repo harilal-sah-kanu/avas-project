@@ -33,7 +33,7 @@ router
   .get(wrapAsync(index))
   .post(
     isLoggedIn,
-    upload.single("listing[image]"),
+    upload.array("listing[images]", 5),
     validateListing,
     wrapAsync(postListing)
   );
@@ -47,7 +47,7 @@ router
   .put(
     isLoggedIn,
     isOwner,
-    upload.single("listing[image]"),
+    upload.array("listing[images]", 5),
     validateListing,
     wrapAsync(updateListing)
   )

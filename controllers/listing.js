@@ -70,17 +70,29 @@ const showListing = async (req, res) => {
 };
 
 const postListing = async (req, res, next) => {
-  let url = req.file.path;
-  let filename = req.file.filename;
+  // Handle features - convert comma-separated string to array
+  let features = req.body.listing.features || '';
+  if (typeof features === 'string') {
+    features = features.split(',').map(f => f.trim()).filter(f => f.length > 0);
+  } else if (!Array.isArray(features)) {
+    features = [features];
+  }
 
-  let features = req.body.listing.features || [];
-  if (!Array.isArray(features)) features = [features];
+  const images = req.files && req.files.length > 0 ? req.files.map((file) => ({
+    url: file.path,
+    filename: file.filename,
+  })) : [];
+
+  if (images.length === 0) {
+    req.flash("error", "Please upload at least one image");
+    return res.redirect("/listings/new");
+  }
 
   const newListing = new Listing({
     ...req.body.listing,
     features,
     owner: req.user._id,
-    image: { url, filename },
+    images: images,
   });
   await newListing.save();
   req.flash("success", "New Listing Created");
@@ -95,17 +107,24 @@ const editListing = async (req, res) => {
     return res.redirect("/listings");
   }
 
-  let orgImageUrl = curntListing.image.url;
-  orgImageUrl = orgImageUrl.replace("/upload", "/upload/w_250");
+  const orgImages = curntListing.images.map((img) => {
+    let url = img.url.replace("/upload", "/upload/w_250");
+    return { ...img, url };
+  });
 
-  res.render("listings/edit.ejs", { curntListing, orgImageUrl });
+  res.render("listings/edit.ejs", { curntListing, orgImages });
 };
 
 const updateListing = async (req, res) => {
   const { id } = req.params;
 
-  let features = req.body.listing.features || [];
-  if (!Array.isArray(features)) features = [features];
+  // Handle features - convert comma-separated string to array
+  let features = req.body.listing.features || '';
+  if (typeof features === 'string') {
+    features = features.split(',').map(f => f.trim()).filter(f => f.length > 0);
+  } else if (!Array.isArray(features)) {
+    features = [features];
+  }
 
   const updatedData = {
     ...req.body.listing,
@@ -116,10 +135,12 @@ const updateListing = async (req, res) => {
     new: true,
   });
 
-  if (req.file) {
-    let url = req.file.path;
-    let filename = req.file.filename;
-    listing.image = { url, filename };
+  if (req.files && req.files.length > 0) {
+    const newImages = req.files.map((file) => ({
+      url: file.path,
+      filename: file.filename,
+    }));
+    listing.images.push(...newImages);
     await listing.save();
   }
 
@@ -129,8 +150,18 @@ const updateListing = async (req, res) => {
 
 const deleteListing = async (req, res) => {
   const { id } = req.params;
-  const deletedListing = await Listing.findByIdAndDelete(id);
-  req.flash("success", "Listing Deleted Sucessfully!");
+  
+  // Check if listing exists and user is owner
+  const listing = await Listing.findById(id);
+  if (!listing) {
+    req.flash("error", "Listing not found!");
+    return res.redirect("/listings");
+  }
+  
+  // Delete the listing (cascade delete will handle reviews and bookings)
+  await Listing.findByIdAndDelete(id);
+  
+  req.flash("success", "Listing and all associated bookings deleted successfully!");
   res.redirect("/listings");
 };
 

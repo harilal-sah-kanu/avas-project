@@ -1,0 +1,108 @@
+<% layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="/css/bookings.css">
+
+<div class="bookings-page">
+    <div class="page-width">
+        <h1 class="page-title">
+            <i class="fa-solid fa-calendar-check"></i>
+            My Bookings
+        </h1>
+
+        <% if (bookings.length === 0) { %>
+            <div class="empty-state">
+                <div class="empty-icon">
+                    <i class="fa-regular fa-calendar-xmark"></i>
+                </div>
+                <h3 class="empty-title">No Bookings Yet</h3>
+                <p class="empty-text">Start exploring amazing properties and make your first booking!</p>
+                <a href="/listings" class="btn-browse">
+                    <i class="fa-solid fa-search"></i>
+                    Browse Listings
+                </a>
+            </div>
+        <% } else { %>
+            <div class="bookings-grid">
+                <% bookings.forEach(booking => { %>
+                    <div class="booking-card">
+                        <div class="booking-image">
+                            <a href="/listings/<%= booking.listing._id %>">
+                                <% const imageUrl = (booking.listing.images && booking.listing.images.length > 0) ? booking.listing.images[0].url : (booking.listing.image ? booking.listing.image.url : '/images/placeholder.jpg'); %>
+                                <img src="<%= imageUrl %>" alt="<%= booking.listing.title %>">
+                            </a>
+                            <% if (booking.status === 'confirmed') { %>
+                                <div class="verified-badge" title="Confirmed Booking">
+                                    <i class="fa-solid fa-certificate"></i>
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                            <% } %>
+                        </div>
+                        
+                        <div class="booking-content">
+                            <a href="/listings/<%= booking.listing._id %>" class="booking-title">
+                                <%= booking.listing.title %>
+                            </a>
+                            
+                            <p class="booking-location">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <%= booking.listing.location %>, <%= booking.listing.country %>
+                            </p>
+
+                            <div class="booking-dates">
+                                <div class="date-item">
+                                    <span class="date-label">Check-in</span>
+                                    <span class="date-value"><%= new Date(booking.checkIn).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) %></span>
+                                </div>
+                                <div class="date-separator">→</div>
+                                <div class="date-item">
+                                    <span class="date-label">Check-out</span>
+                                    <span class="date-value"><%= new Date(booking.checkOut).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) %></span>
+                                </div>
+                                <div class="date-item">
+                                    <span class="date-label">Nights</span>
+                                    <span class="date-value"><%= booking.totalNights %></span>
+                                </div>
+                            </div>
+
+                            <div class="booking-footer">
+                                <div class="booking-price">
+                                    <div class="price-breakdown">
+                                        <span class="price-label">Subtotal</span>
+                                        <span class="price-amount">₹<%= booking.totalPrice.toLocaleString('en-IN') %></span>
+                                    </div>
+                                    <% if (booking.taxAmount) { %>
+                                        <div class="price-breakdown tax">
+                                            <span class="price-label">Tax (18%)</span>
+                                            <span class="price-amount">₹<%= Math.round(booking.taxAmount).toLocaleString('en-IN') %></span>
+                                        </div>
+                                    <% } %>
+                                    <div class="price-total">
+                                        <span>Total</span>
+                                        <span>₹<%= (booking.totalWithTax || booking.totalPrice).toLocaleString('en-IN') %></span>
+                                    </div>
+                                </div>
+
+                                <% if (booking.status === 'confirmed' || booking.status === 'pending') { %>
+                                    <% const today = new Date(); today.setHours(0,0,0,0); %>
+                                    <% const checkInDate = new Date(booking.checkIn); checkInDate.setHours(0,0,0,0); %>
+                                    <% if (checkInDate >= today) { %>
+                                        <form method="POST" action="/bookings/<%= booking._id %>?_method=DELETE" class="cancel-form">
+                                            <button type="submit" class="btn-cancel" onclick="return confirm('Cancel this booking?')">
+                                                <i class="fa-solid fa-xmark"></i>
+                                                Cancel Booking
+                                            </button>
+                                        </form>
+                                    <% } %>
+                                <% } %>
+                            </div>
+
+                            <p class="booking-timestamp">
+                                <i class="fa-regular fa-clock"></i>
+                                Booked on <%= new Date(booking.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) %>
+                            </p>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } %>
+    </div>
+</div>

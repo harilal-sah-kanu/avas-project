@@ -4,7 +4,8 @@
             <% if (list.category) { %>
                 <span class="listing-category-badge"><%= list.category %></span>
             <% } %>
-            <img src="<%= list.image.url %>" class="listing-image" alt="<%= list.title %>">
+            <% const imageUrl = (list.images && list.images.length > 0) ? list.images[0].url : (list.image ? list.image.url : '/images/placeholder.jpg'); %>
+            <img src="<%= imageUrl %>" class="listing-image" alt="<%= list.title %>">
         </div>
         <div class="listing-details">
             <div class="listing-header">
