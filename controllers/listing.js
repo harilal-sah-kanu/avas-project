@@ -20,7 +20,7 @@ const index = async (req, res) => {
   const totalListings = await Listing.countDocuments(filter);
   const totalPages = Math.ceil(totalListings / limit);
 
-  let query = Listing.find(filter).skip(skip).limit(limit);
+  let query = Listing.find(filter).skip(skip).limit(limit).populate('reviews');
   if (sort === "price-asc") {
     query = query.sort({ price: 1 });
   } else if (sort === "price-desc") {

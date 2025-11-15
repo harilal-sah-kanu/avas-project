@@ -1,124 +1,195 @@
 <% layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="/css/forms.css">
 
-  <div class="row mt-3">
-    <div class="col-8 offset-2">
+<div class="form-page-container">
+  <h1 class="form-page-title">Add Your Property</h1>
+  
+  <div class="form-card">
+    <form method="post" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="title" class="form-label">Property Title</label>
+        <input type="text" name="listing[title]" id="title" class="form-control"
+          placeholder="e.g., Cozy Mountain Retreat" required />
+        <div class="valid-feedback">Great title!</div>
+        <div class="invalid-feedback">Please provide a title for your property.</div>
+      </div>
 
-      <body>
-        <h1>Add Your Property to the Marketplace</h1>
-        <br />
-        <form method="post" , action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
-          <div class="mb-3">
-            <label for="title" class="form-label">Title: </label><br />
-            <input type="text" name="listing[title]" id="title" class="form-control"
-              placeholder="Add an attractive title (e.g., Cozy Mountain Retreat)" required />
-            <div class="valid-feedback">Great pick, Looks great!</div>
-            <div class="invalid-feedback">Title is a must!</div>
+      <div class="form-group">
+        <label for="desc" class="form-label">Description</label>
+        <textarea name="listing[description]" id="desc" class="form-control"
+          placeholder="Describe the property, amenities, and nearby attractions" required></textarea>
+        <div class="invalid-feedback">Please provide a detailed description.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="image" class="form-label">Property Image</label>
+        <input type="file" name="listing[image]" id="image" class="form-control" required
+          accept="image/png, image/jpeg, image/jpg" />
+        <div class="form-text">Max size: 2MB. Formats: JPG, JPEG, PNG</div>
+        <div class="invalid-feedback">Please upload an image of your property.</div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="price" class="form-label">Price per Night</label>
+          <input type="number" name="listing[price]" placeholder="5000" id="price" class="form-control" required />
+          <div class="invalid-feedback">Price is required.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="cntry" class="form-label">Country</label>
+          <input type="text" name="listing[country]" id="cntry" class="form-control"
+            placeholder="e.g., India" required />
+          <div class="invalid-feedback">Please enter a country.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="location" class="form-label">Location</label>
+        <input type="text" name="listing[location]" id="location" class="form-control"
+          placeholder="e.g., Goa Beach" required />
+        <div class="invalid-feedback">Location is required.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="category" class="form-label">Property Category</label>
+        <select name="listing[category]" id="category" class="form-control" required>
+          <option value="">Select a category</option>
+          <option value="Trending">Trending</option>
+          <option value="Rooms">Rooms</option>
+          <option value="Iconic Cities">Iconic Cities</option>
+          <option value="Mountains">Mountains</option>
+          <option value="Castle">Castle</option>
+          <option value="Beach">Beach</option>
+          <option value="Camping">Camping</option>
+          <option value="Farms">Farms</option>
+          <option value="Nature">Nature</option>
+          <option value="Lake">Lake</option>
+          <option value="Winter">Winter</option>
+          <option value="House">House</option>
+          <option value="Apartment">Apartment</option>
+        </select>
+        <div class="invalid-feedback">Please select a category.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="features" class="form-label">Features & Amenities</label>
+        <div class="form-text" style="margin-bottom: 0.75rem;">Select amenities by clicking on the icons (scroll for more)</div>
+        <div class="amenities-picker" id="amenitiesPicker">
+          <div class="amenity-option" data-value="WiFi">
+            <i class="fa-solid fa-wifi"></i>
+            <span>WiFi</span>
           </div>
-
-          <div class="mb-3">
-            <label for="desc" class="form-label">Enter Description: </label><br />
-            <textarea name="listing[description]" id="desc" class="form-control"
-              placeholder="Describe the property, amenities, and nearby attractions" required></textarea>
-            <div class="invalid-feedback">Please provide a detailed description to attract more interest.</div>
+          <div class="amenity-option" data-value="Parking">
+            <i class="fa-solid fa-square-parking"></i>
+            <span>Parking</span>
           </div>
-
-          <div class="mb-3">
-            <label for="image" class="form-label">Upload Image: </label><br />
-            <input type="file" name="listing[image]" id="image" class="form-control" required
-              accept="image/png, image/jpeg, image/jpg" />
-            <div class="form-text text-muted">Max size: 2MB. Only JPG, JPEG, PNG allowed.</div>
-            <div class="valid-feedback">Image selected successfully!</div>
-            <div class="invalid-feedback">Please upload an image of your property.</div>
+          <div class="amenity-option" data-value="Pool">
+            <i class="fa-solid fa-water-ladder"></i>
+            <span>Pool</span>
           </div>
-
-          <div class="row">
-            <div class="mb-3 col-md-5">
-              <label for="price" class="form-label">Price: </label><br />
-              <input name="listing[price]" placeholder="&#8377; 5000 / night" id="price" class="form-control"
-                required />
-              <div class="valid-feedback">Looks perfect!</div>
-              <div class="invalid-feedback">Price is required!</div>
-            </div>
-
-            <div class="mb-3 col-md-7">
-              <label for="cntry" class="form-label">Country: </label> <br />
-              <input type="text" name="listing[country]" id="cntry" class="form-control"
-                placeholder="Enter the country (e.g., Nepal)" required />
-              <div class="valid-feedback">Spot on!</div>
-              <div class="invalid-feedback">Add a country!</div>
-            </div>
+          <div class="amenity-option" data-value="Air Conditioning">
+            <i class="fa-solid fa-snowflake"></i>
+            <span>AC</span>
           </div>
-
-          <div class="mb-3">
-            <label for="location" class="form-label">Enter Location: </label><br />
-            <input type="text" name="listing[location]" id="location" class="form-control"
-              placeholder="Enter the city or area (e.g., Pokhara Lakeside)" required />
-            <div class="valid-feedback">Perfect location!</div>
-            <div class="invalid-feedback">Location is required!</div>
+          <div class="amenity-option" data-value="Pet Friendly">
+            <i class="fa-solid fa-paw"></i>
+            <span>Pet Friendly</span>
           </div>
-
-          <div class="mb-3">
-            <label for="category" class="form-label">Property Category:</label>
-            <select name="listing[category]" id="category" class="form-select" required>
-              <option value="">Select a category</option>
-              <option value="Trending">Trending</option>
-              <option value="Rooms">Rooms</option>
-              <option value="Iconic Cities">Iconic Cities</option>
-              <option value="Mountains">Mountains</option>
-              <option value="Castle">Castle</option>
-              <option value="Arctics">Arctics</option>
-              <option value="Camping">Camping</option>
-              <option value="Farms">Farms</option>
-              <option value="Hotels">Hotels</option>
-              <option value="Beach">Beach</option>
-              <option value="Nature">Nature</option>
-              <option value="Winter">Winter</option>
-              <option value="Lake">Lake</option>
-              <option value="Apartment">Apartment</option>
-              <option value="House">House</option>
-              <option value="Breakfast">Breakfast</option>
-            </select>
-            <div class="invalid-feedback">Please select a property category.</div>
+          <div class="amenity-option" data-value="Breakfast Included">
+            <i class="fa-solid fa-mug-hot"></i>
+            <span>Breakfast</span>
           </div>
-
-          <div class="mb-3">
-            <label for="features" class="form-label">Property Features / Amenities:</label>
-            <select name="listing[features]" id="features" class="form-select" multiple required>
-              <option value="WiFi">WiFi</option>
-              <option value="Parking">Parking</option>
-              <option value="Pool">Pool</option>
-              <option value="Air Conditioning">Air Conditioning</option>
-              <option value="Pet Friendly">Pet Friendly</option>
-              <option value="Breakfast Included">Breakfast Included</option>
-              <option value="Kitchen">Kitchen</option>
-              <option value="Washer">Washer</option>
-              <option value="TV">TV</option>
-              <option value="Balcony">Balcony</option>
-              <option value="Garden">Garden</option>
-              <option value="Gym">Gym</option>
-              <option value="Fireplace">Fireplace</option>
-              <option value="Wheelchair Accessible">Wheelchair Accessible</option>
-              <option value="City View">City View</option>
-              <option value="Mountain View">Mountain View</option>
-              <option value="Beachfront">Beachfront</option>
-              <option value="Historic Site Nearby">Historic Site Nearby</option>
-              <option value="Nightlife">Nightlife</option>
-              <option value="Shopping District">Shopping District</option>
-              <option value="Adventure Activities">Adventure Activities</option>
-              <option value="Cultural Hotspot">Cultural Hotspot</option>
-              <option value="Family Friendly">Family Friendly</option>
-              <option value="Romantic Getaway">Romantic Getaway</option>
-              <option value="Eco-Friendly">Eco-Friendly</option>
-              <option value="Trip Package">Trip Package</option>
-              <option value="Guided Tours">Guided Tours</option>
-            </select>
-            <div class="form-text">Hold Ctrl (Windows) or Cmd (Mac) to select multiple features.</div>
-            <div class="invalid-feedback">Please select at least one feature/amenity.</div>
+          <div class="amenity-option" data-value="Kitchen">
+            <i class="fa-solid fa-kitchen-set"></i>
+            <span>Kitchen</span>
           </div>
+          <div class="amenity-option" data-value="Washer">
+            <i class="fa-solid fa-shirt"></i>
+            <span>Washer</span>
+          </div>
+          <div class="amenity-option" data-value="TV">
+            <i class="fa-solid fa-tv"></i>
+            <span>TV</span>
+          </div>
+          <div class="amenity-option" data-value="Balcony">
+            <i class="fa-solid fa-house-flag"></i>
+            <span>Balcony</span>
+          </div>
+          <div class="amenity-option" data-value="Garden">
+            <i class="fa-solid fa-tree"></i>
+            <span>Garden</span>
+          </div>
+          <div class="amenity-option" data-value="Gym">
+            <i class="fa-solid fa-dumbbell"></i>
+            <span>Gym</span>
+          </div>
+          <div class="amenity-option" data-value="Fireplace">
+            <i class="fa-solid fa-fire"></i>
+            <span>Fireplace</span>
+          </div>
+          <div class="amenity-option" data-value="Wheelchair Accessible">
+            <i class="fa-solid fa-wheelchair"></i>
+            <span>Accessible</span>
+          </div>
+          <div class="amenity-option" data-value="City View">
+            <i class="fa-solid fa-city"></i>
+            <span>City View</span>
+          </div>
+          <div class="amenity-option" data-value="Mountain View">
+            <i class="fa-solid fa-mountain"></i>
+            <span>Mountain</span>
+          </div>
+          <div class="amenity-option" data-value="Beachfront">
+            <i class="fa-solid fa-umbrella-beach"></i>
+            <span>Beach</span>
+          </div>
+          <div class="amenity-option" data-value="Family Friendly">
+            <i class="fa-solid fa-people-roof"></i>
+            <span>Family</span>
+          </div>
+          <div class="amenity-option" data-value="Eco-Friendly">
+            <i class="fa-solid fa-leaf"></i>
+            <span>Eco</span>
+          </div>
+          <div class="amenity-option" data-value="Gym">
+            <i class="fa-solid fa-dumbbell"></i>
+            <span>Fitness</span>
+          </div>
+        </div>
+        <input type="hidden" name="listing[features]" id="features" class="amenities-hidden-input" required />
+        <div class="invalid-feedback">Please select at least one amenity.</div>
+      </div>
 
-          <!-- Add margin below the submit button to prevent it from touching the footer -->
-          <button class="btn btn-dark add-btn mt-3 mb-5">Submit</button>
-        </form>
-      </body>
-    </div>
+      <script>
+        // Amenities picker functionality
+        const amenitiesPicker = document.getElementById('amenitiesPicker');
+        const hiddenInput = document.getElementById('features');
+        const selectedAmenities = new Set();
+
+        amenitiesPicker.addEventListener('click', (e) => {
+          const option = e.target.closest('.amenity-option');
+          if (!option) return;
+
+          const value = option.dataset.value;
+          
+          if (option.classList.contains('selected')) {
+            option.classList.remove('selected');
+            selectedAmenities.delete(value);
+          } else {
+            option.classList.add('selected');
+            selectedAmenities.add(value);
+          }
+
+          // Update hidden input value
+          hiddenInput.value = Array.from(selectedAmenities).join(',');
+        });
+      </script>
+
+      <button type="submit" class="btn-submit">
+        <i class="fa-solid fa-plus-circle" style="margin-right: 0.5rem;"></i>
+        Create Listing
+      </button>
+    </form>
   </div>
+</div>

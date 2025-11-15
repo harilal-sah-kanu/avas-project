@@ -78,7 +78,7 @@
 
 .flash-message .close-btn i {
     font-size: 0.9rem;
-    color: #6b7280 !important;
+    color: #ff0000 !important;
     background: none !important;
     box-shadow: none !important;
     width: auto !important;
@@ -87,13 +87,10 @@
 }
 
 .flash-message .close-btn:hover {
-    background: #f3f4f6;
-    color: #374151;
+    color: red;
+    background: black !important;
 }
 
-.flash-message .close-btn:hover i {
-    color: #1f2937 !important;
-}
 
 .flash-message .close-btn:active {
     transform: scale(0.95);

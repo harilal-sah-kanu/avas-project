@@ -35,19 +35,16 @@
 
 .brand-name {
   font-family: 'Azonix', sans-serif;
-  font-size: 1.75rem;
-  font-weight: 900;
-  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: 3px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #18181b;
+  letter-spacing: 0.1em;
+  transition: all 0.2s ease;
   text-transform: uppercase;
-  transition: all 0.3s ease;
 }
 
 .navbar-brand:hover .brand-name {
-  letter-spacing: 4px;
+  color: #000000;
 }/* Search Bar Section */
 .navbar-center-search {
     flex: 1;
@@ -66,22 +63,20 @@
     position: relative;
     display: flex;
     align-items: center;
-    background: #f8fafc;
-    border-radius: 12px;
-    border: 1.5px solid #e2e8f0;
-    transition: all 0.3s ease;
+    background: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    transition: all 0.2s ease;
     overflow: hidden;
 }
 
 .search-wrapper:hover {
-    border-color: #cbd5e1;
-    background: #f1f5f9;
+    border-color: #9ca3af;
 }
 
 .search-wrapper:focus-within {
-    border-color: #111827;
-    background: #ffffff;
-    box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.1);
+    border-color: #18181b;
+    box-shadow: 0 0 0 2px rgba(24, 24, 27, 0.1);
 }
 
 .search-icon-left {
@@ -115,31 +110,31 @@
 }
 
 .search-btn {
-    background: #111827;
+    background: #18181b;
     border: none;
     color: #ffffff;
-    padding: 0.7rem 1.3rem;
+    padding: 0.65rem 1.2rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
-    border-radius: 8px;
-    margin: 4px;
-    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+    margin: 3px;
+    font-size: 0.875rem;
+    font-weight: 500;
 }
 
 .search-btn:hover {
-    background: #1f2937;
-    transform: scale(1.02);
+    background: #000000;
 }
 
 .search-btn i {
-    transition: transform 0.3s ease;
+    transition: transform 0.2s ease;
 }
 
 .search-btn:hover i {
-    transform: translateX(3px);
+    transform: translateX(2px);
 }
 
 /* Mobile Toggler */
@@ -176,24 +171,25 @@
 }
 
 .nav-link-custom {
-    display: flex;
-    align-items: center;
-    padding: 0.55rem 1rem !important;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: #475569 !important;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0.55rem 1rem !important;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #18181b !important;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  position: relative;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
 }
 
 .nav-link-custom:hover {
-    color: #111827 !important;
-    background: #f8fafc;
-}
-
-.nav-link-custom i {
+  color: #000000 !important;
+  background: #f9fafb;
+  border-color: #9ca3af;
+}.nav-link-custom i {
     font-size: 0.95rem;
     transition: transform 0.3s ease;
 }
@@ -204,42 +200,39 @@
 
 /* Specific Button Styles */
 .nav-link-signup {
-    background: #10b981;
+    background: #18181b;
     color: #fff !important;
-    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+    border: 1px solid #18181b;
 }
 
 .nav-link-signup:hover {
-    background: #059669;
+    background: #000000;
     color: #fff !important;
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
-    transform: translateY(-1px);
+    border-color: #000000;
 }
 
 .nav-link-login {
-    background: #111827;
-    color: #fff !important;
-    box-shadow: 0 2px 8px rgba(17, 24, 39, 0.25);
+    background: transparent;
+    color: #18181b !important;
+    border: 1px solid #d1d5db;
 }
 
 .nav-link-login:hover {
-    background: #1f2937;
-    color: #fff !important;
-    box-shadow: 0 4px 12px rgba(17, 24, 39, 0.35);
-    transform: translateY(-1px);
+    background: #f9fafb;
+    color: #000000 !important;
+    border-color: #9ca3af;
 }
 
 .nav-link-logout {
     background: #ef4444;
     color: #fff !important;
-    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
+    border: 1px solid #ef4444;
 }
 
 .nav-link-logout:hover {
     background: #dc2626;
     color: #fff !important;
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
-    transform: translateY(-1px);
+    border-color: #dc2626;
 }
 
 /* Responsive Design */

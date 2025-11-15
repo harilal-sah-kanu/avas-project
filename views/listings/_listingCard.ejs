@@ -1,19 +1,54 @@
 <div class="listing-card">
     <a href="/listings/<%= list._id %>" class="listing-link">
         <div class="listing-image-container">
+            <% if (list.category) { %>
+                <span class="listing-category-badge"><%= list.category %></span>
+            <% } %>
             <img src="<%= list.image.url %>" class="listing-image" alt="<%= list.title %>">
         </div>
         <div class="listing-details">
-            <div class="listing-location">
+            <div class="listing-header">
                 <h3 class="listing-title"><%= list.title %></h3>
+                <% if (list.reviews && list.reviews.length > 0) { %>
+                    <div class="listing-rating">
+                        <% 
+                        const avgRating = list.reviews.reduce((sum, review) => sum + (review.rating || 0), 0) / list.reviews.length;
+                        const fullStars = Math.floor(avgRating);
+                        const hasHalfStar = avgRating % 1 >= 0.5;
+                        %>
+                        <% for(let i = 0; i < fullStars; i++) { %>
+                            <i class="fa-solid fa-star"></i>
+                        <% } %>
+                        <% if (hasHalfStar) { %>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                        <% } %>
+                        <% for(let i = fullStars + (hasHalfStar ? 1 : 0); i < 5; i++) { %>
+                            <i class="fa-regular fa-star"></i>
+                        <% } %>
+                        <span class="rating-value"><%= avgRating.toFixed(2) %></span>
+                    </div>
+                <% } %>
             </div>
-            <div class="listing-price-info">
-                <span class="listing-price" data-price="<%= list.price %>">
-                    ₹<%= list.price.toLocaleString("en-IN") %>
-                </span>
-                <span class="price-period">night</span>
+            <% if (list.location || list.country) { %>
+                <p class="listing-location">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <%= list.location || '' %><% if (list.location && list.country) { %> / <% } %><%= list.country || '' %>
+                </p>
+            <% } %>
+            <div class="listing-price-section">
+                <div class="listing-price-info">
+                    <span class="listing-price" data-price="<%= list.price %>">
+                        ₹<%= list.price.toLocaleString("en-IN") %>
+                    </span>
+                    <span class="price-period">per night</span>
+                </div>
+                <% if (list.reviews && list.reviews.length > 0) { %>
+                    <span class="listing-reviews-count">
+                        <i class="fa-solid fa-star"></i>
+                        <%= list.reviews.length %> <%= list.reviews.length === 1 ? 'review' : 'reviews' %>
+                    </span>
+                <% } %>
             </div>
-            <span class="tax-amount" style="display:none;"></span>
         </div>
     </a>
 </div>

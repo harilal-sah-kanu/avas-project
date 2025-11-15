@@ -22,7 +22,8 @@ router.get("/", async (req, res, next) => {
         { score: { $meta: "textScore" } }
       )
         .sort({ score: { $meta: "textScore" } })
-        .limit(50);
+        .limit(50)
+        .populate('reviews');
 
       if (textResults.length) {
         return res.render("listings/searchResult", {
@@ -42,7 +43,7 @@ router.get("/", async (req, res, next) => {
     const regex = new RegExp(escapeRegex(q), "i");
     const results = await Listing.find({
       $or: [{ title: regex }, { description: regex }],
-    }).limit(50);
+    }).limit(50).populate('reviews');
 
     res.render("listings/searchResult", { results, query: q });
   } catch (err) {
