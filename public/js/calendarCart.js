@@ -78,6 +78,22 @@
   function calculate() {
     checkIn = checkInInput.value;
     checkOut = checkOutInput.value;
+    
+    // Validate check-in date is not in the past
+    if (checkIn) {
+      const selectedDate = new Date(checkIn);
+      const todayDate = new Date();
+      todayDate.setHours(0, 0, 0, 0);
+      
+      if (selectedDate < todayDate) {
+        checkInInput.value = '';
+        alert('Check-in date cannot be in the past. Please select a valid date.');
+        cart.innerHTML =
+          '<span class="text-muted">Select check-in and check-out dates to estimate your total.</span>';
+        return;
+      }
+    }
+    
     if (!checkIn) {
       cart.innerHTML =
         '<span class="text-muted">Select check-in and check-out dates to estimate your total.</span>';

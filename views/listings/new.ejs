@@ -1,5 +1,6 @@
 <% layout('layouts/boilerplate') %>
 <link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/listings.css">
 
 <div class="form-page-container">
   <h1 class="form-page-title">Add Your Property</h1>
@@ -53,25 +54,71 @@
         </div>
 
         <div class="form-group">
-          <label for="category" class="form-label">Property Category</label>
-          <select name="listing[category]" id="category" class="form-control" required>
-            <option value="">Select a category</option>
-            <option value="Trending">Trending</option>
-            <option value="Rooms">Rooms</option>
-            <option value="Iconic Cities">Iconic Cities</option>
-            <option value="Mountains">Mountains</option>
-            <option value="Castle">Castle</option>
-            <option value="Beach">Beach</option>
-            <option value="Camping">Camping</option>
-            <option value="Farms">Farms</option>
-            <option value="Nature">Nature</option>
-            <option value="Lake">Lake</option>
-            <option value="Winter">Winter</option>
-            <option value="House">House</option>
-            <option value="Apartment">Apartment</option>
-          </select>
-          <div class="invalid-feedback">Please select a category.</div>
+          <label for="cntry" class="form-label">Country</label>
+          <input type="text" name="listing[country]" id="cntry" class="form-control"
+            placeholder="e.g., India" required />
+          <div class="invalid-feedback">Please enter a country.</div>
         </div>
+      </div>
+
+      <div class="form-group">
+        <label for="category" class="form-label">Property Category</label>
+        <input type="hidden" name="listing[category]" id="category" required>
+        <div class="category-grid" style="grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));">
+          <div class="category-option" data-category="Trending">
+            <i class="fa-solid fa-fire"></i>
+            <span>Trending</span>
+          </div>
+          <div class="category-option" data-category="Rooms">
+            <i class="fa-solid fa-bed"></i>
+            <span>Rooms</span>
+          </div>
+          <div class="category-option" data-category="Iconic Cities">
+            <i class="fa-solid fa-city"></i>
+            <span>Cities</span>
+          </div>
+          <div class="category-option" data-category="Mountains">
+            <i class="fa-solid fa-mountain-sun"></i>
+            <span>Mountains</span>
+          </div>
+          <div class="category-option" data-category="Castle">
+            <i class="fa-brands fa-fort-awesome"></i>
+            <span>Castle</span>
+          </div>
+          <div class="category-option" data-category="Beach">
+            <i class="fa-solid fa-umbrella-beach"></i>
+            <span>Beach</span>
+          </div>
+          <div class="category-option" data-category="Camping">
+            <i class="fa-solid fa-tent"></i>
+            <span>Camping</span>
+          </div>
+          <div class="category-option" data-category="Farms">
+            <i class="fa-solid fa-cow"></i>
+            <span>Farms</span>
+          </div>
+          <div class="category-option" data-category="Nature">
+            <i class="fa-solid fa-tree"></i>
+            <span>Nature</span>
+          </div>
+          <div class="category-option" data-category="Lake">
+            <i class="fa-solid fa-water"></i>
+            <span>Lake</span>
+          </div>
+          <div class="category-option" data-category="Winter">
+            <i class="fa-solid fa-snowflake"></i>
+            <span>Winter</span>
+          </div>
+          <div class="category-option" data-category="House">
+            <i class="fa-solid fa-house"></i>
+            <span>House</span>
+          </div>
+          <div class="category-option" data-category="Apartment">
+            <i class="fa-solid fa-building"></i>
+            <span>Apartment</span>
+          </div>
+        </div>
+        <div class="invalid-feedback">Please select a category.</div>
       </div>
 
       <button type="submit" class="btn-submit">
@@ -81,3 +128,17 @@
     </form>
   </div>
 </div>
+
+<script>
+  // Category selection handler
+  document.querySelectorAll('.category-option').forEach(option => {
+    option.addEventListener('click', function() {
+      // Remove selected class from all options
+      document.querySelectorAll('.category-option').forEach(opt => opt.classList.remove('selected'));
+      // Add selected class to clicked option
+      this.classList.add('selected');
+      // Update hidden input value
+      document.getElementById('category').value = this.dataset.category;
+    });
+  });
+</script>

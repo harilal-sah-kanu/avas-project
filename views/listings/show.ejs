@@ -42,6 +42,122 @@
         </div>
     </div>
 
+    <!-- Image Gallery Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(0, 0, 0, 0.95);">
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" 
+                        style="position: fixed; top: 20px; right: 20px; z-index: 1060; font-size: 1.5rem; opacity: 0.9;"></button>
+                
+                <div class="modal-body d-flex align-items-center justify-content-center p-0" style="position: relative;">
+                    <!-- Main Image Display -->
+                    <div class="text-center" style="max-width: 90%; max-height: 90vh;">
+                        <img id="modalMainImage" src="" alt="Property image" 
+                             style="max-width: 100%; max-height: 85vh; object-fit: contain;">
+                        
+                        <!-- Image Counter -->
+                        <div class="text-white mt-3" style="font-size: 14px;">
+                            <span id="currentImageNum">1</span> / <span id="totalImagesNum"><%= allImages.length %></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Navigation Arrows -->
+                    <% if (allImages.length > 1) { %>
+                        <button id="prevImage" class="btn btn-link position-absolute start-0 top-50 translate-middle-y" 
+                                style="font-size: 3rem; color: white; text-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 1050;">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button id="nextImage" class="btn btn-link position-absolute end-0 top-50 translate-middle-y" 
+                                style="font-size: 3rem; color: white; text-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 1050;">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    <% } %>
+                    
+                    <!-- Thumbnail Strip -->
+                    <div class="position-absolute bottom-0 w-100 pb-4" style="overflow-x: auto; white-space: nowrap; z-index: 1050;">
+                        <div class="d-flex justify-content-center gap-2 px-3">
+                            <% allImages.forEach((img, index) => { %>
+                                <img src="<%= img.url %>" alt="Thumbnail <%= index + 1 %>" 
+                                     class="gallery-thumbnail" data-index="<%= index %>"
+                                     style="width: 80px; height: 60px; object-fit: cover; cursor: pointer; border: 2px solid transparent; border-radius: 4px; opacity: 0.6; transition: all 0.3s;"
+                                     onmouseover="this.style.opacity='1'; this.style.borderColor='white';"
+                                     onmouseout="if(!this.classList.contains('active')) { this.style.opacity='0.6'; this.style.borderColor='transparent'; }">
+                            <% }) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Image Gallery Modal Script
+        const allImages = <%- JSON.stringify(allImages.map(img => img.url)) %>;
+        let currentImageIndex = 0;
+
+        function showImage(index) {
+            currentImageIndex = index;
+            document.getElementById('modalMainImage').src = allImages[index];
+            document.getElementById('currentImageNum').textContent = index + 1;
+            
+            // Update thumbnail active state
+            document.querySelectorAll('.gallery-thumbnail').forEach((thumb, i) => {
+                if (i === index) {
+                    thumb.classList.add('active');
+                    thumb.style.opacity = '1';
+                    thumb.style.borderColor = 'white';
+                } else {
+                    thumb.classList.remove('active');
+                    thumb.style.opacity = '0.6';
+                    thumb.style.borderColor = 'transparent';
+                }
+            });
+        }
+
+        // Open modal with specific image
+        document.querySelectorAll('[data-bs-target="#imageModal"]').forEach(trigger => {
+            trigger.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index')) || 0;
+                showImage(index);
+            });
+        });
+
+        // Thumbnail click
+        document.querySelectorAll('.gallery-thumbnail').forEach(thumb => {
+            thumb.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                showImage(index);
+            });
+        });
+
+        // Navigation buttons
+        document.getElementById('prevImage')?.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex - 1 + allImages.length) % allImages.length;
+            showImage(currentImageIndex);
+        });
+
+        document.getElementById('nextImage')?.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex + 1) % allImages.length;
+            showImage(currentImageIndex);
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('imageModal');
+            if (modal.classList.contains('show')) {
+                if (e.key === 'ArrowLeft') {
+                    currentImageIndex = (currentImageIndex - 1 + allImages.length) % allImages.length;
+                    showImage(currentImageIndex);
+                } else if (e.key === 'ArrowRight') {
+                    currentImageIndex = (currentImageIndex + 1) % allImages.length;
+                    showImage(currentImageIndex);
+                } else if (e.key === 'Escape') {
+                    bootstrap.Modal.getInstance(modal)?.hide();
+                }
+            }
+        });
+    </script>
+
     <!-- Main Content -->
     <div class="content-wrapper">
         <div class="page-width">

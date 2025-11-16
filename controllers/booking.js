@@ -46,7 +46,7 @@ const createBooking = async (req, res) => {
 
     // Prevent owner from booking their own property
     if (listing.owner._id.equals(req.user._id)) {
-      req.flash("error", "You cannot book your own property");
+      req.flash("error", "Property owners cannot book their own listings");
       return res.redirect(`/listings/${id}`);
     }
 
